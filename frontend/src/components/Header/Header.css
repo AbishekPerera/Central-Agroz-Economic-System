@@ -1,0 +1,70 @@
+@import url("https://fonts.googleapis.com/css2?family=DM+Sans:wght@700&display=swap");
+@import url("https://fonts.googleapis.com/css2?family=Caveat:wght@500&display=swap");
+
+#navbar-Logo {
+  width: 200px;
+  /* height: 100px; */
+  margin: 0 0 0 0;
+  padding: 0 0 0 0;
+}
+
+.search-width {
+  width: 100%;
+}
+
+/* search-2 */
+
+.header-search-2 input {
+  margin-bottom: 0;
+  border: 0;
+  -webkit-box-shadow: 0 1px 6px 0 rgba(32, 33, 36, 0.28);
+  box-shadow: 0 1px 6px 0 rgba(32, 33, 36, 0.28);
+  border-radius: 50px;
+  padding-left: 20px;
+  padding-right: 50px;
+  height: 45px;
+}
+.header-search-2 button {
+  right: 0;
+  background-color: transparent;
+  height: 45px;
+  top: 0;
+  padding: 0 15px;
+  border: none;
+}
+
+.header-nav-bar {
+  background-color: #fff;
+  overflow: hidden;
+}
+
+.header-nav-bar Link,
+a {
+  text-decoration: none;
+}
+
+.herbcolab-title {
+  margin: 5% 0 5% 0;
+}
+
+.herbcolab-title h1 {
+  font-family: "DM Sans", sans-serif;
+  font-size: 3rem;
+  font-weight: 700;
+  color: #08781f;
+  text-align: center;
+}
+
+.herbcolab-title p {
+  font-family: "Caveat", cursive;
+  font-size: 2rem;
+  font-weight: 500;
+  color: #08781f;
+  text-align: center;
+}
+
+.company-info-nav i {
+  font-size: 2.5rem;
+  color: #08781f;
+  display: flexbox;
+}

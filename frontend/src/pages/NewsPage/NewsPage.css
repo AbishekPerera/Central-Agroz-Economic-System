@@ -1,0 +1,28 @@
+/* ----------------------------------------------------
+    Breadcurmb Area
+---------------------------------------------------- */
+.ltn__breadcrumb-area-newspage {
+  background-color: #f4f4f4;
+  margin-bottom: 120px;
+  padding-top: 110px;
+  padding-bottom: 110px;
+  background-image: url(../../img/other\ comp/newsbanner.jpg);
+  background-repeat: no-repeat;
+  background-size: cover;
+}
+
+.ltn__breadcrumb-list ul {
+  margin: 0;
+  padding: 0;
+}
+
+.ltn__breadcrumb-list ul li {
+  display: inline-block;
+  margin-right: 30px;
+  position: relative;
+  font-weight: 700;
+}
+
+.news-page-lowerbody {
+  margin: 2%;
+}
