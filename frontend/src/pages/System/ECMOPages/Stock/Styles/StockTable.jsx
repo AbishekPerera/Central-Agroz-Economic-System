@@ -88,9 +88,9 @@ function StockTable() {
           <button
             className="btn  btnitem"
             onClick={handleAddStockModalShow}
-            value="Buy Stock"
+            value="Add Stock"
           >
-            Buy Stock
+            Add Stock
           </button>
 
           <AddStockModal
