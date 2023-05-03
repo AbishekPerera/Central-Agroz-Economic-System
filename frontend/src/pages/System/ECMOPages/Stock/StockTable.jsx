@@ -1,7 +1,10 @@
 import React, { useState } from "react";
 import "./Styles/StockTable.css";
-import AddStockModal from "../../../../components/System/Stock/AddStockModal";
-import UpdateStockModal from "../../../../components/System/Stock/UpdateStockModal";
+import AddStockModal from "../../../../components/System/ECMO/Stock/AddStockModal";
+import UpdateStockModal from "../../../../components/System/ECMO/Stock/UpdateStockModal";
+import Sidebar from "../../../../components/System/ECMO/Sidebar/Sidebar";
+import NavBar from "../../../../components/System/ECMO/NavBar/NavBar";
+import SystemFooter from "../../../../components/System/ECMO/Footer/SystemFooter";
 
 function StockTable() {
   const [showAddStockModal, setShowAddStockModal] = useState(false);
@@ -72,10 +75,14 @@ function StockTable() {
 
   return (
     <div className="mainContainer">
-      <div className="sidebar"></div>
+      <div className="sidebar">
+        <Sidebar />
+      </div>
 
       <div className="contentContainer">
-        <div className="systemNavBar"></div>
+        <div className="systemNavBar">
+          <NavBar />
+        </div>
 
         <div className="content">
           <button
@@ -166,9 +173,9 @@ function StockTable() {
                 </tbody>
               </table>
             </div>
-            );
           </div>
         </div>
+        <SystemFooter />
       </div>
     </div>
   );
