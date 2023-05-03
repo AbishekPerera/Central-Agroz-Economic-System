@@ -11,7 +11,7 @@ const FarmerDashboard = () => {
         <br/>
         <div className="mainContainer">
             <div className="sidebar">
-            <FarmerSidebar/>
+            {/* <FarmerSidebar/> */}
             </div>
 
             <div className="content">
