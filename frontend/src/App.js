@@ -8,6 +8,8 @@ import DashboardAdmin from "./pages/System/AdminPages/DashboardAdmin";
 import EchoCentersAdmin from "./pages/System/AdminPages/EchoCentersAdmin";
 import AgriOfficerAdmin from "./pages/System/AdminPages/AgriOfficerAdmin";
 import ProfileAdmin from "./pages/System/AdminPages/ProfileAdmin";
+import EchoCenterUpdateAdmin from "./pages/System/AdminPages/SubPages/EchoCenterUpdateAdmin";
+import AddEchoCenterAdmin from "./pages/System/AdminPages/SubPages/AddEchoCenterAdmin";
 
 function App() {
   return (
@@ -20,6 +22,11 @@ function App() {
         {/* Admin pages  */}
         <Route path="/admin/dashboard" element={<DashboardAdmin />} />
         <Route path="/admin/echoCenters" element={<EchoCentersAdmin />} />
+        <Route path="/admin/addchoCenters" element={<AddEchoCenterAdmin />} />
+        <Route
+          path="/admin/echoCenters/:id"
+          element={<EchoCenterUpdateAdmin />}
+        />
         <Route path="/admin/agriofficers" element={<AgriOfficerAdmin />} />
         <Route path="/admin/profile" element={<ProfileAdmin />} />
       </Routes>

@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from "react";
 import "./Sidebar.css";
 import $ from "jquery";
-// import Logo from '../../../img/Logo/logo.png';
+import Logo from "../../../../img/Logo/logo.png";
 import { Link, useLocation } from "react-router-dom";
 
 const Sidebar = () => {
@@ -21,7 +21,7 @@ const Sidebar = () => {
 
   return (
     <div className="main-container">
-      <div className="sidebar" id="side-nav">
+      <div className="sidebar" id="side-nav-admin">
         <div className="header-box px-3 pt-3 pb-4 d-flex">
           <h1 className="fs-3 px-4">
             <span className="text-white">Admin Panel</span>
@@ -31,8 +31,8 @@ const Sidebar = () => {
           </button>
         </div>
 
-        <div className="logoSideBar">
-          <img className="imgLogoSideBar" src={""} alt="" />
+        <div className="logoSideBar-admin">
+          <img className="imgLogoSideBar-admin" src={Logo} alt="" />
         </div>
 
         <div>

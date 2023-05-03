@@ -3,20 +3,21 @@
   background-color: black;
 }
 
-#side-nav {
-  background: #01072b;
+#side-nav-admin {
+  background: #050e47;
   min-width: 250px;
   max-width: 250px;
 }
 
-.logoSideBar {
-  height: 120px;
+.logoSideBar-admin {
+  height: 150px;
   width: 50px;
   padding-left: 50px;
+  margin-bottom: 50px;
 }
 
-.imgLogoSideBar {
-  height: 100px;
+.imgLogoSideBar-admin {
+  height: 150px;
   width: 150px;
 }
 
