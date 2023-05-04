@@ -4,6 +4,7 @@ import bodyParser from "body-parser";
 import cors from "cors";
 import dotenv from "dotenv";
 import FarmerRoutes from "./routes/FarmerRoutes.js";
+import EcoCenterRoutes from "./routes/EconomicCenterRoutes.js";
 
 const app = express();
 
@@ -28,4 +29,5 @@ mongoose
   .catch((err) => console.log(err));
 
 //routes-----------------------------------------------------------------
-app.use('/farmers', FarmerRoutes);
+app.use("/farmers", FarmerRoutes);
+app.use("/ecocenters", EcoCenterRoutes);
