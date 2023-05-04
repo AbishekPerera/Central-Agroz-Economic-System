@@ -3,6 +3,8 @@ import mongoose from "mongoose";
 import bodyParser from "body-parser";
 import cors from "cors";
 import dotenv from "dotenv";
+import FarmerRoutes from "./routes/FarmerRoutes.js";
+
 const app = express();
 
 const PORT = process.env.PORT || 8075;
@@ -26,3 +28,4 @@ mongoose
   .catch((err) => console.log(err));
 
 //routes-----------------------------------------------------------------
+app.use('/farmers', FarmerRoutes);
