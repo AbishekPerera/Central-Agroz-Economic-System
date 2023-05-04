@@ -8,6 +8,7 @@ import FarmerDashboard from "./pages/System/FarmerPages/FarmerDashboard";
 import FarmerLogin from "./pages/System/FarmerPages/FarmerLogin";
 import FarmerProfile from "./pages/System/FarmerPages/FarmerProfile";
 import FarmerPublishProducts from "./pages/System/FarmerPages/FarmerPublishProducts";
+import FarmerViewAll from "./pages/System/FarmerPages/FarmerViewAll";
 
 function App() {
   return (
@@ -18,10 +19,11 @@ function App() {
         <Route path="/news" element={<NewsPage />} />
 
         {/* Farmer Routes */}
-        <Route path="/system/farmer-farmerdashboard" element={<FarmerDashboard />} />
-        <Route path="/system/farmer-farmerlogin" element={<FarmerLogin />} />
-        <Route path="/system/farmer-farmerprofile" element={<FarmerProfile />} />
-        <Route path="/system/farmer-publishproducts" element={<FarmerPublishProducts />} />
+        <Route path="/system/farmer/dashboard" element={<FarmerDashboard />} />
+        <Route path="/system/farmer/login" element={<FarmerLogin />} />
+        <Route path="/system/farmer/profile" element={<FarmerProfile />} />
+        <Route path="/system/farmer/publishproducts" element={<FarmerPublishProducts />} />
+        <Route path="/system/farmer/viewall" element={<FarmerViewAll/>}/>
       </Routes>
     </div>
   );
