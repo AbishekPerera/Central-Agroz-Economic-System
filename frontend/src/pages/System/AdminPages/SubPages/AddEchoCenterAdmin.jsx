@@ -6,17 +6,6 @@ import { Link } from "react-router-dom";
 import { Col, Form, Row } from "react-bootstrap";
 
 const AddEchoCenterAdmin = () => {
-  //       id: "EC004",
-  //   echo_name: "Echo Center 4",
-  //   echo_address: "No 4, Colombo Road, Colombo",
-  //   province: "Western",
-  //   district: "Colombo",
-  //   phone: "0112345678",
-  //   officer_name: "Asanka",
-  //   officer_email: "saa@aa.aa",
-  //   officer_contact: "0771234567",
-  //   officer_address: "No 4, Colombo Road, Colombo",
-  //   center_registered_date: "2021-09-01",
   return (
     <div className="mainContainer update-echo-center-details-background">
       <div className="contentContainer">

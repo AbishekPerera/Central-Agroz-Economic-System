@@ -187,8 +187,8 @@ const AgriOfficerAdmin = () => {
             <Row>
               <Col lg={9}></Col>
               <Col lg={3}>
-                <Button onClick={() => history("/admin/addchoCenters")}>
-                  Add Officer
+                <Button onClick={() => history("/admin/addagrioffer")}>
+                  Add Agricultural Officer
                 </Button>
               </Col>
             </Row>

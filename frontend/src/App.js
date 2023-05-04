@@ -11,6 +11,7 @@ import ProfileAdmin from "./pages/System/AdminPages/ProfileAdmin";
 import EchoCenterUpdateAdmin from "./pages/System/AdminPages/SubPages/EchoCenterUpdateAdmin";
 import AddEchoCenterAdmin from "./pages/System/AdminPages/SubPages/AddEchoCenterAdmin";
 import AgriOfficerUpdateAdmin from "./pages/System/AdminPages/SubPages/AgriOfficerUpdateAdmin";
+import AddAgriOfficerAdmin from "./pages/System/AdminPages/SubPages/AddAgriOfficerAdmin";
 
 function App() {
   return (
@@ -29,6 +30,7 @@ function App() {
           element={<EchoCenterUpdateAdmin />}
         />
         <Route path="/admin/agriofficers" element={<AgriOfficerAdmin />} />
+        <Route path="/admin/addagrioffer" element={<AddAgriOfficerAdmin />} />
         <Route
           path="/admin/agriofficers/:id"
           element={<AgriOfficerUpdateAdmin />}

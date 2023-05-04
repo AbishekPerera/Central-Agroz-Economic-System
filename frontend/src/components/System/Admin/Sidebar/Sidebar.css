@@ -4,7 +4,12 @@
 }
 
 #side-nav-admin {
-  background: #050e47;
+  background: rgb(5, 14, 71);
+  background: linear-gradient(
+    180deg,
+    rgba(5, 14, 71, 1) 0%,
+    rgba(1, 13, 93, 1) 100%
+  );
   min-width: 250px;
   max-width: 250px;
 }
