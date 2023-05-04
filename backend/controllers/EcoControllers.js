@@ -1,4 +1,6 @@
 import { EconomicCenter } from "../models/EconomicCenter.js";
+import jwt from "jsonwebtoken";
+import dotenv from "dotenv";
 
 //register farmer
 export const registerEconomicCenter = async (req, res) => {
@@ -106,6 +108,45 @@ export const deleteEconomicCenter = async (req, res) => {
   try {
     await EconomicCenter.findByIdAndDelete(id);
     res.status(200).json({ message: "Eco Center Deleted Successfully" });
+  } catch (error) {
+    res.status(500).json({ message: error.message });
+  }
+};
+
+//login eco center
+export const loginEconomicCenter = async (req, res) => {
+  const { officerEmail, password } = req.body;
+
+  try {
+    const ecoCenter = await EconomicCenter.findOne({ officerEmail });
+
+    if (!ecoCenter) {
+      return res.status(404).json({ message: "Eco Center not found" });
+    }
+
+    if (ecoCenter.password !== password) {
+      return res.status(401).json({ message: "Invalid password" });
+    }
+
+    const token = jwt.sign({ id: ecoCenter._id }, process.env.JWT_SECRET_KEY);
+
+    res.status(200).json({
+      message: "Eco Center logged in successfully",
+      token,
+      ecoCenter: {
+        id: ecoCenter._id,
+        ecoCenterName: ecoCenter.ecoCenterName,
+        email: ecoCenter.email,
+        ecoCenterAddress: ecoCenter.ecoCenterAddress,
+        province: ecoCenter.province,
+        district: ecoCenter.district,
+        phone: ecoCenter.phone,
+        officerName: ecoCenter.officerName,
+        officerEmail: ecoCenter.officerEmail,
+        officerContact: ecoCenter.officerContact,
+        officerAddress: ecoCenter.officerAddress,
+      },
+    });
   } catch (error) {
     res.status(500).json({ message: error.message });
   }

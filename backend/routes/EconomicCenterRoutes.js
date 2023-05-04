@@ -3,6 +3,7 @@ import {
   deleteEconomicCenter,
   getEconomicCenterById,
   getEconomicCenters,
+  loginEconomicCenter,
   registerEconomicCenter,
   updateEconomicCenter,
 } from "../controllers/EcoControllers.js";
@@ -18,5 +19,7 @@ router.get("/:id", getEconomicCenterById);
 router.put("/update", updateEconomicCenter);
 //delete eco center
 router.delete("/delete/:id", deleteEconomicCenter);
+//login eco center
+router.post("/login", loginEconomicCenter);
 
 export default router;
