@@ -128,42 +128,68 @@ const AddEchoCenterAdmin = () => {
                     </Col>
                   </Row>
 
-                  <Form.Group className="mb-3" controlId="formBasicEmail">
+                  <Form.Group className="mb-3" controlId="formBasicPhone">
                     <Form.Label>Phone</Form.Label>
-                    <Form.Control type="text" placeholder="Enter Phone" />
+                    <Form.Control
+                      required
+                      type="text"
+                      placeholder="Enter Phone"
+                    />
                   </Form.Group>
                 </Col>
                 <Col>
                   <h3>Officer informations</h3>
-                  <Form.Group className="mb-3" controlId="formBasicEmail">
+                  <Form.Group className="mb-3" controlId="formBasicOname">
                     <Form.Label>Officer Name</Form.Label>
                     <Form.Control
+                      required
                       type="text"
                       placeholder="Enter Officer Name"
                     />
                   </Form.Group>
 
-                  <Form.Group className="mb-3" controlId="formBasicEmail">
+                  <Form.Group className="mb-3" controlId="formBasicOemail">
                     <Form.Label>Officer Email</Form.Label>
                     <Form.Control
+                      required
                       type="text"
                       placeholder="Enter Officer Email"
                     />
                   </Form.Group>
 
-                  <Form.Group className="mb-3" controlId="formBasicEmail">
+                  <Form.Group className="mb-3" controlId="formBasicoContact">
                     <Form.Label>Officer Contact</Form.Label>
                     <Form.Control
+                      required
                       type="text"
                       placeholder="Enter Officer Contact"
                     />
                   </Form.Group>
 
-                  <Form.Group className="mb-3" controlId="formBasicEmail">
+                  <Form.Group className="mb-3" controlId="formBasicOfaddress">
                     <Form.Label>Officer Address</Form.Label>
                     <Form.Control
+                      required
                       type="text"
                       placeholder="Enter Officer Address"
+                    />
+                  </Form.Group>
+
+                  <Form.Group className="mb-3" controlId="formBasicPassword">
+                    <Form.Label>Password</Form.Label>
+                    <Form.Control
+                      required
+                      type="password"
+                      placeholder="Enter Password"
+                    />
+                  </Form.Group>
+
+                  <Form.Group className="mb-3" controlId="formBasicPassword">
+                    <Form.Label>Confirm Password</Form.Label>
+                    <Form.Control
+                      required
+                      type="password"
+                      placeholder="Enter Confirm Password"
                     />
                   </Form.Group>
                 </Col>
