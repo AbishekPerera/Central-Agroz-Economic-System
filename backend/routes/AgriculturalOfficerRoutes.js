@@ -3,6 +3,7 @@ import {
   deleteAgriculturalOfficer,
   getAgriculturalOfficerById,
   getAgriculturalOfficers,
+  loginAgriculturalOfficer,
   registerAgriculturalOfficer,
   updateAgriculturalOfficer,
 } from "../controllers/AgriculturalOfficerControllers.js";
@@ -19,5 +20,7 @@ router.get("/:id", getAgriculturalOfficerById);
 router.put("/update", updateAgriculturalOfficer);
 //delete agricultural officer
 router.delete("/delete/:id", deleteAgriculturalOfficer);
+//login agricultural officer
+router.post("/login", loginAgriculturalOfficer);
 
 export default router;

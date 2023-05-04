@@ -1,4 +1,6 @@
 import { AgriculturalOfficers } from "../models/AgriculturalOfficers.js";
+import dotenv from "dotenv";
+import jwt from "jsonwebtoken";
 
 //register agricultural officer
 export const registerAgriculturalOfficer = async (req, res) => {
@@ -120,5 +122,60 @@ export const deleteAgriculturalOfficer = async (req, res) => {
       .json({ message: "Agricultural officer deleted successfully" });
   } catch (error) {
     res.status(404).json({ message: error.message });
+  }
+};
+
+//login agricultural officer
+//email password
+export const loginAgriculturalOfficer = async (req, res) => {
+  const { email, password } = req.body;
+
+  try {
+    const existingAgriculturalOfficer = await AgriculturalOfficers.findOne({
+      email,
+    });
+
+    if (!existingAgriculturalOfficer) {
+      return res.status(404).json({ message: "User doesn't exist" });
+    }
+
+    // const isPasswordCorrect = await bcrypt.compare(
+    //   password,
+    //   existingAgriculturalOfficer.password
+    // );
+
+    // if (!isPasswordCorrect) {
+    //   return res.status(400).json({ message: "Invalid credentials" });
+    // }
+
+    if (password !== existingAgriculturalOfficer.password) {
+      return res.status(400).json({ message: "Invalid credentials" });
+    }
+
+    const token = jwt.sign(
+      { id: existingAgriculturalOfficer._id },
+      process.env.JWT_SECRET_KEY
+    );
+
+    res.status(200).json({
+      message: "Login successful",
+      token,
+      agriculturalOfficer: {
+        id: existingAgriculturalOfficer._id,
+        name: existingAgriculturalOfficer.name,
+        email: existingAgriculturalOfficer.email,
+        contact: existingAgriculturalOfficer.contact,
+        address: existingAgriculturalOfficer.address,
+        gramaNiladariDivision:
+          existingAgriculturalOfficer.gramaNiladariDivision,
+        district: existingAgriculturalOfficer.district,
+        province: existingAgriculturalOfficer.province,
+        image: existingAgriculturalOfficer.image,
+        createdAt: existingAgriculturalOfficer.createdAt,
+        updatedAt: existingAgriculturalOfficer.updatedAt,
+      },
+    });
+  } catch (error) {
+    res.status(500).json({ message: error.message });
   }
 };
