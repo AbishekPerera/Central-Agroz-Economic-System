@@ -10,6 +10,7 @@ import AgriOfficerAdmin from "./pages/System/AdminPages/AgriOfficerAdmin";
 import ProfileAdmin from "./pages/System/AdminPages/ProfileAdmin";
 import EchoCenterUpdateAdmin from "./pages/System/AdminPages/SubPages/EchoCenterUpdateAdmin";
 import AddEchoCenterAdmin from "./pages/System/AdminPages/SubPages/AddEchoCenterAdmin";
+import AgriOfficerUpdateAdmin from "./pages/System/AdminPages/SubPages/AgriOfficerUpdateAdmin";
 
 function App() {
   return (
@@ -28,6 +29,10 @@ function App() {
           element={<EchoCenterUpdateAdmin />}
         />
         <Route path="/admin/agriofficers" element={<AgriOfficerAdmin />} />
+        <Route
+          path="/admin/agriofficers/:id"
+          element={<AgriOfficerUpdateAdmin />}
+        />
         <Route path="/admin/profile" element={<ProfileAdmin />} />
       </Routes>
     </div>
