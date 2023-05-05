@@ -2,7 +2,7 @@
 import React, { useEffect, useState } from 'react';
 import './Sidebar.css';
 import $ from 'jquery';
-// import Logo from '../../../img/Logo/logo.png';
+import Logoside from '../../../../img/Logo/farmerlogin.png'
 import { Link, useLocation } from 'react-router-dom';
 
 
@@ -26,7 +26,7 @@ const Sidebar = () => {
       <div className="sidebar" id="side-nav-farmer">
         <div className="header-box px-3 pt-3 pb-4 d-flex">
           <h1 className="fs-3 px-4">
-            <span className="text-white">CAE System</span>
+            <span className="text-white" style={{ textAlign:'center' }}>Farmer</span>
           </h1>
           <button className="btn d-md-none d-block close-btn px-2 py-0 text-white">
             <i class="bi bi-list"></i>
@@ -34,7 +34,7 @@ const Sidebar = () => {
         </div>
 
         <div className="logoSideBarFarmer">
-          <img className="imgLogoSideBar" src={""} alt="" />
+          <img className="imgLogoSideBar" src={Logoside} alt="" style={{ width: '120px',height:'120px' }}/>
         </div>
 
         <div>
@@ -76,8 +76,8 @@ const Sidebar = () => {
                 to="/system/farmer/viewall"
                 className="text-decoration-none px-3 py-2 d-block"
               >
-                <i class="bi bi-list-ul"></i>
-                <span style={{ paddingLeft: '0.7rem' }}>View All Crops</span>
+                <i class="bi bi-clock-history"></i>
+                <span style={{ paddingLeft: '0.7rem' }}>Publish History</span>
               </Link>
             </li>
 
