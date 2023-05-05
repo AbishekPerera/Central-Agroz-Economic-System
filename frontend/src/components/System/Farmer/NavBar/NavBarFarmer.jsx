@@ -31,7 +31,7 @@ const NavBarFarmer = () => {
             <Nav className="me-auto">
                 {/* <Nav.Link href="#home">Home</Nav.Link> */}
 
-                <NavDropdown active title="Farmer" id="basic-nav-dropdown">
+                <NavDropdown active title="Farmer Profile" id="basic-nav-dropdown">
                 <NavDropdown.Item href="#action/3.1">
                     {" "}
                     <Link
