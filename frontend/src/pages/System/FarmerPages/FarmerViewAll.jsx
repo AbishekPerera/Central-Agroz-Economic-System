@@ -7,7 +7,7 @@ import React, { useEffect, useState } from "react";
 import DataTable from "react-data-table-component";
 // import { Form, FormControl, Button } from 'react-bootstrap';
 import { Button,Col, Modal, Row} from "react-bootstrap";
-// import { useNavigate } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 
 
 
@@ -57,7 +57,7 @@ const FarmerViewAll = () => {
     
   ]);
 
-  // const history = useNavigate();
+  const history = useNavigate();
   const [searchInput, setSearchInput] = useState("");
   const [filteredData, setFilteredData] = useState(data);
   const [show, setShow] = useState(false);
@@ -101,16 +101,26 @@ const FarmerViewAll = () => {
       selector: (row) => row.date,
       sortable: true,
     },
+   
     {
-      name: "Quantity (kgs)",
-      selector: (row) => row.quantity,
-      sortable: true,
-    },
-    {
-      name: "Price (Per kg)",
-      selector: (row) => row.price,
-      sortable: true,
-    },
+        name: "Stock",
+        selector: (row) => row.quantity,
+        sortable: true,
+        cell: (row) => (
+          <div>
+            <p>
+              <br/>
+              Quantity (kgs) : 
+              {row.quantity} <br />
+             
+            </p>
+            <p>
+              Price (Per kg) :
+              {row.price}
+            </p>
+          </div>
+        ),
+      },
     {
       name: "Location",
       selector: (row) => row.location,
@@ -122,6 +132,18 @@ const FarmerViewAll = () => {
       sortable: true,
     },
     {
+      name: "Update Status",
+      cell: (row) => (
+        <div>
+         <Button
+            variant="success"
+            className="m-1"
+            onClick={() => history("/farmer/viewall/" + row.id)}
+          >
+            <i class="bi bi-pencil-square"></i>
+          </Button>
+          </div>)},
+    {
       name: "Action",
       cell: (row) => (
         <div>
@@ -132,7 +154,7 @@ const FarmerViewAll = () => {
           >
             <i class="bi bi-info-circle"></i>
           </Button>
-          
+
           <Button variant="danger" className="m-1">
             <i class="bi bi-trash3"></i>
           </Button>
@@ -152,7 +174,7 @@ const FarmerViewAll = () => {
         <NavBar />
       </div>
       <div className="content">
-        <h1 style={{ textAlign: 'left' }}>View All Crop Details</h1> <br /> <br />   
+        <h1 style={{ textAlign: 'left' }}>Publish History</h1> <br /> <br />   
 
         {/* Search bar before the table */}
       
