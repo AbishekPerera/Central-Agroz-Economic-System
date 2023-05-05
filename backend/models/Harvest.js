@@ -2,30 +2,9 @@ import mongoose from 'mongoose';
 
 const Schema = mongoose.Schema;
 
-const FarmerSchema = new Schema(
+const HarvestSchema = new Schema(
   {
-    username: {
-      type: String,
-      required: true,
-      unique: true,
-    },
-    fullName: {
-      type: String,
-      required: true,
-    },
-    address: {
-      type: String,
-      required: true,
-    },
-    phone: {
-      type: String,
-      required: false,
-    },
-    division: {
-      type: String,
-      required: true,
-    },
-    district: {
+    farmerUsername: {
       type: String,
       required: true,
     },
@@ -33,12 +12,28 @@ const FarmerSchema = new Schema(
       type: String,
       required: true,
     },
-    notes: {
+    crop: {
+      type: String,
+      required: true,
+    },
+    season: {
       type: String,
       required: false,
     },
-    password: {
+    year: {
       type: String,
+      required: true,
+    },
+    month: {
+      type: String,
+      required: true,
+    },
+    expectedHarvest: {
+      type: Number,
+      required: false,
+    },
+    actualHarvest: {
+      type: Number,
       required: true,
     },
   },
@@ -47,4 +42,4 @@ const FarmerSchema = new Schema(
   }
 );
 
-export const Farmer = mongoose.model('Farmer', FarmerSchema);
+export const Harvest = mongoose.model('Harvest', HarvestSchema);
