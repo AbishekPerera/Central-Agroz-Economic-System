@@ -25,9 +25,9 @@ const Sidebar = () => {
    <div className="main-container">
       <div className="sidebar" id="side-nav-farmer">
         <div className="header-box px-3 pt-3 pb-4 d-flex">
-          <h1 className="fs-3 px-4">
-            <span className="text-white" style={{ textAlign:'center' }}>Farmer</span>
-          </h1>
+          <h1 className="fs-3 px-4"><br/>
+            <span className="text-white" style={{ textAlign:'center' }}>Farmer Side</span>
+          </h1><br/>
           <button className="btn d-md-none d-block close-btn px-2 py-0 text-white">
             <i class="bi bi-list"></i>
           </button>
