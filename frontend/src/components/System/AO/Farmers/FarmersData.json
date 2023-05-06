@@ -1,0 +1,49 @@
+{
+    "farmers": [
+      {
+        "username": "john123",
+        "fullName": "John Doe",
+        "address": "123 Main Street",
+        "phone": "555-555-5555",
+        "division": "Dhaka",
+        "district": "Dhaka",
+        "cropType": "Rice",
+        "notes": "Likes to plant organic crops",
+        "password": "password123"
+      },
+      {
+        "username": "jane456",
+        "fullName": "Jane Smith",
+        "address": "456 Elm Street",
+        "phone": "555-555-5556",
+        "division": "Chittagong",
+        "district": "Chittagong",
+        "cropType": "Wheat",
+        "notes": "Prefers to grow crops without pesticides",
+        "password": "password456"
+      },
+      {
+        "username": "bob789",
+        "fullName": "Bob Johnson",
+        "address": "789 Oak Street",
+        "phone": "555-555-5557",
+        "division": "Rajshahi",
+        "district": "Rajshahi",
+        "cropType": "Maize",
+        "notes": "Has experience in growing different types of crops",
+        "password": "password789"
+      },
+      {
+        "username": "mary012",
+        "fullName": "Mary Lee",
+        "address": "012 Pine Street",
+        "phone": "555-555-5558",
+        "division": "Khulna",
+        "district": "Khulna",
+        "cropType": "Potato",
+        "notes": "Likes to experiment with different growing techniques",
+        "password": "password012"
+      }
+    ]
+  }
+  

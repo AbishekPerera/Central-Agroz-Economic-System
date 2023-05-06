@@ -1,16 +1,15 @@
 import React from 'react';
-import Sidebar from '../../../components/System/AO/Sidebar/Sidebar';
-import NavBar from '../../../components/System/AO/NavBar/NavBar';
-import SystemFooter from '../../../components/System/AO/Footer/SystemFooter';
+import Sidebar from '../../../components/System/AO/Global/Sidebar/Sidebar';
+import NavBar from '../../../components/System/AO/Global/NavBar/NavBar';
+import SystemFooter from '../../../components/System/AO/Global/Footer/SystemFooter';
 import './styles/DashboardAO.css';
 import { Tab, Tabs, TabList, TabPanel } from 'react-tabs';
 import 'react-tabs/style/react-tabs.css';
 import './styles/FarmersPg.css';
-import FarmerAddForm from '../../../components/System/AO/FarmerAddForm/FarmerAddForm';
-import AllFarmers from '../../../components/System/AO/AllFarmers/AllFarmers';
+import FarmerAddForm from '../../../components/System/AO/Farmers/FarmerAddForm';
+import AllFarmers from '../../../components/System/AO/Farmers/AllFarmers';
 
 const FarmersPg = () => {
-  
   return (
     <div className='mainContainer'>
       <div className='sidebar'>
@@ -30,21 +29,14 @@ const FarmersPg = () => {
 
             <TabPanel>
               <br />
-              <AllFarmers/>
+              <AllFarmers />
             </TabPanel>
             <TabPanel>
-              <FarmerAddForm/>
+              <FarmerAddForm />
             </TabPanel>
           </Tabs>
         </div>
-        <br />
-        <br />
-        <br />
-        <br />
-        <br />
-        <br />
-        <br />
-        <br />
+        <br /> <br />
         <SystemFooter />
       </div>
     </div>

@@ -1,0 +1,16 @@
+.quantity-table {
+  border-collapse: collapse;
+  width: 80%;
+  margin: auto;
+  margin-top: 20px;
+  margin-bottom: 20px;
+  border: 1px solid red;
+}
+
+.quantity-table tr,
+.quantity-table th,
+.quantity-table td {
+  border: none;
+  padding: 10px;
+  text-align: left;
+}
