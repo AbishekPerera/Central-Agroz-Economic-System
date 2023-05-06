@@ -47,9 +47,9 @@ const Sidebar = () => {
 
         <div>
           <ul className="list-untyled px-2">
-            <li className={activeItem === "/ao/dashboard" ? "active" : ""}>
+            <li className={activeItem === "/ecmo/dashboard" ? "active" : ""}>
               <Link
-                to="/ao/dashboard"
+                to="/ecmo/dashboard"
                 className="text-decoration-none px-3 py-2 d-block"
               >
                 <i class="bi bi-house-door"></i>
@@ -75,9 +75,13 @@ const Sidebar = () => {
               </Link>
             </li>
 
-            <li className={activeItem === "/ecmo/stockTable" ? "active" : ""}>
+            <li
+              className={
+                activeItem === "/ecmo/stockSellersTable" ? "active" : ""
+              }
+            >
               <Link
-                to="/ecmo/stockTable"
+                to="/ecmo/stockSellersTable"
                 className="text-decoration-none px-3 py-2 d-block"
               >
                 <i class="bi bi-bag"></i>
@@ -86,10 +90,12 @@ const Sidebar = () => {
             </li>
 
             <li
-              className={activeItem === "/ecmo/stockBuyerTable" ? "active" : ""}
+              className={
+                activeItem === "/ecmo/stockBuyersTable" ? "active" : ""
+              }
             >
               <Link
-                to="/ecmo/stockBuyerTable"
+                to="/ecmo/stockBuyersTable"
                 className="text-decoration-none px-3 py-2 d-block"
               >
                 <i class="bi bi-truck"></i>
