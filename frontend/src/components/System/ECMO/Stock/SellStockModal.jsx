@@ -2,7 +2,7 @@ import React, { useEffect, useState } from "react";
 import Modal from "react-bootstrap/Modal";
 import axios from "axios";
 
-const AddStockModal = ({ show, handleClose }) => {
+const SellStockModal = ({ show, handleClose }) => {
   const [selectedDate, setSelectedDate] = useState(new Date());
   const [formattedDate, setFormattedDate] = useState("");
   const [categories, setCategories] = useState([]);
@@ -64,11 +64,11 @@ const AddStockModal = ({ show, handleClose }) => {
   const [inputs, setInputs] = useState({
     CenterName: "Kandy",
     SupplierName: " ",
-    FarmerID: "",
+    FarmerID: "Not a Farmer",
     MobileNo: "",
     Address: "",
     Item: [],
-    Role: "Seller",
+    Role: "Buyer",
     Date: date,
   });
 
@@ -119,7 +119,7 @@ const AddStockModal = ({ show, handleClose }) => {
         Date: inputs.Date,
       })
       .then((res) => {
-        alert("Stock Added Successfully");
+        alert("Stock Sold Successfully");
         window.location.reload(false);
       })
       .catch((error) => {
@@ -135,23 +135,13 @@ const AddStockModal = ({ show, handleClose }) => {
 
       <Modal.Body>
         <div className="form-group">
-          <label htmlFor="stock-name">Seller Name:</label>
+          <label htmlFor="stock-name">Buyer Name:</label>
           <input
             type="text"
             className="form-control"
             name="SupplierName"
             onChange={handleChange}
             required
-          />
-        </div>
-        <p>If Registered Farmer:</p>
-        <div className="form-group">
-          <label htmlFor="farmer-id">Farmer ID:</label>
-          <input
-            type="text"
-            className="form-control"
-            name="FarmerID"
-            onChange={handleChange}
           />
         </div>
 
@@ -254,7 +244,7 @@ const AddStockModal = ({ show, handleClose }) => {
           variant="secondary"
           onClick={handleSubmit}
         >
-          Buy Stock
+          Sell Stock
         </button>
         <button class="btn btn-danger" variant="primary" onClick={handleClose}>
           Close
@@ -263,4 +253,4 @@ const AddStockModal = ({ show, handleClose }) => {
     </Modal>
   );
 };
-export default AddStockModal;
+export default SellStockModal;
