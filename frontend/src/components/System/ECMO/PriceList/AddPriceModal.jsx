@@ -1,23 +1,68 @@
 import React, { useEffect, useState } from "react";
 import Modal from "react-bootstrap/Modal";
+import axios from "axios";
 
 const AddPriceModal = ({ show, handleClose }) => {
-  var [name, setName] = useState("");
-  var [category, setCategory] = useState("");
-  var [description, setDescription] = useState("");
-  var [quantity, setQuantity] = useState("");
-  var [price, setPrice] = useState("");
-  var [image, setImage] = useState("");
-  var [sellerId, setSellerId] = useState("");
-  var [sellerUsername, setSellerUsername] = useState("");
+  const date = new Date();
+  const formattedDate = date
+    .toLocaleDateString("en-US", {
+      year: "numeric",
+      month: "2-digit",
+      day: "2-digit",
+    })
+    .replace(/\//g, "-");
 
-  useEffect(() => {
-    const sellerInfo = JSON.parse(localStorage.getItem("systemInfo"));
-    const getSellerId = sellerInfo["user"]["_id"];
-    const getSellerUserame = sellerInfo["user"]["UserName"];
-    setSellerId(getSellerId);
-    setSellerUsername(getSellerUserame);
-  }, []);
+  const [inputs, setInputs] = useState({
+    CenterName: "Kandy",
+    Category: "",
+    Type: "",
+    Image: "",
+    Price: [
+      {
+        BuyingPrice: 0,
+        SellingPrice: 0,
+        Date: formattedDate,
+      },
+    ],
+  });
+
+  console.log(inputs);
+
+  function handleChange(e) {
+    setInputs((prev) => ({
+      ...prev,
+      [e.target.name]: e.target.value,
+    }));
+  }
+  function handlePriceChange(e) {
+    const { name, value } = e.target;
+    setInputs((prev) => {
+      const updatedPrice = { ...prev.Price[0], [name]: value };
+      return { ...prev, Price: [updatedPrice] };
+    });
+  }
+
+  const sendData = async (e) => {
+    e.preventDefault();
+
+    await axios
+      .post("http://localhost:8075/priceList/addStockPrice", {
+        CenterName: inputs.CenterName,
+        Category: inputs.Category,
+        Type: inputs.Type,
+        Image: inputs.Image,
+        Price: inputs.Price,
+      })
+      .then((res) => {
+        alert("Price Addedd Successfully");
+        window.location.reload(false);
+      })
+      .catch((error) => {
+        alert(error);
+      });
+
+    handleClose();
+  };
 
   return (
     <Modal show={show} onHide={handleClose}>
@@ -33,10 +78,8 @@ const AddPriceModal = ({ show, handleClose }) => {
             type="text"
             className="form-control"
             placeholder="Enter Item Name"
-            value={name}
-            onChange={(e) => {
-              setName(e.target.value);
-            }}
+            name="Type"
+            onChange={handleChange}
             required
           />
         </div>
@@ -44,9 +87,9 @@ const AddPriceModal = ({ show, handleClose }) => {
         <div className="form-group">
           <label htmlFor="category">Item Category</label>
           <select
-            name="category"
+            name="Category"
             className="form-control"
-            value="category"
+            onChange={handleChange}
             required
           >
             <option value="">--Select Category--</option>
@@ -62,7 +105,9 @@ const AddPriceModal = ({ show, handleClose }) => {
           <input
             type="number"
             class="form-control"
+            name="BuyingPrice"
             placeholder="Buying Price in Rs"
+            onChange={handlePriceChange}
           />
         </div>
         <div class="form-group">
@@ -71,15 +116,28 @@ const AddPriceModal = ({ show, handleClose }) => {
             type="number"
             class="form-control"
             placeholder="Selling Price in Rs"
+            name="SellingPrice"
+            onChange={handlePriceChange}
           />
         </div>
         <div class="form-group">
           <label for="image">Image</label>
-          <input type="text" class="form-control" placeholder="Image URL" />
+          <input
+            type="text"
+            class="form-control"
+            placeholder="Image URL"
+            name="Image"
+            onChange={handleChange}
+          />
         </div>
       </Modal.Body>
       <Modal.Footer>
-        <button type="submit" class="btn btn-success" variant="secondary">
+        <button
+          type="submit"
+          class="btn btn-success"
+          variant="secondary"
+          onClick={sendData}
+        >
           Add Price
         </button>
         <button class="btn btn-danger" variant="primary" onClick={handleClose}>
