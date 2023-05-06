@@ -1,0 +1,44 @@
+.farmerbody {
+    background: rgb(233, 252, 213)
+}
+
+.form-control:focus {
+    box-shadow: none;
+    border-color: #dbcbdc
+}
+
+.farmerprofile-button {
+    background: rgb(99, 39, 120);
+    box-shadow: none;
+    border: none
+}
+
+.farmerprofile-button:hover {
+    background: #682773
+}
+
+.farmerprofile-button:focus {
+    background: #682773;
+    box-shadow: none
+}
+
+.farmerprofile-button:active {
+    background: #682773;
+    box-shadow: none
+}
+
+.back:hover {
+    color: #682773;
+    cursor: pointer
+}
+
+.labelsfarmer {
+    font-size: 14px
+}
+
+.farexperience:hover {
+    background: #BA68C8;
+    color: #fff;
+    cursor: pointer;
+    border: solid 1px #BA68C8
+}
