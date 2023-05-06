@@ -62,7 +62,11 @@ const Header = () => {
             </div>
             <div class="col-9">
               <h6>Address</h6>
-              <p>123, Main Street, New York, USA</p>
+              <p>
+                123, Main Street, Colombo 1,
+                <br />
+                Sri Lanka
+              </p>
             </div>
           </div>
         </Col>
