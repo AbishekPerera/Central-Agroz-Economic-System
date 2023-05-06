@@ -1,0 +1,154 @@
+@import url("https://fonts.googleapis.com/css2?family=Montserrat:wght@400;500;600;800&display=swap");
+
+.container .item-item {
+  min-height: 300px;
+  border: none;
+  overflow: hidden;
+  position: relative;
+  border-radius: 0;
+}
+
+.container .item-item .item {
+  width: 100%;
+  height: 200px;
+  position: relative;
+  overflow: hidden;
+  cursor: pointer;
+}
+
+.container .item-item .item img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+.container .item-item .item .icons .icon {
+  width: 40px;
+  height: 40px;
+  background-color: #fff;
+  border-radius: 50%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  transition: transform 0.6s ease;
+  transform: rotate(180deg);
+  cursor: pointer;
+}
+
+.container .item-item .item .icons .icon1 {
+  width: 40px;
+  height: 40px;
+  background-color: #fff;
+  border-radius: 50%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  transition: transform 0.6s ease;
+  transform: rotate(180deg);
+  cursor: pointer;
+}
+
+.container .item-item .item .icons .icon:hover {
+  background-color: #b71c1c;
+  color: #fff;
+}
+
+#edit:hover {
+  background-color: #069e34;
+  color: #fff;
+}
+
+.container .item-item .item .icons .icon:nth-last-of-type(3) {
+  transition-delay: 0.2s;
+}
+
+.container .item-item .item .icons .icon:nth-last-of-type(2) {
+  transition-delay: 0.15s;
+}
+
+.container .item-item .item .icons .icon:nth-last-of-type(1) {
+  transition-delay: 0.1s;
+}
+
+.container .item-item:hover .item .icons .icon {
+  transform: translateY(-60px);
+}
+
+.container .item-item .tag {
+  text-transform: uppercase;
+  font-size: 0.75rem;
+  font-weight: 500;
+  position: absolute;
+  top: 10px;
+  left: 20px;
+  padding: 0 0.4rem;
+}
+
+.container .item-item .tag1 {
+  width: 30px;
+  height: 30px;
+  text-align: "center";
+  text-transform: uppercase;
+  font-weight: 500;
+  position: absolute;
+  top: 10px;
+  right: 20px;
+  border-radius: 60%;
+  padding: 0 0.4rem;
+}
+
+.container .item-item .title {
+  font-size: 0.95rem;
+  letter-spacing: 0.5px;
+}
+
+.container .item-item .fa-star {
+  font-size: 0.65rem;
+  color: goldenrod;
+}
+
+.container .item-item .price {
+  margin-top: 10px;
+  margin-bottom: 10px;
+  font-weight: 600;
+}
+
+.fw-800 {
+  font-weight: 800;
+}
+
+.bg-green {
+  background-color: #208f20 !important;
+  color: #fff;
+}
+
+.bg-black {
+  background-color: #1f1d1d;
+  color: #fff;
+}
+
+.bg-red {
+  background-color: #bb3535;
+  color: #fff;
+}
+
+.btnitem {
+  width: 150px;
+  background-color: #08781f;
+  border: none;
+  outline: none;
+  height: 49px;
+  border-radius: 5px;
+  color: white;
+  text-transform: uppercase;
+  font-weight: 600;
+  margin: 10px 10px 10px 15px;
+  cursor: pointer;
+  transition: 0.5s;
+  text-align: center;
+}
+.btnitem:hover {
+  background-color: #000000;
+  color: #08781f;
+}
+
