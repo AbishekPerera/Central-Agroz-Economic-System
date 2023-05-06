@@ -1,10 +1,11 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import "./Styles/StockTable.css";
 import AddStockModal from "../../../../components/System/ECMO/Stock/AddStockModal";
 import UpdateStockModal from "../../../../components/System/ECMO/Stock/UpdateStockModal";
 import Sidebar from "../../../../components/System/ECMO/Sidebar/Sidebar";
 import NavBar from "../../../../components/System/ECMO/NavBar/NavBar";
 import SystemFooter from "../../../../components/System/ECMO/Footer/SystemFooter";
+import axios from "axios";
 
 function StockTable() {
   const [showAddStockModal, setShowAddStockModal] = useState(false);
@@ -15,52 +16,29 @@ function StockTable() {
 
   const handleUpdateStockModalClose = () => setShowUpdateStockModal(false);
   const handleUpdateStockModalShow = () => setShowUpdateStockModal(true);
-  const [stock, setstock] = useState([
-    {
-      SupplierName: "John Doe",
-      FarmerId: "1234",
-      NoOfItems: 10,
-      Item: [
-        {
-          Category: "Vegetable",
-          Type: "Carrot",
-          Quantity: 5,
-        },
-        {
-          Category: "Fruit",
-          Type: "Apple",
-          Quantity: 3,
-        },
-        {
-          Category: "Rice",
-          Type: "Basmati",
-          Quantity: 2,
-        },
-      ],
-      Date: "2023-05-03T00:00:00.000Z",
-    },
-    {
-      SupplierName: "Jane Smith",
-      FarmerId: "5678",
-      NoOfItems: 7,
-      Item: [
-        {
-          Category: "Grain",
-          Type: "Wheat",
-          Quantity: 5,
-        },
-        {
-          Category: "Fruit",
-          Type: "Orange",
-          Quantity: 2,
-        },
-      ],
-      Date: "2023-05-02T00:00:00.000Z",
-    },
-  ]);
+
+  const [stock, setStock] = useState([]);
+
+  useEffect(() => {
+    const getStocks = async () => {
+      try {
+        const res = await axios
+          .get("http://localhost:8075/stock/AllStocks")
+          .then((res) => {
+            const data = res.data;
+            setStock(data);
+            console.log(data);
+          });
+      } catch (err) {
+        console.log(err);
+      }
+    };
+    getStocks();
+  }, []);
 
   // Group items by category
   const itemsByCategory = {};
+
   stock.forEach((row) => {
     row.Item.forEach((item) => {
       if (!itemsByCategory[item.Category]) {
@@ -119,7 +97,7 @@ function StockTable() {
                   {stock.map((row, index) => (
                     <tr key={index}>
                       <td>{row.SupplierName}</td>
-                      <td>{row.FarmerId}</td>
+                      <td>{row.FarmerID}</td>
                       <td>{row.NoOfItems}</td>
                       <td>{new Date(row.Date).toLocaleDateString()}</td>
                       <td>
