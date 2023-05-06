@@ -112,3 +112,16 @@ export async function updateStockByID(req, res) {
       res.status(400).json({ status: "Error with update stock" });
     });
 }
+
+// Get stoc by date
+export async function getStocksByDate(req, res) {
+  try {
+    const date = req.params.date;
+
+    const result = await stock.find({ Date: date });
+
+    return res.status(200).json({ result });
+  } catch (err) {
+    return res.status(422).json("error", err);
+  }
+}
