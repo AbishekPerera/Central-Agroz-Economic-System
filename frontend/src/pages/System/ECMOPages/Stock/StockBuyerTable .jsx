@@ -1,78 +1,64 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
+import axios from "axios";
 import "./Styles/StockTable.css";
-import AddBuyStockModal from "../../../../components/System/ECMO/Stock/AddBuyStockModal";
+import SellStockModal from "../../../../components/System/ECMO/Stock/SellStockModal";
 import UpdateBuyStockModal from "../../../../components/System/ECMO/Stock/UpdateBuyStockModal";
 import Sidebar from "../../../../components/System/ECMO/Sidebar/Sidebar";
 import NavBar from "../../../../components/System/ECMO/NavBar/NavBar";
 import SystemFooter from "../../../../components/System/ECMO/Footer/SystemFooter";
 
 function StockBuyerTable() {
-  const [showAddBuyStockModal, setShowAddBuyStockModal] = useState(false);
+  const [showSellStockModal, setShowSellStockModal] = useState(false);
   const [showUpdateBuyStockModal, setShowUpdateBuyStockModal] = useState(false);
 
-  const handleAddBuyStockModalClose = () => setShowAddBuyStockModal(false);
-  const handleAddBuyStockModalShow = () => setShowAddBuyStockModal(true);
+  const handleSellStockModalClose = () => setShowSellStockModal(false);
+  const handleSellStockModalShow = () => setShowSellStockModal(true);
 
   const handleUpdateBuyStockModalClose = () =>
     setShowUpdateBuyStockModal(false);
   const handleUpdateBuyStockModalShow = () => setShowUpdateBuyStockModal(true);
-  const [stock, setstock] = useState([
-    {
-      SupplierName: "John Doe",
-      FarmerId: "1234",
-      NoOfItems: 10,
-      Item: [
-        {
-          Category: "Vegetable",
-          Type: "Carrot",
-          Quantity: 5,
-        },
-        {
-          Category: "Fruit",
-          Type: "Apple",
-          Quantity: 3,
-        },
-        {
-          Category: "Rice",
-          Type: "Basmati",
-          Quantity: 2,
-        },
-      ],
-      Date: "2023-05-03T00:00:00.000Z",
-    },
-    {
-      SupplierName: "Jane Smith",
-      FarmerId: "5678",
-      NoOfItems: 7,
-      Item: [
-        {
-          Category: "Grain",
-          Type: "Wheat",
-          Quantity: 5,
-        },
-        {
-          Category: "Fruit",
-          Type: "Orange",
-          Quantity: 2,
-        },
-      ],
-      Date: "2023-05-02T00:00:00.000Z",
-    },
-  ]);
 
-  // Group items by category
-  const itemsByCategory = {};
-  stock.forEach((row) => {
-    row.Item.forEach((item) => {
-      if (!itemsByCategory[item.Category]) {
-        itemsByCategory[item.Category] = [];
+  const [stock, setStock] = useState([]);
+
+  useEffect(() => {
+    const getStocks = async () => {
+      try {
+        const res = await axios
+          .get("http://localhost:8075/stock/AllStocks")
+          .then((res) => {
+            const data = res.data;
+            setStock(data);
+            console.log(data);
+          });
+      } catch (err) {
+        console.log(err);
       }
-      itemsByCategory[item.Category].push({
-        Type: item.Type,
-        Quantity: item.Quantity,
-      });
+    };
+    getStocks();
+  }, []);
+
+  const groupTypesByCategory = (data) => {
+    if (!Array.isArray(data)) {
+      console.log("Data is not an array");
+      return [];
+    }
+
+    const groups = {};
+    data.forEach((type) => {
+      const category = type?.Category;
+      if (category) {
+        if (!groups[category]) {
+          groups[category] = [];
+        }
+        groups[category].push(type);
+      }
     });
-  });
+
+    return Object.entries(groups).map(([category, items]) => ({
+      category,
+      items,
+    }));
+  };
 
   return (
     <div className="mainContainer">
@@ -88,15 +74,15 @@ function StockBuyerTable() {
         <div className="content">
           <button
             className="btn  btnitem"
-            onClick={handleAddBuyStockModalShow}
+            onClick={handleSellStockModalShow}
             value="Sell Stock"
           >
             Sell Stock
           </button>
 
-          <AddBuyStockModal
-            show={showAddBuyStockModal}
-            handleClose={handleAddBuyStockModalClose}
+          <SellStockModal
+            show={showSellStockModal}
+            handleClose={handleSellStockModalClose}
           />
           <UpdateBuyStockModal
             show={showUpdateBuyStockModal}
@@ -110,6 +96,8 @@ function StockBuyerTable() {
                   <tr>
                     <th>Supplier Name</th>
                     <th>Farmer ID</th>
+                    <th>Mobile No</th>
+                    <th>Address</th>
                     <th>No. of Items</th>
                     <th>Date</th>
                     <th>Item with Quantity</th>
@@ -117,60 +105,56 @@ function StockBuyerTable() {
                   </tr>
                 </thead>
                 <tbody>
-                  {stock.map((row, index) => (
-                    <tr key={index}>
-                      <td>{row.SupplierName}</td>
-                      <td>{row.FarmerId}</td>
-                      <td>{row.NoOfItems}</td>
-                      <td>{new Date(row.Date).toLocaleDateString()}</td>
-                      <td>
-                        <table className="stock-table">
-                          <thead>
-                            <tr>
-                              <th>Category</th>
-                              <th>Type</th>
-                              <th>Quantity</th>
-                            </tr>
-                          </thead>
-                          <tbody>
-                            {Object.keys(itemsByCategory).map(
-                              (category, index) => (
-                                <tr key={index}>
-                                  <td>{category}</td>
-                                  <td>
-                                    {itemsByCategory[category].map(
-                                      (item, i) => (
-                                        <div key={i}>{item.Type}</div>
-                                      )
-                                    )}
-                                  </td>
-                                  <td>
-                                    {itemsByCategory[category].map(
-                                      (item, i) => (
-                                        <div key={i}>{item.Quantity}</div>
-                                      )
-                                    )}
-                                  </td>
-                                </tr>
-                              )
-                            )}
-                          </tbody>
-                        </table>
-                      </td>
-                      <td>
-                        <button
-                          className="btn btn-success seller-modal-button"
-                          style={{ marginRight: "10px" }}
-                          onClick={handleUpdateBuyStockModalShow}
-                        >
-                          <span class="bi bi-pen"></span>
-                        </button>
-                        <button className="btn btn-danger delete-seller-button">
-                          <span class="bi bi-trash"></span>
-                        </button>
-                      </td>
-                    </tr>
-                  ))}
+                  {stock
+                    .filter((row) => row.Role === "Buyer")
+                    .map((row, index) => (
+                      <tr key={index}>
+                        <td>{row.SupplierName}</td>
+                        <td>{row.FarmerID}</td>
+                        <td>{row.MobileNo}</td>
+                        <td>{row.Address}</td>
+                        <td>{row.NoOfItems}</td>
+                        <td>{new Date(row.Date).toLocaleDateString()}</td>
+
+                        <td>
+                          <table>
+                            <tbody>
+                              {groupTypesByCategory(row.Item).map(
+                                (categoryData, index) => (
+                                  <tr key={index}>
+                                    <td>{categoryData.category}</td>
+
+                                    <td>
+                                      {categoryData.items.map((item, index) => (
+                                        <div key={index}>{item.Type}</div>
+                                      ))}
+                                    </td>
+                                    <td>
+                                      {categoryData.items.map((item, index) => (
+                                        <div key={index}>{item.Quantity}</div>
+                                      ))}
+                                    </td>
+                                  </tr>
+                                )
+                              )}
+                            </tbody>
+                          </table>
+                        </td>
+
+                        <td>
+                          <button
+                            className="btn btn-success seller-modal-button"
+                            style={{ marginRight: "10px" }}
+                            onClick={handleUpdateBuyStockModalShow}
+                          >
+                            <span class="bi bi-pen"></span>
+                          </button>
+                          <button className="btn btn-danger delete-seller-button">
+                            <span class="bi bi-trash"></span>
+                          </button>
+                        </td>
+                      </tr>
+                    ))}
                 </tbody>
               </table>
             </div>
