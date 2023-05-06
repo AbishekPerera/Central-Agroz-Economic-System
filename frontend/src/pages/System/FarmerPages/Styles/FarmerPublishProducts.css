@@ -1,0 +1,101 @@
+/* ----------------------------------------------------
+    Breadcurmb Area
+---------------------------------------------------- */
+.ltn__breadcrumb-area-customerloginpage {
+    background-color: #f4f4f4;
+    margin-bottom: 120px;
+    padding-top: 110px;
+    padding-bottom: 110px;
+    background-image: url(https://cdn.pixabay.com/photo/2016/07/24/21/01/thermometer-1539191_960_720.jpg);
+    background-repeat: no-repeat;
+    background-size: cover;
+  }
+  
+  .ltn__breadcrumb-list ul {
+    margin: 0;
+    padding: 0;
+  }
+  
+  .ltn__breadcrumb-list ul li {
+    display: inline-block;
+    margin-right: 30px;
+    position: relative;
+    font-weight: 700;
+  }
+  
+  .news-page-lowerbody {
+    margin: 2%;
+  }
+  
+  .loginsidejpg {
+    height: 500px;
+  }
+  .loginsidejpg img {
+    width: 100%;
+    height: 100%;
+    background-repeat: no-repeat;
+    background-size: cover;
+  }
+  
+  .loginform {
+    height: 500px;
+    /* From https://css.glass */
+    background: rgba(255, 255, 255, 0.14);
+    border-radius: 16px;
+    box-shadow: 0 4px 30px rgba(0, 0, 0, 0.1);
+    backdrop-filter: blur(4.2px);
+    -webkit-backdrop-filter: blur(4.2px);
+    border: 1px solid rgba(255, 255, 255, 0.26);
+  }
+  
+  .loginform-container {
+    margin-bottom: 100px;
+  }
+  
+  .loginsubmit button {
+    /* background-color: #f4f4f4; */
+    color: #000;
+    /* border: 1px solid #000; */
+    border-radius: 0;
+    padding: 10px 20px;
+    font-size: 16px;
+    font-weight: 700;
+    text-transform: uppercase;
+    margin-top: 20px;
+  }
+  /* Refistration form css */
+  .registrationsidejpg {
+    height: 830px;
+    background-color: white;
+    background: rgba(255, 255, 255, 0.14);
+    border-radius: 16px;
+    box-shadow: 0 4px 30px rgba(0, 0, 0, 0.1);
+    backdrop-filter: blur(4.2px);
+    -webkit-backdrop-filter: blur(4.2px);
+    border: 1px solid rgba(255, 255, 255, 0.26);
+  }
+  .registrationsidejpg2 {
+    padding: 5px;
+    height: 645px;
+  }
+  .registerbackground {
+    padding-bottom: 110px;
+  }
+  
+  .registerbtn {
+    width: 20%;
+  }
+  .registerimg {
+    width: 100%;
+    height: 100%;
+    background-repeat: no-repeat;
+    background-size: cover;
+    background-position: center;
+    background-attachment: fixed;
+  }
+  
+  .cus-update-form {
+    padding: 20px;
+    box-shadow: rgba(0, 0, 0, 0.16) 0px 1px 4px;
+  }
+  

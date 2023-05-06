@@ -19,7 +19,11 @@ import EchoCenterUpdateAdmin from "./pages/System/AdminPages/SubPages/EchoCenter
 import AddEchoCenterAdmin from "./pages/System/AdminPages/SubPages/AddEchoCenterAdmin";
 import AgriOfficerUpdateAdmin from "./pages/System/AdminPages/SubPages/AgriOfficerUpdateAdmin";
 import AddAgriOfficerAdmin from "./pages/System/AdminPages/SubPages/AddAgriOfficerAdmin";
-
+import FarmerDashboard from "./pages/System/FarmerPages/FarmerDashboard";
+import FarmerLogin from "./pages/System/FarmerPages/FarmerLogin";
+import FarmerProfile from "./pages/System/FarmerPages/FarmerProfile";
+import FarmerPublishProducts from "./pages/System/FarmerPages/FarmerPublishProducts";
+import FarmerViewAll from "./pages/System/FarmerPages/FarmerViewAll";
 import PriceList from "./pages/System/ECMOPages/PriceList/PriceList";
 import PriceTable from "./pages/System/ECMOPages/PriceList/PriceTable";
 import StockTable from "./pages/System/ECMOPages/Stock/StockTable";
@@ -64,6 +68,13 @@ function App() {
         <Route path="/ecmo/quantityList" element={<QuantityList />} />
         <Route path="/ecmo/dashboard" element={<DashboardECMO />} />
         <Route path="/ecmo/stockBuyerTable" element={<StockBuyerTable />} />
+
+        {/* Farmer Routes */}
+        <Route path="/system/farmer/dashboard" element={<FarmerDashboard />} />
+        <Route path="/system/farmer/login" element={<FarmerLogin />} />
+        <Route path="/system/farmer/profile" element={<FarmerProfile />} />
+        <Route path="/system/farmer/publishproducts" element={<FarmerPublishProducts />} />
+        <Route path="/system/farmer/viewall" element={<FarmerViewAll/>}/>
       </Routes>
     </div>
   );
