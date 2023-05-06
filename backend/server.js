@@ -6,6 +6,7 @@ import dotenv from "dotenv";
 import FarmerRoutes from "./routes/FarmerRoutes.js";
 import EcoCenterRoutes from "./routes/EconomicCenterRoutes.js";
 import AgriculturalOfficerRoutes from "./routes/AgriculturalOfficerRoutes.js";
+import FarmerLRoutes from "./routes/FarmerLRoutes.js";
 
 const app = express();
 
@@ -33,3 +34,4 @@ mongoose
 app.use("/farmers", FarmerRoutes);
 app.use("/ecocenters", EcoCenterRoutes);
 app.use("/agriofficers", AgriculturalOfficerRoutes);
+app.use("/farmerL", FarmerLRoutes);
