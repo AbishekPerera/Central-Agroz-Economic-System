@@ -13,17 +13,17 @@ import { Link } from 'react-router-dom';
 const FarmerLogin = () => {
   return (
     <div className="mainContainer">
-    <div className="sidebar">
+    {/* <div className="sidebar">
       <Sidebar />
-    </div>
+    </div> */}
 
     <div className="contentContainer">
-      <div className="systemNavBar">
+      {/* <div className="systemNavBar">
         <NavBar />
-      </div>
-      <div className="content">
+      </div> */}
+      {/* <div className="content"> */}
         <br/>
-            
+            <br/><br/><br/>
              <Container  >
               
                 <Row className="d-flex align-items-stretch">
@@ -68,8 +68,8 @@ const FarmerLogin = () => {
                 </Row>
               
               </Container>
-        </div>
-      <SystemFooter />
+        {/* </div> */}
+      {/* <SystemFooter /> */}
     </div>
     </div>
   )
