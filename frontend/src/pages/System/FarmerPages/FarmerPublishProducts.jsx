@@ -33,7 +33,7 @@ const FarmerPublishProducts = () => {
                 // onSubmit={submitHandler}
                 >
                   <div class="mb-3">
-                    <label for="name" class="form-label">
+                    <label for="name" class="form-label" >
                       Crop Type
                     </label>
                     {/* <input
@@ -45,12 +45,13 @@ const FarmerPublishProducts = () => {
                       aria-describedby="cropNameHelp"
                       placeholder="Enter Crop Name"
                     /> */}
-                     <select required class="form-select" id="type" >
+                     <select required class="form-select" id="type" style={{ width: '50%' }} >
 
                       <option value="" disabled selected>Select Type</option>
                       <option value="Fruits">Fruits</option>
                       <option value="Vegetables">Vegetables</option>
-                      <option value="Dried">Dried</option>
+                      <option value="Rice">Dried</option>
+                      <option value="Grain">Grains</option>
                     </select>
                   </div>
                   <div class="mb-3">
@@ -65,6 +66,7 @@ const FarmerPublishProducts = () => {
                       id="name"
                       aria-describedby="cropNameHelp"
                       placeholder="Enter Crop Name"
+                      style={{ width: '50%' }}
                     />
                   </div>
                   <div class="mb-3">
@@ -79,6 +81,7 @@ const FarmerPublishProducts = () => {
                       id="quantity"
                       aria-describedby="quantityHelp"
                       placeholder="Enter the available quantity"
+                      style={{ width: '50%' }}
                     />
                   </div>
                   <div class="mb-3">
@@ -93,6 +96,7 @@ const FarmerPublishProducts = () => {
                       id="price"
                       aria-describedby="priceHelp"
                       placeholder="Enter the price per 1kg"
+                      style={{ width: '50%' }}
                     />
                   </div>
                   <div class="mb-3">
@@ -107,6 +111,7 @@ const FarmerPublishProducts = () => {
                       id="location"
                       aria-describedby="locationHelp"
                       placeholder="Enter the location of the available crop"
+                      style={{ width: '50%' }}
                     />
                   </div>
                   <div class="mb-3">
@@ -122,7 +127,7 @@ const FarmerPublishProducts = () => {
                       aria-describedby="conditionHelp"
                       placeholder="Enter the condition of the crop"
                     /> */}
-                     <select required class="form-select" id="condition">
+                     <select required class="form-select" id="condition" style={{ width: '50%' }}>
                       <option value="" disabled selected>Select condition</option>
                       <option value="fresh">Fresh</option>
                       <option value="frozen">Frozen</option>
@@ -143,17 +148,17 @@ const FarmerPublishProducts = () => {
                       id="date"
                       aria-describedby="dateHelp"
                       placeholder="Enter the harvested date"
+                      style={{ width: '50%' }}
                     />
                   </div>
                   <div class="mb-3">
                     <label for="phone" class="form-label">Contact Info</label>
                     <div class="row">
-                      <div class="col">
-                        <input required type="tel" class="form-control" id="phone" aria-describedby="phoneHelp" placeholder="Enter mobile" maxlength="10"/>
-                      </div>
-                      <div class="col">
-                        <input required type="email" class="form-control" id="email" aria-describedby="emailHelp" placeholder="Enter email"/>
-                      </div>
+                     
+                        <input required type="tel" class="form-control" id="phone" aria-describedby="phoneHelp" placeholder="Enter mobile" maxlength="10" style={{ width: '23%',marginLeft: '15px'  }}/>
+                    
+                        <input required type="email" class="form-control" id="email" aria-describedby="emailHelp" placeholder="Enter email" style={{ width: '35%',marginLeft: '20px'  }}/>
+                     
                     </div>
                   </div>
 
