@@ -1,4 +1,5 @@
 import React, { useEffect, useState } from "react";
+import axios from "axios";
 import "./Styles/PriceList.css";
 import DatePicker from "react-datepicker";
 import "react-datepicker/dist/react-datepicker.css";
@@ -8,93 +9,43 @@ import NavBar from "../../../../components/System/ECMO/NavBar/NavBar";
 
 function PriceList() {
   const [prices, setPrices] = useState([]);
-  const [price, setPrice] = useState([
-    {
-      _id: "1",
-      Category: "Fruits",
-      Type: "Apple",
-      SellingPrice: 2.5,
-      BuyingPrice: 1.5,
-      Date: "2023-05-01T00:00:00.000Z",
-    },
-    {
-      _id: "2",
-      Category: "Fruits",
-      Type: "Banana",
-      SellingPrice: 1.5,
-      BuyingPrice: 1,
-      Date: "2023-05-01T00:00:00.000Z",
-    },
-    {
-      _id: "3",
-      Category: "Vegetables",
-      Type: "Carrot",
-      SellingPrice: 3,
-      BuyingPrice: 2,
-      Date: new Date(),
-    },
-    {
-      _id: "4",
-      Category: "Vegetables",
-      Type: "Broccoli",
-      SellingPrice: 4,
-      BuyingPrice: 3,
-      Date: "2023-05-01T00:00:00.000Z",
-    },
-    {
-      _id: "5",
-      Category: "Fruits",
-      Type: "Apple",
-      SellingPrice: 3,
-      BuyingPrice: 2,
-      Date: "2023-05-02T00:00:00.000Z",
-    },
-    {
-      _id: "6",
-      Category: "Fruits",
-      Type: "Banana",
-      SellingPrice: 2,
-      BuyingPrice: 1.5,
-      Date: "2023-05-02T00:00:00.000Z",
-    },
-    {
-      _id: "7",
-      Category: "Vegetables",
-      Type: "Carrot",
-      SellingPrice: 3.5,
-      BuyingPrice: 2.5,
-      Date: "2023-05-02T00:00:00.000Z",
-    },
-    {
-      _id: "8",
-      Category: "Vegetables",
-      Type: "Broccoli",
-      SellingPrice: 5,
-      BuyingPrice: 4,
-      Date: "2023-05-02T00:00:00.000Z",
-    },
-  ]);
-
+  console.log(prices);
   const [selectedDate, setSelectedDate] = useState(new Date());
-  console.log(selectedDate);
   const [showCalendar, setShowCalendar] = useState(false);
-  const handleDateChange = (date) => {
-    setSelectedDate(date);
-    setShowCalendar(false);
+  const [formattedDate, setFormattedDate] = useState("");
+
+  const formatDate = (date) => {
+    const originalDate = date
+      .toLocaleDateString("en-US", {
+        year: "numeric",
+        month: "2-digit",
+        day: "2-digit",
+      })
+      .replace(/\//g, "-");
+
+    const [day, month, year] = originalDate.split("-");
+    const newDate = `${month}-${day}-${year}`;
+
+    return newDate;
   };
 
-  useEffect(() => {
-    async function fetchPrices() {
-      try {
-        const res = await price.find({ Date: { $eq: selectedDate } });
-        setPrices(res);
-      } catch (err) {
-        console.log(err);
-      }
+  const getPricesByDate = async (date) => {
+    try {
+      const formattedDate = formatDate(date);
+      setFormattedDate(formattedDate);
+      console.log(formattedDate);
+      const { data } = await axios.get(
+        `http://localhost:8075/priceList/allPrices/${formattedDate}`
+      );
+      setPrices(data);
+    } catch (err) {
+      console.log(err);
     }
+  };
 
-    fetchPrices();
-  }, [selectedDate]);
+  const handleDateChange = (date) => {
+    setSelectedDate(date);
+  };
 
   const handlePrevDay = () => {
     const prevDay = new Date(selectedDate);
@@ -108,18 +59,26 @@ function PriceList() {
     setSelectedDate(nextDay);
   };
 
-  const groupByCategory = (data) => {
+  useEffect(() => {
+    getPricesByDate(selectedDate);
+  }, [selectedDate]);
+
+  const groupPricesByCategory = (data) => {
+    if (!Array.isArray(data)) {
+      console.log("Data is not an array");
+      return {};
+    }
     return data.reduce((groups, price) => {
-      const category = price.Category;
-      if (!groups[category]) {
-        groups[category] = [];
+      const category = price?.Category;
+      if (category) {
+        groups[category] = groups[category] || [];
+        groups[category].push(price);
       }
-      groups[category].push(price);
       return groups;
     }, {});
   };
 
-  const categoryWisePrices = groupByCategory(prices);
+  const categoryWisePrices = groupPricesByCategory(prices.result);
 
   return (
     <div className="mainContainer">
@@ -171,26 +130,44 @@ function PriceList() {
                     <thead>
                       <tr>
                         <th className="type-header">Type</th>
-                        <th className="selling-price-header">Selling Price</th>
-                        <th className="buying-price-header">Buying Price</th>
+                        <th className="type-header">Image</th>
+                        <th className="type-header">Selling Price</th>
+                        <th className="type-header">Buying Price</th>
                       </tr>
                     </thead>
                     <tbody>
                       {categoryWisePrices[category].map((price) => (
                         <tr key={price._id}>
-                          <td className="type-cell">{price.Type}</td>
+                          <td className="selling-price-cell">{price.Type}</td>
                           <td className="selling-price-cell">
-                            {price.SellingPrice}
+                            <img
+                              src={price.Image}
+                              style={{ width: "50px", height: "50px" }}
+                            />
                           </td>
-                          <td className="buying-price-cell">
-                            {price.BuyingPrice}
-                          </td>
+                          {price &&
+                            price.Price.filter((newPrice) => {
+                              return newPrice.Date === formattedDate;
+                            }).map((newPrice) => (
+                              <>
+                                <td
+                                  className="selling-price-cell"
+                                  key={newPrice._id}
+                                >
+                                  {newPrice.SellingPrice}
+                                </td>
+                                <td className="buying-price-cell">
+                                  {newPrice.BuyingPrice}
+                                </td>
+                              </>
+                            ))}
                         </tr>
                       ))}
                     </tbody>
                   </table>
                 </div>
               ))}
+
               {prices.length === 0 && (
                 <div>
                   <p>No prices found for {selectedDate.toDateString()}</p>
