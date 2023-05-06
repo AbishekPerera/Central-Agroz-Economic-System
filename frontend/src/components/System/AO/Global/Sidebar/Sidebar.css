@@ -16,8 +16,8 @@
 }
 
 .imgLogoSideBar {
-  height: 100px;
-  width: 150px;
+  height: 120px;
+  width: 120px;
 }
 
 hr.h-color {
@@ -40,4 +40,19 @@ hr.h-color {
 
 .sidebar li {
   margin-bottom: 10px;
+}
+
+.sidebarTitle {
+  color: #fff;
+  font-size: 30px;
+  font-weight: bold;
+  margin-left: 50px;
+  font-family: 'Lucida Sans', 'Lucida Sans Regular', 'Lucida Grande',
+    'Lucida Sans Unicode', Geneva, Verdana, sans-serif;
+}
+
+.aoSidebarIcons {
+  height: 30px;
+  width: 30px;
+  margin-right: 10px;
 }
