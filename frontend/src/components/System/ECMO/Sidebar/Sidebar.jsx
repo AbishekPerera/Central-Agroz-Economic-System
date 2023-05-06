@@ -36,7 +36,13 @@ const Sidebar = () => {
         </div>
 
         <div className="logoSideBar">
-          <img className="imgLogoSideBar" src={""} alt="" />
+          <img
+            className="imgLogoSideBar"
+            src={
+              "https://th.bing.com/th/id/R.00d18a31898e865515e1c713fde37aad?rik=PATOFjexMWYsrQ&pid=ImgRaw&r=0"
+            }
+            alt="img"
+          />
         </div>
 
         <div>
@@ -74,7 +80,7 @@ const Sidebar = () => {
                 to="/ecmo/stockTable"
                 className="text-decoration-none px-3 py-2 d-block"
               >
-                <i class="bi bi-truck"></i>
+                <i class="bi bi-bag"></i>
                 <span style={{ paddingLeft: "0.7rem" }}>Buy Stock</span>
               </Link>
             </li>
@@ -96,7 +102,7 @@ const Sidebar = () => {
                 to="/ecmo/priceTable"
                 className="text-decoration-none px-3 py-2 d-block"
               >
-                <i class="bi bi-people"></i>
+                <i class="bi bi-tags"></i>
                 <span style={{ paddingLeft: "0.7rem" }}>Prices</span>
               </Link>
             </li>

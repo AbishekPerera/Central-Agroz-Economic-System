@@ -17,8 +17,10 @@ const NavBar = () => {
         <Container>
           <Navbar.Brand href="#home">
             <img
-              src={"https://i.ibb.co/7t7GhDT/admin2.png"}
-              alt="AO-Avatar"
+              src={
+                "https://cdn4.iconfinder.com/data/icons/people-avatar-1-1/128/16-512.png"
+              }
+              alt="ECMO-Avatar"
               style={{ height: "40px", width: "40px" }}
             ></img>
           </Navbar.Brand>
@@ -29,7 +31,7 @@ const NavBar = () => {
 
               <NavDropdown
                 active
-                title="Agricultural Officer"
+                title="Economic Center Manager"
                 id="basic-nav-dropdown"
               >
                 <NavDropdown.Item href="#action/3.1">
