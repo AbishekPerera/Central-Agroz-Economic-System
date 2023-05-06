@@ -23,10 +23,7 @@ function PriceList() {
       })
       .replace(/\//g, "-");
 
-    const [day, month, year] = originalDate.split("-");
-    const newDate = `${month}-${day}-${year}`;
-
-    return newDate;
+    return originalDate;
   };
 
   const getPricesByDate = async (date) => {
@@ -123,6 +120,7 @@ function PriceList() {
                   Next Day
                 </button>
               </div>
+
               {Object.keys(categoryWisePrices).map((category) => (
                 <div key={category}>
                   <h2 className="category-title">{category}</h2>
@@ -168,7 +166,7 @@ function PriceList() {
                 </div>
               ))}
 
-              {prices.length === 0 && (
+              {Object.length === 0 && (
                 <div>
                   <p>No prices found for {selectedDate.toDateString()}</p>
                 </div>
