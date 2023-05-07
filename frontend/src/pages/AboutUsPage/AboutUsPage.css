@@ -33,5 +33,9 @@
 }
 
 .BackgroundAboutUs {
-  background-color: #dbf5e3;
+  /* background-image: url(https://i.pinimg.com/564x/5d/c6/6c/5dc66c4ebe821b2645e4915703ea05a0.jpg); */
+  background-image: url(https://w0.peakpx.com/wallpaper/987/137/HD-wallpaper-green-cabbage-macro-vegetables-textures-cabbage-textures-cabbage-leaves-fresh-vegetables-cabbage-vegetables.jpg);
+  background-repeat: cover;
+  height: 1100px;
+  
 }
