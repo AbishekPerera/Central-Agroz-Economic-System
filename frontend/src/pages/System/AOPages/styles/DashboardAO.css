@@ -1,0 +1,57 @@
+.mainContainer {
+  display: flex;
+  width: 100%;
+}
+
+.sidebar {
+  height: 100vh;
+  position: sticky;
+  top: 0;
+  left: 0;
+}
+.contentContainer {
+  width: 100%;
+  position: relative;
+  display: grid;
+}
+
+.content {
+  padding-top: 0rem;
+  padding-bottom: 3rem;
+  padding-left: 4rem;
+  padding-right: 3rem;
+  /* background-color: white !important; */
+}
+
+.systemNavBar {
+  width: 100%;
+}
+
+/* Style the tabs */
+.react-tabs__tab {
+  border: none;
+  cursor: pointer;
+  padding: 10px;
+  margin-right: 10px;
+  color: #555;
+  background-color: #eee;
+  border-radius: 5px 5px 0 0;
+  font-size: 16px;
+  transition: background-color 0.2s ease-in-out;
+}
+
+/* Style the active tab */
+.react-tabs__tab--selected {
+  color: #fff;
+  background-color: #5b9bd5;
+}
+
+/* Style the tab panels */
+.react-tabs__tab-panel {
+  padding: 20px;
+  border: 1px solid #ddd;
+  border-top: none;
+  border-radius: 0 5px 5px 5px;
+  background-color: #fff;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+}

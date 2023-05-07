@@ -1,0 +1,14 @@
+/* .cardIcon {
+  height: 100px;
+  width: 100px;
+} */
+
+.cardDash {
+  padding: 20px;
+  background-color: rgb(235, 226, 226);
+  box-shadow: rgba(0, 0, 0, 0.16) 0px 1px 4px;
+}
+
+.cardTopic {
+  text-align: center;
+}

@@ -1,0 +1,33 @@
+[
+    {
+      "farmerUsername": "johndoe",
+      "cropType": "Vegetable",
+      "crop": "Tomatoes",
+      "season": "Summer",
+      "year": 2023,
+      "month": "May",
+      "expectedHarvest": 500,
+      "actualHarvest": 600
+    },
+    {
+      "farmerUsername": "janedoe",
+      "cropType": "Fruit",
+      "crop": "Strawberries",
+      "season": "Spring",
+      "year": 2023,
+      "month": "April",
+      "expectedHarvest": 300,
+      "actualHarvest": 400
+    },
+    {
+      "farmerUsername": "marydoe",
+      "cropType": "Vegetable",
+      "crop": "Carrots",
+      "season": "Fall",
+      "year": 2023,
+      "month": "September",
+      "expectedHarvest": 200,
+      "actualHarvest": 300
+    }
+  ]
+  

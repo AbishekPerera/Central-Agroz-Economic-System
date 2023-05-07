@@ -29,15 +29,17 @@ const Header = () => {
   return (
     <div className="header-nav-bar">
       <Row>
-        <Col lg={3}>
+        <Col lg={1}>
           <a class="navbar-brand">
             <Link to={"/"}></Link>
           </a>
         </Col>
-        <Col lg={5}>
+        <Col lg={7}>
           <div className="herbcolab-title">
             <h1>Central Agroz Economic System</h1>
-            <p>"your trusted source for natural healing"</p>
+            <p>
+              "Pioneering a new era of agricultural development in Sri Lanka."
+            </p>
           </div>
         </Col>
         <Col lg={2} className="company-info-nav">
@@ -60,7 +62,11 @@ const Header = () => {
             </div>
             <div class="col-9">
               <h6>Address</h6>
-              <p>123, Main Street, New York, USA</p>
+              <p>
+                123, Main Street, Colombo 1,
+                <br />
+                Sri Lanka
+              </p>
             </div>
           </div>
         </Col>

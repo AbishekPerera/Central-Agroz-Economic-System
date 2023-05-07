@@ -4,6 +4,7 @@ import Footer from "../../components/Footer/Footer";
 import { Link } from "react-router-dom";
 import "./AboutUsPage.css";
 import AboutUsImg from "../../img/other comp/AboutUs2.jpeg";
+import {Alert} from "react-bootstrap";
 
 const AboutUsPage = () => {
   return (
@@ -40,75 +41,41 @@ const AboutUsPage = () => {
 
       {/* AboutUs Content      */}
       <div className="BackgroundAboutUs">
-        <div style={{ width: "90%", margin: "0 auto" }}>
-          <br />
-          <br />
-          <h1 style={{ textAlign: "left" }}>Our Story..</h1>
-          <p>
-            HerbCollab, was established in 1961 as a sole Proprietor business
-            entity by our Late founder Mr. Shirley Rodrigo, We are a chain
-            pharmacy with 7 outlets. HerbCollab, has served the nation for Over
-            3 Generations, with Prescription Medication, Preparation mixing
-            local Applications, supplying of Wheelchairs, Orthopaedic supports,
-            Home and professional medical Care equipment, Surgical consumable.
-          </p>
-          <p>
-            With present busy schedules and traffic situations to customers, we
-            have established our “Online Pharmacy” service. Customers can log in
-            to “HerbCollab” Upload the medical Prescription or buy home or
-            Professional Medical equipment Orthopaedic supports Wheel chairs,
-            from our “Pharmacy Online service”.
-          </p>
-          <p>
-            HerbCollab delivery service will send your order through our
-            experience qualified dispenser to your doorstep. Our team is trained
-            on Medicinal Product or prescription Advice and Explanation, Medical
-            Equipment Demonstration and installation.
-          </p>
+        <div style={{ width: "90%", margin: "0 auto" }}>        
+    <br/><br/>
+            <Alert variant="light"  style={{ width: '95%'  }}>
+              <Alert.Heading>What is Central Agroz Economic System ? </Alert.Heading>
+              <hr/><p><br/>
+              Central Agroz Economic System is a web-based platform designed to address the problems prevailing in the agriculture sector in Sri Lanka. The platform aims to provide a comprehensive solution by increasing productivity and efficiency in the sector through better coordination and communication between farmers, agricultural officers, economic centers, and customers.
+              <hr />
+              </p>
+            
+            </Alert>
+            <Alert variant="light" style={{ width: '95%' }}>
+              <Alert.Heading> Our Motive  </Alert.Heading>
+              <hr/><p><br/>
+              Our platform is designed to serve the needs of all registered farmers, agricultural officers, and economic centers in Sri Lanka. The platform's main objective is to establish an accurate database of all the farmers in the country, which will help the government and related authorities to identify the difficulties faced by farmers and ensure that they are addressed through monitoring. Additionally, the platform will provide a medium for farmers to sell their crops directly to customers without interference from intermediaries, thereby earning a fair and reasonable price for their produce.
+              </p>
+              <hr />
+            </Alert>
+            <Alert variant="light  "  style={{ width: '95%'  }}>
+              <Alert.Heading>Our Team </Alert.Heading>
+              <hr/><p><br/>
+              At Central Agroz, we have a dedicated team of professionals who are passionate about improving Sri Lanka's agriculture industry. Our team includes experts in the fields of agriculture, technology, data analysis, and marketing, who work together to develop and maintain our platform. We are committed to providing the best possible service to our clients and are always looking for ways to improve our system.        </p>
+            <hr/>
+            </Alert>
+            
+            <Alert variant="light"  style={{ width: '95%' }}>
+              <Alert.Heading>Our Vision </Alert.Heading>
+              <hr/><p><br/>
+              Our vision is to create a sustainable and profitable agriculture industry in Sri Lanka, where farmers can earn a fair price for their crops, and consumers can enjoy high-quality local produce. We believe that by connecting farmers directly with customers and improving coordination and communication within the industry, we can help reduce food waste, improve food security, and contribute to the country's economic growth. Our ultimate goal is to be the leading platform for agricultural trade in Sri Lanka and beyond, promoting transparency, efficiency, and sustainability.       
+              </p>
+              <hr/>
+            </Alert>
+                  
         </div>
 
-        {/* Second Paragraph */}
-        <div className="row ">
-          <div className="col-lg-7">
-            <div style={{ allign: "left", padding: "100px" }}>
-              <h4 style={{ color: "#003c1f" }}>Superior care</h4>
-              <p>
-                Our Ayurwedic pharmacies are well-equipped with modern
-                facilities that make use of the latest technological
-                advancements to ensure your comfort as well as best clinical
-                outcome. As an internationally accredited hospital chain, we
-                always remain mindful of the requirement to offer world class
-                services to you and your family. We’ve secured the services of
-                some of the country’s finest talent in the medical arena to
-                provide the best possible care and guidance to you. Our
-                aesthetically pleasing hospital interiors, were specifically
-                designed so to help you gain a sense of peace to help with the
-                healing process.
-              </p>
-              {/* <p>
-                        <strong>Our Services</strong>
-                      </p> */}
-              <h4 style={{ color: "#003c1f" }}>Our Services</h4>
-              <p>
-                We take care of your preventive and curative healthcare
-                requirements at our state-of-the-art facilities. Collectively,
-                our hospitals can accommodate 190 in-house patients where you
-                can be rest assured of receiving care on par with international
-                standards. Our island wide laboratory services network is
-                well-equipped with the cutting-edge technology, equipment and
-                skilled professionals to provide accurate diagnostic
-                investigations. We’ve purposely built our hospitals to align
-                with international standards and equipped each area with the
-                latest technological advancements. You can visit our Accident
-                and Emergency units any time during the day and night to receive
-                medical or surgical emergency care.
-              </p>
-            </div>
-          </div>
-          <div className="col-lg-5">
-            <img src={AboutUsImg} alt="register" className="AboutUsimg" />
-          </div>
-        </div>
+       
       </div>
 
       {/* Element */}
@@ -121,17 +88,6 @@ const AboutUsPage = () => {
       >
         <div style={{ width: "55%", margin: "0 auto", textAlign: "center" }}>
           <div className="container">
-            {/* <div className="row"> */}
-            {/* <div className="col-md-5">
-                <h2 className="white" style={{ color: "#CDBE78" }}>
-                  HerbCollab:
-                  <br />
-                  Your destination for 
-                  <br />
-                  authentic Ayurvedic remedies
-                </h2>
-              </div> */}
-            {/* <div className="col-md-7"> */}
             <div className="contact-us d-blue-bg">
               <h4 className="green">
                 <Link
@@ -147,12 +103,12 @@ const AboutUsPage = () => {
                 </Link>
               </h4>
               <p style={{ color: "#F2F2F2" }}>
-                123, Main Street, New York, USA.
+                123, Main Street, Colombo 1, Sri Lanka.
               </p>
               <p style={{ color: "#F2F2F2" }}>
                 (+94) 031 223 7006 / (+94) 031 492 8922
               </p>
-              <p style={{ color: "#F2F2F2" }}>herbcollab@gmail.com</p>
+              <p style={{ color: "#F2F2F2" }}>centralagroz@gmail.com</p>
             </div>
             <div className="appointment-intro-btn">
               <Link
@@ -160,7 +116,7 @@ const AboutUsPage = () => {
                 style={{ color: "#CDBE78" }}
                 href="/"
               >
-                MAKE AN APPOINTMENT
+                " Pioneering a new era of agricultural developmeht in Sri Lanka "
               </Link>
             </div>
             {/* </div> */}
