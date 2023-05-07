@@ -3,8 +3,35 @@ import jwt from "jsonwebtoken";
 import dotenv from "dotenv";
 
 //register farmer
+import bcrypt from "bcrypt";
+
 export const registerEconomicCenter = async (req, res) => {
-  const newEconomicCenter = new EconomicCenter(req.body);
+  const {
+    ecoCenterName,
+    ecoCenterAddress,
+    province,
+    district,
+    phone,
+    officerName,
+    officerEmail,
+    officerContact,
+    officerAddress,
+    password,
+  } = req.body;
+  const saltRounds = 10;
+  const hashedPassword = await bcrypt.hash(password, saltRounds);
+  const newEconomicCenter = new EconomicCenter({
+    ecoCenterName,
+    ecoCenterAddress,
+    province,
+    district,
+    phone,
+    officerName,
+    officerEmail,
+    officerContact,
+    officerAddress,
+    password: hashedPassword,
+  });
   try {
     await newEconomicCenter.save();
     res.status(200).json(newEconomicCenter);
@@ -124,7 +151,9 @@ export const loginEconomicCenter = async (req, res) => {
       return res.status(404).json({ message: "Eco Center not found" });
     }
 
-    if (ecoCenter.password !== password) {
+    const match = await bcrypt.compare(password, ecoCenter.password);
+
+    if (!match) {
       return res.status(401).json({ message: "Invalid password" });
     }
 
