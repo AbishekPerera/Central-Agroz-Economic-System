@@ -28,14 +28,14 @@ const ProfileAdmin = () => {
         </div>
         <div className="content">
           <div className="update-agri-officer-details-body">
-            <h1>Supper Admin Profile</h1>
+            <h1>Super Admin Profile</h1>
             <br />
             <hr />
             <br />
             <Form>
               <div className="agri-officer-update-profile-picure text-center">
                 <img
-                  src="https://www.pngitem.com/pimgs/m/146-1468479_my-profile-icon-blank-profile-picture-circle-hd.png"
+                  src="https://avatars.githubusercontent.com/u/84265431?v=4"
                   alt="profile-pic"
                   style={{ width: "250px", height: "250px" }}
                 />
@@ -48,7 +48,7 @@ const ProfileAdmin = () => {
                     <Form.Control
                       disabled
                       type="text"
-                      placeholder="Enter Name"
+                      placeholder="Sunera Abishek"
                     />
                   </Form.Group>
                 </Col>
@@ -58,7 +58,7 @@ const ProfileAdmin = () => {
                     <Form.Control
                       disabled
                       type="email"
-                      placeholder="Enter Email"
+                      placeholder="abhishekperera77@gmail.com"
                     />
                   </Form.Group>
                 </Col>
@@ -70,7 +70,7 @@ const ProfileAdmin = () => {
                     <Form.Control
                       disabled
                       type="text"
-                      placeholder="Enter Phone"
+                      placeholder="0701273992"
                     />
                   </Form.Group>
                 </Col>
@@ -80,7 +80,7 @@ const ProfileAdmin = () => {
                     <Form.Control
                       disabled
                       type="text"
-                      placeholder="Enter Address"
+                      placeholder="123,Peralanda,Ragama"
                     />
                   </Form.Group>
                 </Col>
@@ -92,7 +92,7 @@ const ProfileAdmin = () => {
                     <Form.Control
                       disabled
                       type="text"
-                      placeholder="Enter Role"
+                      placeholder="Super Admin"
                     />
                   </Form.Group>
                 </Col>
@@ -102,7 +102,7 @@ const ProfileAdmin = () => {
                     <Form.Control
                       disabled
                       type="text"
-                      placeholder="Enter Image"
+                      placeholder="https://github.com/AbishekPerera/img/blob/main/avatar.png?raw=true"
                     />
                   </Form.Group>
                 </Col>

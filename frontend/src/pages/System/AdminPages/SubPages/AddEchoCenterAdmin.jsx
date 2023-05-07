@@ -68,7 +68,7 @@ const AddEchoCenterAdmin = () => {
       axios
         .post("http://localhost:8075/ecocenters/register", echoCenterAdmin)
         .then((res) => {
-          alert("Echo Center Admin Added");
+          alert("Eco Center Admin Added");
         })
         .catch((err) => {
           alert(err);
@@ -93,16 +93,16 @@ const AddEchoCenterAdmin = () => {
           <br />
 
           <div className="update-echo-center-details-body">
-            <h1>Create New Echonomic Center</h1>
+            <h1>Create New Economic Center</h1>
             <br />
             <hr />
             <Form onSubmit={submitHandler}>
               <Row>
                 <Col>
-                  <h3>Echonomic center informations</h3>
+                  <h3>Economic center informations</h3>
 
                   <Form.Group className="mb-3" controlId="formBasicCenterName">
-                    <Form.Label>Echo Center Name</Form.Label>
+                    <Form.Label>Eco Center Name</Form.Label>
                     <Form.Control
                       type="text"
                       placeholder="Enter Echo Center Name"
@@ -115,7 +115,7 @@ const AddEchoCenterAdmin = () => {
                     className="mb-3"
                     controlId="formBasicCenterAddress"
                   >
-                    <Form.Label>Echo Center Address</Form.Label>
+                    <Form.Label>Eco Center Address</Form.Label>
                     <Form.Control
                       as="textarea"
                       rows={3}

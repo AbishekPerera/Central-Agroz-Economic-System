@@ -34,19 +34,19 @@ const EchoCenterUpdateAdmin = () => {
           <br />
 
           <div className="update-echo-center-details-body">
-            <h1>Update Echonomic Center Details</h1>
+            <h1>Update Economic Center Details</h1>
             <br />
             <hr />
             <Form>
               <Row>
                 <Col>
-                  <h3>Echonomic center informations</h3>
+                  <h3>Economic center informations</h3>
 
                   <Form.Group className="mb-3" controlId="formBasicCenterName">
-                    <Form.Label>Echo Center Name</Form.Label>
+                    <Form.Label>Eco Center Name</Form.Label>
                     <Form.Control
                       type="text"
-                      placeholder="Enter Echo Center Name"
+                      placeholder="Enter Eco Center Name"
                       required
                     />
                   </Form.Group>
@@ -55,12 +55,12 @@ const EchoCenterUpdateAdmin = () => {
                     className="mb-3"
                     controlId="formBasicCenterAddress"
                   >
-                    <Form.Label>Echo Center Address</Form.Label>
+                    <Form.Label>Eco Center Address</Form.Label>
                     <Form.Control
                       as="textarea"
                       rows={3}
                       required
-                      placeholder="Enter Echo Center Address"
+                      placeholder="Enter Eco Center Address"
                     />
                   </Form.Group>
 
