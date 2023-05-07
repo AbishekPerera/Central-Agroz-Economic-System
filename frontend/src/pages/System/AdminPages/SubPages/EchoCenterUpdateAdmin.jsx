@@ -46,7 +46,7 @@ const EchoCenterUpdateAdmin = () => {
                     <Form.Label>Eco Center Name</Form.Label>
                     <Form.Control
                       type="text"
-                      placeholder="Enter Eco Center Name"
+                      placeholder="Jaffna Economic Center"
                       required
                     />
                   </Form.Group>
@@ -60,7 +60,7 @@ const EchoCenterUpdateAdmin = () => {
                       as="textarea"
                       rows={3}
                       required
-                      placeholder="Enter Eco Center Address"
+                      placeholder="Kankesanthurai Road, Kokuvil, Jaffna"
                     />
                   </Form.Group>
 
@@ -79,7 +79,7 @@ const EchoCenterUpdateAdmin = () => {
                           <option value="Eastern Province">
                             Eastern Province
                           </option>
-                          <option value="Northern Province">
+                          <option value="Northern Province" selected>
                             Northern Province
                           </option>
                           <option value="Southern Province">
@@ -117,7 +117,9 @@ const EchoCenterUpdateAdmin = () => {
                           <option value="Galle">Galle</option>
                           <option value="Gampaha">Gampaha</option>
                           <option value="Hambantota">Hambantota</option>
-                          <option value="Jaffna">Jaffna</option>
+                          <option value="Jaffna" selected>
+                            Jaffna
+                          </option>
                           <option value="Kalutara">Kalutara</option>
                           <option value="Kandy">Kandy</option>
                           <option value="Kegalle">Kegalle</option>
@@ -141,40 +143,34 @@ const EchoCenterUpdateAdmin = () => {
 
                   <Form.Group className="mb-3" controlId="formBasicEmail">
                     <Form.Label>Phone</Form.Label>
-                    <Form.Control type="text" placeholder="Enter Phone" />
+                    <Form.Control type="text" placeholder="0701273992" />
                   </Form.Group>
                 </Col>
                 <Col>
                   <h3>Officer informations</h3>
                   <Form.Group className="mb-3" controlId="formBasicEmail">
                     <Form.Label>Officer Name</Form.Label>
-                    <Form.Control
-                      type="text"
-                      placeholder="Enter Officer Name"
-                    />
+                    <Form.Control type="text" placeholder="Raj Kumar" />
                   </Form.Group>
 
                   <Form.Group className="mb-3" controlId="formBasicEmail">
                     <Form.Label>Officer Email</Form.Label>
                     <Form.Control
                       type="text"
-                      placeholder="Enter Officer Email"
+                      placeholder="rajkumar@company.com"
                     />
                   </Form.Group>
 
                   <Form.Group className="mb-3" controlId="formBasicEmail">
                     <Form.Label>Officer Contact</Form.Label>
-                    <Form.Control
-                      type="text"
-                      placeholder="Enter Officer Contact"
-                    />
+                    <Form.Control type="text" placeholder="0701234556" />
                   </Form.Group>
 
                   <Form.Group className="mb-3" controlId="formBasicEmail">
                     <Form.Label>Officer Address</Form.Label>
                     <Form.Control
                       type="text"
-                      placeholder="Enter Officer Address"
+                      placeholder="No. 123, Main Street, Jaffna"
                     />
                   </Form.Group>
                 </Col>

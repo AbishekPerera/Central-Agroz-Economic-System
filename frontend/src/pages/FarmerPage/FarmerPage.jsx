@@ -76,7 +76,7 @@ const FarmerPage = () => {
                 <Card style={{ width: "20rem" }}>
                   <Card.Img
                     variant="top"
-                    src="https://pbs.twimg.com/media/DysnslgV4AAEaER?format=jpg&name=4096x4096"
+                    src="https://lectura.press/media-storage/press_releases/rice_farmer_in_his_paddy_field_in_monaragala_sri_lanka(6ae).jpg"
                   />
                   <Card.Body>
                     <Card.Title>Ranil Wikkamasinghe</Card.Title>
@@ -133,7 +133,7 @@ const FarmerPage = () => {
                 <Card style={{ width: "20rem" }}>
                   <Card.Img
                     variant="top"
-                    src="https://3.bp.blogspot.com/-fBCclD78xLI/UpzOcqaR76I/AAAAAAAACU8/RYE_G8RHQuw/s1600/amuda-33000+%288%29.jpg"
+                    src="https://www.dailynews.lk/sites/default/files/news/2019/06/06/z_p02-Monsoon.jpg"
                   />
                   <Card.Body>
                     <Card.Title>Nandasena Rajapase</Card.Title>
