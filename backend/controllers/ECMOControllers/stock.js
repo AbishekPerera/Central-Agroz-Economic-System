@@ -113,7 +113,7 @@ export async function updateStockByID(req, res) {
     });
 }
 
-// Get stoc by date
+// Get stock by date
 export async function getStocksByDate(req, res) {
   try {
     const date = req.params.date;
