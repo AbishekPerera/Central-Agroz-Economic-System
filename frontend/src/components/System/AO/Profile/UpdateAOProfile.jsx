@@ -1,5 +1,6 @@
 import React from 'react';
-const ProfileAO = () => {
+
+const UpdateAOProfile = () => {
   return (
     <div className='AoProfileContainer'>
       <div class='container rounded bg-white mb-5'>
@@ -109,4 +110,4 @@ const ProfileAO = () => {
   );
 };
 
-export default ProfileAO;
+export default UpdateAOProfile;

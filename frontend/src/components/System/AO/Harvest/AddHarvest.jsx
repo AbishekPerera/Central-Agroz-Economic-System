@@ -44,20 +44,6 @@ const AddHarvest = () => {
                     </div>
                   </div>
 
-                  <div class='row align-items-center pt-4 pb-3'>
-                    <div class='required col-md-3 ps-5'>
-                      <label htmlFor='mb-0'>Crop</label>
-                    </div>
-                    <div class='col-md-9 pe-5'>
-                      <input
-                        id='crop'
-                        type='text'
-                        placeholder='Enter crop'
-                        class='form-control form-control-lg'
-                      />
-                    </div>
-                  </div>
-
                   <div class='row align-items-center py-3'>
                     <div class='notRequired col-md-3 ps-5'>
                       <label htmlFor='mb-0'>Season</label>
@@ -67,7 +53,6 @@ const AddHarvest = () => {
                         id='season'
                         type='text'
                         placeholder='Enter season'
-                        required
                         class='form-control form-control-lg'
                       />
                     </div>

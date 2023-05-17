@@ -28,7 +28,7 @@ const Sidebar = () => {
     <div className='main-container'>
       <div className='sidebar' id='side-nav'>
         <div className='header-box px-3 pt-3 pb-4 d-flex'>
-          <h1 className='sidebarTitle'>
+          <h1 className='sidebarTitle_ao'>
             <span className='text-white'>C A E S</span>
           </h1>
           <button className='btn d-md-none d-block close-btn px-2 py-0 text-white'>
@@ -37,7 +37,7 @@ const Sidebar = () => {
         </div>
 
         <div className='logoSideBar'>
-          <img className='imgLogoSideBar' src={Logo} alt='' />
+          <img className='imgLogoSideBar_ao' src={Logo} alt='' />
         </div>
         <br />
         <div>

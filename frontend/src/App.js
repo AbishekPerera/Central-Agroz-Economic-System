@@ -30,6 +30,7 @@ import StockTable from "./pages/System/ECMOPages/Stock/StockTable";
 import QuantityList from "./pages/System/ECMOPages/Stock/QuantityList";
 import DashboardECMO from "./pages/System/ECMOPages/DashboardECMO";
 import StockBuyerTable from "./pages/System/ECMOPages/Stock/StockBuyerTable ";
+import ProfileAOUpdate from './pages/System/AOPages/ProfileAOUpdate';
 import FarmerStatistics from './pages/System/FarmerPages/FarmerStatistics';
 
 
@@ -37,12 +38,15 @@ function App() {
   return (
     <div className='App'>
       <Routes>
+        {/* Agricultual Officer */}
         <Route path='/ao/login' element={<LoginAO />} />
         <Route path='/ao/dashboard' element={<DashboardAO />} />
         <Route path='/ao/register-farmer' element={<FarmersPg />} />
         <Route path='/ao/harvests' element={<HarvestAO />} />
         <Route path='/ao/fertilizers' element={<FertilizersAO />} />
         <Route path='/ao/profile' element={<ProfileAO />} />
+        <Route path='/ao/update-profile' element={<ProfileAOUpdate />} />
+
 
         <Route path="/" element={<HomePage />} />
         <Route path="/about" element={<AboutUsPage />} />
