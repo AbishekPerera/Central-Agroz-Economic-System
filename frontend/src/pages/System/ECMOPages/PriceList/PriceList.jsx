@@ -32,7 +32,7 @@ function PriceList() {
       setFormattedDate(formattedDate);
       console.log(formattedDate);
       const { data } = await axios.get(
-        `http://localhost:8075/priceList/allPrices/${formattedDate}`
+        `http://localhost:8075/priceList/allPrices`
       );
       setPrices(data);
     } catch (err) {
@@ -75,7 +75,7 @@ function PriceList() {
     }, {});
   };
 
-  const categoryWisePrices = groupPricesByCategory(prices.result);
+  const categoryWisePrices = groupPricesByCategory(prices);
 
   return (
     <div className="mainContainer">
