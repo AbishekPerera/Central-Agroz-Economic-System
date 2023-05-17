@@ -31,6 +31,8 @@ import QuantityList from "./pages/System/ECMOPages/Stock/QuantityList";
 import DashboardECMO from "./pages/System/ECMOPages/DashboardECMO";
 import StockBuyerTable from "./pages/System/ECMOPages/Stock/StockBuyerTable ";
 import ProfileAOUpdate from './pages/System/AOPages/ProfileAOUpdate';
+import FarmerStatistics from './pages/System/FarmerPages/FarmerStatistics';
+
 
 function App() {
   return (
@@ -79,6 +81,7 @@ function App() {
         <Route path="/system/farmer/profile" element={<FarmerProfile />} />
         <Route path="/system/farmer/publishproducts" element={<FarmerPublishProducts />} />
         <Route path="/system/farmer/viewall" element={<FarmerViewAll/>}/>
+        <Route path="/system/farmer/statistics" element={<FarmerStatistics/>}/>
       </Routes>
     </div>
   );

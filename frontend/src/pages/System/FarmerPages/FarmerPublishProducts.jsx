@@ -26,6 +26,7 @@ const FarmerPublishProducts = () => {
             <div className="row ">
               <div className="col-lg-12 col-md-3 col-sm-12 text-start registrationsidejpg"  
               style={{ backgroundImage: "url('https://img.freepik.com/free-photo/vegetables-arrangement-with-copy-space_23-2148949685.jpg?w=1380&t=st=1683237880~exp=1683238480~hmac=05a58bbf8d84cab41b6a501db6a3974fc023a5b5a85c7113c957db5e999c6b20')" ,
+              
               backgroundsize: "cover",
               backgroundrepeat: "no-repeat"}}>
                 <br />
@@ -185,6 +186,7 @@ const FarmerPublishProducts = () => {
                 Publish Product
               </button>
                 </form>
+              
               </div>
               {/* <div className="col-lg-2 col-md-3 col-sm-12 text-start registrationsidejpg2">
                 <Row><img src={PublishImg} alt="register" className="registerimg" /></Row>
