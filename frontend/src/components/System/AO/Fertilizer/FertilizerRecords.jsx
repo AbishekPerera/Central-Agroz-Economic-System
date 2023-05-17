@@ -1,5 +1,5 @@
 import React from 'react';
-import { tableCustomStyles } from '../Global/TableStyles/tableStyle.jsx';
+import { tableCustomStyles } from '../Global/TableStyles/tableRecordStyles.jsx';
 import DataTable from 'react-data-table-component';
 import FertilizerData from './FertilizerData.json';
 
@@ -14,6 +14,7 @@ const FertilizerRecords = () => {
       name: '#',
       selector: (row) => row.id,
       sortable: true,
+      width: '50px',
     },
     {
       name: 'Name',
@@ -36,7 +37,7 @@ const FertilizerRecords = () => {
       sortable: true,
     },
     {
-      name: 'Quantity',
+      name: 'Quantity(kg)',
       selector: (row) => row.quantity,
       sortable: true,
     },

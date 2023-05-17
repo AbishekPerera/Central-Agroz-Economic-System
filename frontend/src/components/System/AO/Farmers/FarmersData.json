@@ -1,48 +1,35 @@
 {
     "farmers": [
       {
-        "username": "john123",
-        "fullName": "John Doe",
-        "address": "123 Main Street",
-        "phone": "555-555-5555",
-        "division": "Dhaka",
-        "district": "Dhaka",
+        "username": "kamal_bandara",
+        "fullName": "Kamal Bandara",
+        "address": "No 164, Weliwa, Matara",
+        "phone": "0710418465",
+        "division": "Weliwa",
+        "district": "Matara",
         "cropType": "Rice",
-        "notes": "Likes to plant organic crops",
+        "notes": "Owns 31ha of paddy fiels. Has been cultivating paddy for more than 30 years.",
         "password": "password123"
       },
       {
-        "username": "jane456",
-        "fullName": "Jane Smith",
-        "address": "456 Elm Street",
-        "phone": "555-555-5556",
-        "division": "Chittagong",
-        "district": "Chittagong",
-        "cropType": "Wheat",
-        "notes": "Prefers to grow crops without pesticides",
+        "username": "sunil65",
+        "fullName": "Sunil Dissanayake",
+        "address": "No 564, Weliwa, Matara",
+        "phone": "0710418465",
+        "division": "Weliwa",
+        "district": "Matara",
+        "cropType": "Vegetables",
         "password": "password456"
       },
       {
-        "username": "bob789",
-        "fullName": "Bob Johnson",
-        "address": "789 Oak Street",
-        "phone": "555-555-5557",
-        "division": "Rajshahi",
-        "district": "Rajshahi",
-        "cropType": "Maize",
-        "notes": "Has experience in growing different types of crops",
+        "username": "nimal_bandara",
+        "fullName": "Nimal Bandara",
+        "address": "No 784/B, Weliwa, Matara",
+        "phone": "0710418465",
+        "division": "Weliwa",
+        "district": "Matara",
+        "cropType": "Fruits",
         "password": "password789"
-      },
-      {
-        "username": "mary012",
-        "fullName": "Mary Lee",
-        "address": "012 Pine Street",
-        "phone": "555-555-5558",
-        "division": "Khulna",
-        "district": "Khulna",
-        "cropType": "Potato",
-        "notes": "Likes to experiment with different growing techniques",
-        "password": "password012"
       }
     ]
   }

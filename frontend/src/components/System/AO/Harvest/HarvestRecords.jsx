@@ -1,5 +1,5 @@
 import React from 'react';
-import { tableCustomStyles } from '../Global/TableStyles/tableStyle.jsx';
+import { tableCustomStyles } from '../Global/TableStyles/tableRecordStyles.jsx';
 import DataTable from 'react-data-table-component';
 import HarvestData from './HarvestData.json';
 
@@ -14,6 +14,7 @@ const HarvestRecords = () => {
       name: '#',
       selector: (row) => row.id,
       sortable: true,
+      width: '50px',
     },
     {
       name: 'Name',
@@ -24,29 +25,33 @@ const HarvestRecords = () => {
       name: 'Crop Type',
       selector: (row) => row.cropType,
       sortable: true,
+      width: '150px',
     },
     {
       name: 'Season',
       selector: (row) => row.season,
       sortable: true,
+      width: '100px',
     },
     {
       name: 'Year',
       selector: (row) => row.year,
       sortable: true,
+      width: '120px',
     },
     {
       name: 'Month',
       selector: (row) => row.month,
       sortable: true,
+      width: '120px',
     },
     {
-      name: 'Expected Harvest',
+      name: 'Expected Harvest(kg)',
       selector: (row) => row.expectedHarvest,
       sortable: true,
     },
     {
-      name: 'Actual Harvest',
+      name: 'Actual Harvest(kg)',
       selector: (row) => row.actualHarvest,
       sortable: true,
     },

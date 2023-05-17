@@ -15,7 +15,7 @@
   padding-left: 50px;
 }
 
-.imgLogoSideBar {
+.imgLogoSideBar_ao {
   height: 120px;
   width: 120px;
 }
@@ -42,7 +42,7 @@ hr.h-color {
   margin-bottom: 10px;
 }
 
-.sidebarTitle {
+.sidebarTitle_ao {
   color: #fff;
   font-size: 30px;
   font-weight: bold;
