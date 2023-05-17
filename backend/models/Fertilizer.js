@@ -30,4 +30,4 @@ const FertilizerSchema = new Schema(
   }
 );
 
-export const Fertilizer = mongoose.model('Harvest', FertilizerSchema);
+export const Fertilizer = mongoose.model('Fertilizer', FertilizerSchema);

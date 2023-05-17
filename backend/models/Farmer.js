@@ -39,7 +39,7 @@ const FarmerSchema = new Schema(
     },
     password: {
       type: String,
-      required: true,
+      required: false, //change this later
     },
   },
   {
