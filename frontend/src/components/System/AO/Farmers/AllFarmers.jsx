@@ -1,9 +1,26 @@
 import React from 'react';
 import DataTable from 'react-data-table-component';
 import { tableCustomStyles } from '../Global/TableStyles/tableStyle.jsx';
-import FarmersData from './FarmersData.json';
+import axios from 'axios';
 
 const AllFarmers = () => {
+  const [farmers, setFarmers] = React.useState([]);
+
+  const getAllFarmers = () => {
+    axios
+      .get('http://localhost:8075/ao/getfarmers')
+      .then((res) => {
+        setFarmers(res.data);
+      })
+      .catch((err) => {
+        alert(err.message);
+      });
+  };
+
+  React.useEffect(() => {
+    getAllFarmers();
+  }, []);
+
   const columns = [
     {
       name: 'Farmer',
@@ -48,7 +65,7 @@ const AllFarmers = () => {
       <DataTable
         customStyles={tableCustomStyles}
         columns={columns}
-        data={FarmersData.farmers}
+        data={farmers}
         pagination={true}
         paginationPerPage={5}
         paginationRowsPerPageOptions={[5, 10, 15, 20, 25, 30]}
