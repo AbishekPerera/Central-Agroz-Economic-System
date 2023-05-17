@@ -2,7 +2,7 @@ import React, { useEffect, useState } from "react";
 import Modal from "react-bootstrap/Modal";
 import axios from "axios";
 
-const AddPriceModal = ({ show, handleClose }) => {
+const AddPriceModal = ({ show, handleClose,setIsPriceUpdated }) => {
   const date = new Date();
   const formattedDate = date
     .toLocaleDateString("en-US", {
@@ -54,8 +54,9 @@ const AddPriceModal = ({ show, handleClose }) => {
         Price: inputs.Price,
       })
       .then((res) => {
-        alert("Price Addedd Successfully");
-        window.location.reload(false);
+        alert("Price Added Successfully");
+        setIsPriceUpdated(true);
+        handleClose();
       })
       .catch((error) => {
         alert(error);
