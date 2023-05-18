@@ -79,7 +79,7 @@ const AgriOfficerUpdateAdmin = () => {
                     <Form.Label>Name</Form.Label>
                     <Form.Control
                       type="text"
-                      placeholder="Enter Name"
+                      placeholder="Nimal Perera"
                       required
                     />
                   </Form.Group>
@@ -87,7 +87,7 @@ const AgriOfficerUpdateAdmin = () => {
                     <Form.Label>Email</Form.Label>
                     <Form.Control
                       type="email"
-                      placeholder="Enter Email"
+                      placeholder="nimalperera@example.com"
                       required
                     />
                   </Form.Group>
@@ -95,7 +95,7 @@ const AgriOfficerUpdateAdmin = () => {
                     <Form.Label>Contact</Form.Label>
                     <Form.Control
                       type="text"
-                      placeholder="Enter Contact"
+                      placeholder="070123445"
                       required
                     />
                   </Form.Group>
@@ -103,7 +103,7 @@ const AgriOfficerUpdateAdmin = () => {
                     <Form.Label>Address</Form.Label>
                     <Form.Control
                       type="text"
-                      placeholder="Enter Address"
+                      placeholder="No. 10, Kandy Road, Kadawatha"
                       required
                     />
                   </Form.Group>
@@ -114,7 +114,7 @@ const AgriOfficerUpdateAdmin = () => {
                     <Form.Label>Grama Niladari Division</Form.Label>
                     <Form.Control
                       type="text"
-                      placeholder="Enter Grama Niladari Division"
+                      placeholder="Makola South"
                       required
                     />
                   </Form.Group>
@@ -126,7 +126,7 @@ const AgriOfficerUpdateAdmin = () => {
                       >
                         <Form.Label>District</Form.Label>
                         <Form.Select required>
-                          <option value="">Choose...</option>
+                          <option value="">Gampaha</option>
                           {districts.map((district) => (
                             <option value={district}>{district}</option>
                           ))}
@@ -140,7 +140,7 @@ const AgriOfficerUpdateAdmin = () => {
                       >
                         <Form.Label>Province</Form.Label>
                         <Form.Select required>
-                          <option value="">Choose...</option>
+                          <option value="">Western</option>
                           {provinces.map((province) => (
                             <option value={province}>{province}</option>
                           ))}
@@ -162,7 +162,7 @@ const AgriOfficerUpdateAdmin = () => {
                     <Form.Label>Image</Form.Label>
                     <Form.Control
                       type="text"
-                      placeholder="Enter Image URL"
+                      placeholder="https://www.pngitem.com/pimgs/m/146-1468479_my-profile-icon-blank-profile-picture-circle-hd.png"
                       required
                     />
                   </Form.Group>

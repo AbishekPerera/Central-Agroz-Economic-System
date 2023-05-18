@@ -1,0 +1,60 @@
+.find-farmer-page-lowerbody {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.find-farmer-page-lowerbody-search-2 {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.find-farmer-page-lowerbody-search-2 input {
+  margin-bottom: 0;
+  border: 0;
+  -webkit-box-shadow: 0 1px 6px 0 rgba(32, 33, 36, 0.28);
+  box-shadow: 0 1px 6px 0 rgba(32, 33, 36, 0.28);
+  border-radius: 50px;
+  padding-left: 20px;
+  padding-right: 50px;
+  height: 45px;
+  width: 500px;
+}
+
+.find-farmer-page-lowerbody-search-2 button {
+  right: 0;
+  background-color: transparent;
+  color: gray;
+  height: 45px;
+  top: 0;
+  padding: 0 15px;
+  border: none;
+}
+
+.find-farmer-page-lowerbody-loadmore {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.find-farmer-page-lowerbody-loadmore button {
+  background-color: gray;
+  color: rgb(242, 250, 229);
+  height: 45px;
+  width: 200px;
+  border-radius: 50px;
+  top: 0;
+  padding: 0 15px;
+  border: none;
+}
+
+.ltn__breadcrumb-area-farmer {
+  background-color: #f4f4f4;
+  margin-bottom: 120px;
+  padding-top: 110px;
+  padding-bottom: 110px;
+  background-image: url(../../img/other\ comp/farmer.jpg);
+  background-repeat: no-repeat;
+  background-size: cover;
+}

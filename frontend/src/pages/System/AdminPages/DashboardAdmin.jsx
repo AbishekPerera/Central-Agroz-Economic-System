@@ -70,7 +70,7 @@ const DashboardAdmin = () => {
           <div className="admin-dashboard-graphes-1">
             <Row>
               <Col lg={6}>
-                <h4> Distribution of Echonomic centers </h4>
+                <h4> Distribution of Economic centers </h4>
                 <RadarChart
                   cx={300}
                   cy={250}
@@ -98,7 +98,7 @@ const DashboardAdmin = () => {
                     <thead>
                       <tr>
                         <th scope="col">Province</th>
-                        <th scope="col">Echo Centers</th>
+                        <th scope="col">Eco Centers</th>
                       </tr>
                     </thead>
                     <tbody>

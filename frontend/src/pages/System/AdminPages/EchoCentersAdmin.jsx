@@ -11,56 +11,154 @@ import { useNavigate } from "react-router-dom";
 const EchoCentersAdmin = () => {
   const [echoCenters, setEchoCenters] = useState([
     {
-      id: "EC001",
-      echo_name: "Echo Center 1",
-      echo_address: "No 1, Colombo Road, Colombo",
-      province: "Western",
-      district: "Colombo",
-      phone: "0112345678",
-      officer_name: "Asanka",
-      officer_email: "asa@aa.aa",
-      officer_contact: "0771234567",
-      officer_address: "No 1, Colombo Road, Colombo",
-      center_registered_date: "2021-09-01",
+      _id: "64575de3201b6a587daef125",
+      ecoCenterName: "Jaffna Economic Center",
+      ecoCenterAddress: "Kankesanthurai Road, Kokuvil, Jaffna",
+      province: "Northern",
+      district: "Jaffna",
+      phone: "+94 21 221 2212",
+      officerName: "Raj Kumar",
+      officerEmail: "rajkumar@company.com",
+      officerContact: "+94 77 111 2222",
+      officerAddress: "No. 123, Main Street, Jaffna",
+      createdAt: "2023-05-07T08:14:27.808Z",
+      updatedAt: "2023-05-07T08:14:27.808Z",
+      __v: 0,
     },
     {
-      id: "EC002",
-      echo_name: "Echo Center 2",
-      echo_address: "No 2, Colombo Road, Colombo",
-      province: "Western",
-      district: "Colombo",
-      phone: "0112345678",
-      officer_name: "Asanka",
-      officer_email: "bbb@bb.aa",
-      officer_contact: "0771234567",
-      officer_address: "No 2, Colombo Road, Colombo",
-      center_registered_date: "2021-09-01",
+      _id: "64575ded201b6a587daef127",
+      ecoCenterName: "Kurunegala Economic Center",
+      ecoCenterAddress: "Dambulla Road, Kurunegala",
+      province: "North Western",
+      district: "Kurunegala",
+      phone: "+94 37 223 2200",
+      officerName: "Mala Perera",
+      officerEmail: "malaperera@company.com",
+      officerContact: "+94 76 555 4444",
+      officerAddress: "No. 456, Negombo Road, Kurunegala",
+      createdAt: "2023-05-07T08:14:37.152Z",
+      updatedAt: "2023-05-07T08:14:37.152Z",
+      __v: 0,
     },
     {
-      id: "EC003",
-      echo_name: "Echo Center 3",
-      echo_address: "No 3, Colombo Road, Colombo",
-      province: "Western",
-      district: "Colombo",
-      phone: "0112345678",
-      officer_name: "Asanka",
-      officer_email: "asa@aa.aa",
-      officer_contact: "0771234567",
-      officer_address: "No 3, Colombo Road, Colombo",
-      center_registered_date: "2021-09-01",
+      _id: "64575df4201b6a587daef129",
+      ecoCenterName: "Anuradhapura Economic Center",
+      ecoCenterAddress: "Stage 2, Anuradhapura",
+      province: "North Central",
+      district: "Anuradhapura",
+      phone: "+94 25 223 3355",
+      officerName: "Sanath Fernando",
+      officerEmail: "sanathfernando@company.com",
+      officerContact: "+94 77 777 7777",
+      officerAddress: "No. 789, Mihintale Road, Anuradhapura",
+      createdAt: "2023-05-07T08:14:44.481Z",
+      updatedAt: "2023-05-07T08:14:44.481Z",
+      __v: 0,
     },
     {
-      id: "EC004",
-      echo_name: "Echo Center 4",
-      echo_address: "No 4, Colombo Road, Colombo",
+      _id: "64575dff201b6a587daef12b",
+      ecoCenterName: "Matara Economic Center",
+      ecoCenterAddress: "No. 13, Hakmana Road, Matara",
+      province: "Southern",
+      district: "Matara",
+      phone: "+94 41 223 4400",
+      officerName: "Samantha Silva",
+      officerEmail: "samanthasilva@company.com",
+      officerContact: "+94 76 333 2222",
+      officerAddress: "No. 456, Galle Road, Matara",
+      createdAt: "2023-05-07T08:14:55.441Z",
+      updatedAt: "2023-05-07T08:14:55.441Z",
+      __v: 0,
+    },
+    {
+      _id: "64575e11201b6a587daef12d",
+      ecoCenterName: "Badulla Economic Center",
+      ecoCenterAddress: "Bandarawela Road, Badulla",
+      province: "Uva",
+      district: "Badulla",
+      phone: "+94 55 223 1100",
+      officerName: "Chathura Fernando",
+      officerEmail: "chathurafernando@company.com",
+      officerContact: "+94 77 333 4444",
+      officerAddress: "No. 789, Kandy Road, Badulla",
+      createdAt: "2023-05-07T08:15:13.778Z",
+      updatedAt: "2023-05-07T08:15:13.778Z",
+      __v: 0,
+    },
+    {
+      _id: "64575e1a201b6a587daef12f",
+      ecoCenterName: "Batticaloa Economic Center",
+      ecoCenterAddress: "Trincomalee Road, Batticaloa",
+      province: "Eastern",
+      district: "Batticaloa",
+      phone: "+94 65 223 7700",
+      officerName: "Kamal Perera",
+      officerEmail: "kamalperera@company.com",
+      officerContact: "+94 76 888 9999",
+      officerAddress: "No. 456, Kallady Road, Batticaloa",
+      createdAt: "2023-05-07T08:15:22.049Z",
+      updatedAt: "2023-05-07T08:15:22.049Z",
+      __v: 0,
+    },
+    {
+      _id: "64575e22201b6a587daef131",
+      ecoCenterName: "Kandy Economic Center",
+      ecoCenterAddress: "Gannoruwa, Kundasale, Kandy",
+      province: "Central",
+      district: "Kandy",
+      phone: "+94 81 223 5500",
+      officerName: "Nishantha Rajapaksa",
+      officerEmail: "nishantharajapaksa@company.com",
+      officerContact: "+94 77 444 5555",
+      officerAddress: "No. 789, William Gopallawa Mawatha, Kandy",
+      createdAt: "2023-05-07T08:15:30.138Z",
+      updatedAt: "2023-05-07T08:15:30.138Z",
+      __v: 0,
+    },
+    {
+      _id: "64575e29201b6a587daef133",
+      ecoCenterName: "Galle Economic Center",
+      ecoCenterAddress: "Hapugala, Galle",
+      province: "Southern",
+      district: "Galle",
+      phone: "+94 91 223 9900",
+      officerName: "Lakshitha Perera",
+      officerEmail: "lakshithaperera@company.com",
+      officerContact: "+94 76 999 8888",
+      officerAddress: "No. 456, Matara Road, Galle",
+      createdAt: "2023-05-07T08:15:37.822Z",
+      updatedAt: "2023-05-07T08:15:37.822Z",
+      __v: 0,
+    },
+    {
+      _id: "64575e32201b6a587daef135",
+      ecoCenterName: "Ratnapura Economic Center",
+      ecoCenterAddress: "Kiriella Road, Ratnapura",
+      province: "Sabaragamuwa",
+      district: "Ratnapura",
+      phone: "+94 45 223 8800",
+      officerName: "Thilanka Silva",
+      officerEmail: "thilankasilva@company.com",
+      officerContact: "+94 77 222 1111",
+      officerAddress: "No. 789, Colombo Road, Ratnapura",
+      createdAt: "2023-05-07T08:15:46.085Z",
+      updatedAt: "2023-05-07T08:15:46.085Z",
+      __v: 0,
+    },
+    {
+      _id: "64575f60201b6a587daef137",
+      ecoCenterName: "Colombo Economic Center",
+      ecoCenterAddress: "No. 19, D.R. Wijewardena Mawatha, Colombo 10",
       province: "Western",
       district: "Colombo",
-      phone: "0112345678",
-      officer_name: "Asanka",
-      officer_email: "saa@aa.aa",
-      officer_contact: "0771234567",
-      officer_address: "No 4, Colombo Road, Colombo",
-      center_registered_date: "2021-09-01",
+      phone: "+94 11 268 5544",
+      officerName: "John Doe",
+      officerEmail: "johndoe@company.com",
+      officerContact: "+94 77 123 4567",
+      officerAddress: "No. 123, Galle Road, Colombo 03",
+      createdAt: "2023-05-07T08:20:48.491Z",
+      updatedAt: "2023-05-07T08:20:48.491Z",
+      __v: 0,
     },
   ]);
 
@@ -74,8 +172,10 @@ const EchoCentersAdmin = () => {
   const handleSearch = () => {
     const newData = echoCenters.filter(
       (center) =>
-        center.echo_name.toLowerCase().includes(searchInput.toLowerCase()) ||
-        center.id.toLowerCase().includes(searchInput.toLowerCase()) ||
+        center.ecoCenterName
+          .toLowerCase()
+          .includes(searchInput.toLowerCase()) ||
+        center._id.toLowerCase().includes(searchInput.toLowerCase()) ||
         center.province.toLowerCase().includes(searchInput.toLowerCase()) ||
         center.district.toLowerCase().includes(searchInput.toLowerCase())
     );
@@ -93,8 +193,8 @@ const EchoCentersAdmin = () => {
 
   const columns = [
     {
-      name: "Echo Center ID",
-      selector: (row) => row.id,
+      name: "Eco Center ID",
+      selector: (row) => row._id,
       sortable: true,
     },
     {
@@ -102,12 +202,12 @@ const EchoCentersAdmin = () => {
       cell: (row) => (
         <div>
           <p>
-            <b>Echo Center Name: </b>
-            {row.echo_name}
+            <b>Eco Center Name: </b>
+            {row.ecoCenterName}
           </p>
           <p>
-            <b>Echo Center Address: </b>
-            {row.echo_address}
+            <b>Eco Center Address: </b>
+            {row.ecoCenterAddress}
           </p>
           <p>
             <b>Province: </b>
@@ -119,7 +219,7 @@ const EchoCentersAdmin = () => {
           </p>
         </div>
       ),
-      selector: (row) => row.echo_name,
+      selector: (row) => row.ecoCenterName,
       sortable: true,
     },
     {
@@ -129,7 +229,7 @@ const EchoCentersAdmin = () => {
     },
     {
       name: "Officer Email",
-      selector: (row) => row.officer_email,
+      selector: (row) => row.officerEmail,
       sortable: true,
     },
     {
@@ -146,7 +246,7 @@ const EchoCentersAdmin = () => {
           <Button
             variant="success"
             className="m-1"
-            onClick={() => history("/admin/echoCenters/" + row.id)}
+            onClick={() => history("/admin/echoCenters/" + row._id)}
           >
             <i class="bi bi-pencil-square"></i>
           </Button>
@@ -170,14 +270,14 @@ const EchoCentersAdmin = () => {
         </div>
         <div className="content">
           <div className="admin-pages-header-title">
-            <h3>Manage Echonomic Centers</h3>
+            <h3>Manage Economic Centers</h3>
           </div>
           <div className="manage-echo-center-boday">
             <Row>
               <Col lg={9}></Col>
               <Col lg={3}>
                 <Button onClick={() => history("/admin/addchoCenters")}>
-                  Add Echonomic Center
+                  Add Economic Center
                 </Button>
               </Col>
             </Row>
@@ -220,7 +320,7 @@ const EchoCentersAdmin = () => {
               id="VIEW-SINGLE-ECHONOMIC-CENTER"
               style={{ color: "#fff" }}
             >
-              {selectedEchoCenter.echo_name}
+              {selectedEchoCenter.ecoCenterName}
             </Modal.Title>
           </Modal.Header>
           <Modal.Body>
@@ -232,19 +332,19 @@ const EchoCentersAdmin = () => {
                   style={{ width: "100%", height: "200px", objectFit: "cover" }}
                 />
                 <div className="e-center-model-header-h4 p-3">
-                  <h4>Echonomic Center Details</h4>
+                  <h4>Economic Center Details</h4>
                 </div>
               </div>
               <div className="e-center-model-details p-3">
                 <Row>
                   <Col lg={6}>
                     <p>
-                      <b>Echo Center ID: </b>
-                      {selectedEchoCenter.id}
+                      <b>Eco Center ID: </b>
+                      {selectedEchoCenter._id}
                     </p>
                     <p>
-                      <b>Echo Center Address: </b>
-                      {selectedEchoCenter.echo_address}
+                      <b>Eco Center Address: </b>
+                      {selectedEchoCenter.ecoCenterAddress}
                     </p>
                     <p>
                       <b>Province: </b>
@@ -262,23 +362,23 @@ const EchoCentersAdmin = () => {
                   <Col lg={6}>
                     <p>
                       <b>Officer Name: </b>
-                      {selectedEchoCenter.officer_name}
+                      {selectedEchoCenter.officerName}
                     </p>
                     <p>
                       <b>Officer Email: </b>
-                      {selectedEchoCenter.officer_email}
+                      {selectedEchoCenter.officerEmail}
                     </p>
                     <p>
                       <b>Officer Contact: </b>
-                      {selectedEchoCenter.officer_contact}
+                      {selectedEchoCenter.officerContact}
                     </p>
                     <p>
                       <b>Officer Address: </b>
-                      {selectedEchoCenter.officer_address}
+                      {selectedEchoCenter.officerAddress}
                     </p>
                     <p>
                       <b>Registered Date: </b>
-                      {selectedEchoCenter.center_registered_date}
+                      {selectedEchoCenter.createdAt}
                     </p>
                   </Col>
                 </Row>
