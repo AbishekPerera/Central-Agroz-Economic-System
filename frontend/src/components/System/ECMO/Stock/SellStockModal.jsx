@@ -101,6 +101,7 @@ const SellStockModal = ({ show, handleClose, setIsStockUpdated }) => {
     Address: "",
     Item: [],
     Role: "Buyer",
+    Date: formatDate(new Date()),
   });
 
   console.log(inputs);
@@ -210,11 +211,15 @@ const SellStockModal = ({ show, handleClose, setIsStockUpdated }) => {
         const quantity = parseInt(item.Quantity);
 
         if (quantity > availableQuantity) {
-          errors[
-            `ItemQuantity${i}`
-          ] = `Quantity for ${item.Category}-${item.Type} should be less than or equal to ${availableQuantity} kg.`;
-        } else {
-          // reportData[`${item.Category}-${item.Type}`].soldQuantity += quantity;
+          if (availableQuantity === 0) {
+            errors[`ItemQuantity${i}`] = ` ${item.Type} not available`;
+          } else if (availableQuantity > 0) {
+            errors[
+              `ItemQuantity${i}`
+            ] = `Quantity for ${item.Type} should be less than or equal to ${availableQuantity} kg.`;
+          } else {
+            // reportData[`${item.Category}-${item.Type}`].soldQuantity += quantity;
+          }
         }
       }
     }

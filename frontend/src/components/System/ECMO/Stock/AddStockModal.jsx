@@ -232,11 +232,11 @@ const AddStockModal = ({ show, handleClose, setIsStockUpdated }) => {
         </div>
 
         <div className="form-group">
-          <label htmlFor="num-items">Number of Items:</label>
+          <label htmlFor="numItems">Number of Items:</label>
           <input
             type="number"
             className="form-control"
-            name="num-items"
+            name="numItems"
             min="1"
             max="10"
             value={numItems}
