@@ -2,9 +2,27 @@ import React from 'react';
 import { tableCustomStyles } from '../Global/TableStyles/tableRecordStyles.jsx';
 import DataTable from 'react-data-table-component';
 import FertilizerData from './FertilizerData.json';
+import axios from 'axios';
 
 const FertilizerRecords = () => {
-  const FertilizerDatas = FertilizerData.map((row, index) => ({
+  const [fertilizerData, setFertilizerData] = React.useState([]);
+
+  const getAllFertilizer = () => {
+    axios
+      .get('http://localhost:8075/ao/getfertilizers')
+      .then((res) => {
+        setFertilizerData(res.data);
+      })
+      .catch((err) => {
+        alert(err.message);
+      });
+  };
+
+  React.useEffect(() => {
+    getAllFertilizer();
+  }, []);
+
+  const fertilizerDatas = fertilizerData.map((row, index) => ({
     ...row,
     id: index + 1,
   }));
@@ -48,7 +66,7 @@ const FertilizerRecords = () => {
       <DataTable
         customStyles={tableCustomStyles}
         columns={columns}
-        data={FertilizerDatas}
+        data={fertilizerDatas}
         pagination={true}
         paginationPerPage={5}
         paginationRowsPerPageOptions={[5, 10, 15, 20, 25, 30]}

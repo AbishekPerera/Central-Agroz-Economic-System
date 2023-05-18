@@ -1,10 +1,28 @@
 import React from 'react';
 import { tableCustomStyles } from '../Global/TableStyles/tableRecordStyles.jsx';
 import DataTable from 'react-data-table-component';
-import HarvestData from './HarvestData.json';
+import axios from 'axios';
 
 const HarvestRecords = () => {
-  const HarvestDatas = HarvestData.map((row, index) => ({
+
+  const [harvest, setHarvest] = React.useState([]);
+
+  const getAllHarvest = () => {
+    axios
+      .get('http://localhost:8075/ao/getharvests')
+      .then((res) => {
+        setHarvest(res.data);
+      })
+      .catch((err) => {
+        alert(err.message);
+      });
+  };
+
+  React.useEffect(() => {
+    getAllHarvest();
+  }, []);
+
+  const harvests = harvest.map((row, index) => ({
     ...row,
     id: index + 1,
   }));
@@ -62,7 +80,7 @@ const HarvestRecords = () => {
       <DataTable
         customStyles={tableCustomStyles}
         columns={columns}
-        data={HarvestDatas}
+        data={harvests}
         pagination={true}
         paginationPerPage={5}
         paginationRowsPerPageOptions={[5, 10, 15, 20, 25, 30]}
