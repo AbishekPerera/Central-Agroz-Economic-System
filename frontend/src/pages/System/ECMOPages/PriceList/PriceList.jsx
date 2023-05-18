@@ -13,6 +13,8 @@ function PriceList() {
   const [selectedDate, setSelectedDate] = useState(new Date());
   const [showCalendar, setShowCalendar] = useState(false);
   const [formattedDate, setFormattedDate] = useState("");
+  const [search, setSearch] = useState("");
+  const [centerName, setCenterName] = useState("Kandy");
 
   const formatDate = (date) => {
     const originalDate = date
@@ -31,10 +33,14 @@ function PriceList() {
       const formattedDate = formatDate(date);
       setFormattedDate(formattedDate);
       console.log(formattedDate);
-      const { data } = await axios.get(
-        `http://localhost:8075/priceList/allPrices`
-      );
-      setPrices(data);
+      const { data } = await axios
+        .get(`http://localhost:8075/priceList/allPrices`)
+        .then((res) => {
+          const data = res.data;
+          console.log(data);
+
+          setPrices(data);
+        });
     } catch (err) {
       console.log(err);
     }
@@ -71,11 +77,16 @@ function PriceList() {
         groups[category] = groups[category] || [];
         groups[category].push(price);
       }
+      console.log(groups);
       return groups;
     }, {});
   };
 
   const categoryWisePrices = groupPricesByCategory(prices);
+
+  const handleSearch = (e) => {
+    setSearch(e.target.value);
+  };
 
   return (
     <div className="mainContainer">
@@ -121,52 +132,85 @@ function PriceList() {
                 </button>
               </div>
 
-              {Object.keys(categoryWisePrices).map((category) => (
-                <div key={category}>
-                  <h2 className="category-title">{category}</h2>
-                  <table className="price-table">
-                    <thead>
-                      <tr>
-                        <th className="type-header">Type</th>
-                        <th className="type-header">Image</th>
-                        <th className="type-header">Selling Price</th>
-                        <th className="type-header">Buying Price</th>
-                      </tr>
-                    </thead>
-                    <tbody>
-                      {categoryWisePrices[category].map((price) => (
-                        <tr key={price._id}>
-                          <td className="selling-price-cell">{price.Type}</td>
-                          <td className="selling-price-cell">
-                            <img
-                              src={price.Image}
-                              style={{ width: "50px", height: "50px" }}
-                            />
-                          </td>
-                          {price &&
-                            price.Price.filter((newPrice) => {
-                              return newPrice.Date === formattedDate;
-                            }).map((newPrice) => (
-                              <>
-                                <td
-                                  className="selling-price-cell"
-                                  key={newPrice._id}
-                                >
-                                  {newPrice.SellingPrice}
-                                </td>
-                                <td className="buying-price-cell">
-                                  {newPrice.BuyingPrice}
-                                </td>
-                              </>
-                            ))}
-                        </tr>
-                      ))}
-                    </tbody>
-                  </table>
-                </div>
-              ))}
+              <div
+                className="text-center mb-4"
+                style={{
+                  display: "flex",
+                  justifyContent: "center",
+                  alignItems: "center",
+                }}
+              >
+                <form className="example" style={{ maxWidth: "300px" }}>
+                  <input
+                    type="text"
+                    placeholder="Search.."
+                    name="search2"
+                    onChange={handleSearch}
+                  />
+                </form>
+              </div>
 
-              {Object.length === 0 && (
+              {Object.keys(categoryWisePrices).filter((category) =>
+                categoryWisePrices[category].some(
+                  (price) => price.CenterName === centerName
+                )
+              ).length > 0 ? (
+                Object.keys(categoryWisePrices).map((category) => (
+                  <div key={category}>
+                    <h2 className="category-title">{category}</h2>
+                    <table className="price-table">
+                      <thead>
+                        <tr>
+                          <th className="type-header">Type</th>
+                          <th className="type-header">Image</th>
+                          <th className="type-header">Buying Price</th>
+                          <th className="type-header">Selling Price</th>
+                        </tr>
+                      </thead>
+                      <tbody>
+                        {categoryWisePrices[category]
+                          .filter(
+                            (price) =>
+                              price.Type === search ||
+                              (price.Type &&
+                                price.Type.toLowerCase().includes(
+                                  search.toLowerCase()
+                                ))
+                          )
+                          .map((price) => (
+                            <tr key={price._id}>
+                              <td className="selling-price-cell">
+                                {price.Type}
+                              </td>
+                              <td className="selling-price-cell">
+                                <img
+                                  src={price.Image}
+                                  style={{ width: "50px", height: "50px" }}
+                                />
+                              </td>
+                              {price &&
+                                price.Price.filter((newPrice) => {
+                                  return newPrice.Date === formattedDate;
+                                }).map((newPrice) => (
+                                  <>
+                                    <td className="buying-price-cell">
+                                      Rs.{newPrice.BuyingPrice}
+                                    </td>
+                                    <td
+                                      className="selling-price-cell"
+                                      key={newPrice._id}
+                                    >
+                                      Rs. {newPrice.SellingPrice}
+                                    </td>
+                                  </>
+                                ))}
+                            </tr>
+                          ))}
+                      </tbody>
+                    </table>
+                  </div>
+                ))
+              ) : (
                 <div>
                   <p>No prices found for {selectedDate.toDateString()}</p>
                 </div>

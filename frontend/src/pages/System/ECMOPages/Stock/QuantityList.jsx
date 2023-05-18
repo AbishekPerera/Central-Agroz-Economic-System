@@ -7,94 +7,26 @@ import Sidebar from "../../../../components/System/ECMO/Sidebar/Sidebar";
 import NavBar from "../../../../components/System/ECMO/NavBar/NavBar";
 
 function QuantityList() {
-  const [quantities, setQuantities] = useState([]);
-  const [quantity, setQuantity] = useState([
-    {
-      _id: "1",
-      Category: "Fruits",
-      Type: "Apple",
-      BaughtQuantity: 2.5,
-      SoldQuantity: 1.5,
-      Date: "2023-05-01T00:00:00.000Z",
-    },
-    {
-      _id: "2",
-      Category: "Fruits",
-      Type: "Banana",
-      BaughtQuantity: 2.5,
-      SoldQuantity: 1.5,
-      Date: "2023-05-01T00:00:00.000Z",
-    },
-    {
-      _id: "3",
-      Category: "Vegetables",
-      Type: "Carrot",
-      BaughtQuantity: 2.5,
-      SoldQuantity: 1.5,
-      Date: new Date(),
-    },
-    {
-      _id: "4",
-      Category: "Vegetables",
-      Type: "Broccoli",
-      BaughtQuantity: 2.5,
-      SoldQuantity: 1.5,
-      Date: "2023-05-01T00:00:00.000Z",
-    },
-    {
-      _id: "5",
-      Category: "Fruits",
-      Type: "Apple",
-      BaughtQuantity: 2.5,
-      SoldQuantity: 1.5,
-      Date: "2023-05-02T00:00:00.000Z",
-    },
-    {
-      _id: "6",
-      Category: "Fruits",
-      Type: "Banana",
-      BaughtQuantity: 2.5,
-      SoldQuantity: 1.5,
-      Date: "2023-05-02T00:00:00.000Z",
-    },
-    {
-      _id: "7",
-      Category: "Vegetables",
-      Type: "Carrot",
-      BaughtQuantity: 2.5,
-      SoldQuantity: 1.5,
-      Date: "2023-05-02T00:00:00.000Z",
-    },
-    {
-      _id: "8",
-      Category: "Vegetables",
-      Type: "Broccoli",
-      BaughtQuantity: 2.5,
-      SoldQuantity: 1.5,
-      Date: "2023-05-02T00:00:00.000Z",
-    },
-  ]);
-
   const [selectedDate, setSelectedDate] = useState(new Date());
   console.log(selectedDate);
   const [showCalendar, setShowCalendar] = useState(false);
   const handleDateChange = (date) => {
     setSelectedDate(date);
-    setShowCalendar(false);
   };
+  const [centerName, setCenterName] = useState("Kandy");
+  const [search, setSearch] = useState("");
 
-  useEffect(() => {
-    async function fetchquantitys() {
-      try {
-        const res = await quantity.find({ Date: { $eq: selectedDate } });
-        setQuantities(res);
-      } catch (err) {
-        console.log(err);
-      }
-    }
+  const formatDate = (date) => {
+    const originalDate = date
+      .toLocaleDateString("en-US", {
+        year: "numeric",
+        month: "2-digit",
+        day: "2-digit",
+      })
+      .replace(/\//g, "-");
 
-    fetchquantitys();
-  }, [selectedDate]);
+    return originalDate;
+  };
 
   const handlePrevDay = () => {
     const prevDay = new Date(selectedDate);
@@ -108,50 +40,75 @@ function QuantityList() {
     setSelectedDate(nextDay);
   };
 
-  const [stock, setStock] = useState([]);
+  const [stocks, setStocks] = useState([]);
+  console.log(stocks);
+  const [reportData, setReportData] = useState([]);
 
   useEffect(() => {
-    const getStocks = async () => {
-      try {
-        const res = await axios
-          .get("http://localhost:8075/stock/AllStocks")
-          .then((res) => {
-            const data = res.data;
-            setStock(data);
-            console.log(data);
-          });
-      } catch (err) {
-        console.log(err);
-      }
+    const formattedDate = formatDate(selectedDate);
+
+    console.log(formattedDate);
+    const fetchStocks = async () => {
+      const response = await axios.get(
+        "http://localhost:8075/stock/AllStocks/" + formattedDate
+      );
+
+      setStocks(response.data.result);
     };
-    getStocks();
-  }, []);
 
-  const boughtItemsByCategory = {};
-  const soldItemsByCategory = {};
+    fetchStocks();
+  }, [selectedDate]);
 
-  stock.forEach((row) => {
-    const items = row.Item;
-    const role = row.role;
+  useEffect(() => {
+    const calculateReportData = () => {
+      const report = {};
 
-    items.forEach((item) => {
-      const category = item.Category;
-      const type = item.Type;
-      const quantity = item.Quantity;
+      stocks.forEach((stock) => {
+        const { Role, Item, CenterName } = stock;
 
-      const itemsByCategory =
-        role === "Seller" ? boughtItemsByCategory : soldItemsByCategory;
+        if (CenterName !== centerName) {
+          return;
+        }
 
-      if (!itemsByCategory[category]) {
-        itemsByCategory[category] = [];
-      }
+        Item.forEach((item) => {
+          const { Category, Type, Quantity } = item;
+          const key = `${Category}-${Type}`;
 
-      itemsByCategory[category].push({
-        Type: type,
-        Quantity: quantity,
+          if (!report[key]) {
+            report[key] = { boughtQuantity: 0, soldQuantity: 0 };
+          }
+
+          if (Role === "Seller") {
+            report[key].boughtQuantity += Quantity;
+          } else if (Role === "Buyer") {
+            report[key].soldQuantity += Quantity;
+          }
+        });
       });
-    });
-  });
+
+      const groupedReport = {};
+
+      Object.entries(report).forEach(
+        ([key, { boughtQuantity, soldQuantity }]) => {
+          const [category, type] = key.split("-");
+
+          if (!groupedReport[category]) {
+            groupedReport[category] = [];
+          }
+
+          groupedReport[category].push({ type, boughtQuantity, soldQuantity });
+        }
+      );
+
+      setReportData(groupedReport);
+    };
+
+    calculateReportData();
+  }, [stocks]);
+
+  const handleSearch = (e) => {
+    setSearch(e.target.value);
+  };
 
   return (
     <div className="mainContainer">
@@ -174,7 +131,7 @@ function QuantityList() {
                   Previous Day
                 </button>
                 <h2 className="text-center mb-4">
-                  quantity Details for {selectedDate.toDateString()}{" "}
+                  Quantity Details for {selectedDate.toDateString()}{" "}
                   <span
                     className="calendar-icon"
                     onClick={() => setShowCalendar(!showCalendar)}
@@ -196,43 +153,69 @@ function QuantityList() {
                   Next Day
                 </button>
               </div>
-              {Object.keys(boughtItemsByCategory, soldItemsByCategory).map(
-                (category) => (
-                  <div key={category}>
-                    <h2 className="category-title">{category}</h2>
-                    <table className="price-table">
-                      <thead>
-                        <tr>
-                          <th className="type-header">Type</th>
-                          <th className="selling-price-header">
-                            Baught Quantity
-                          </th>
-                          <th className="buying-price-header">Sold Quantity</th>
-                          <th className="buying-price-header">
-                            Available Quantity
-                          </th>
-                        </tr>
-                      </thead>
-                      <tbody>
-                        {boughtItemsByCategory[category].map((quantity) => (
-                          <tr key={quantity._id}>
-                            <td className="type-cell">{quantity.Type}</td>
-                            <td className="selling-quantity-cell">
-                              {quantity.SoldQuantity}
+              <div
+                className="text-center mb-4"
+                style={{
+                  display: "flex",
+                  justifyContent: "center",
+                  alignItems: "center",
+                }}
+              >
+                <form className="example" style={{ maxWidth: "300px" }}>
+                  <input
+                    type="text"
+                    placeholder="Search.."
+                    name="search2"
+                    onChange={handleSearch}
+                  />
+                </form>
+              </div>
+              {Object.entries(reportData).map(([category, data]) => (
+                <div key={category}>
+                  <h2 className="category-title">{category}</h2>
+                  <table className="price-table">
+                    <thead>
+                      <tr>
+                        <th className="type-header">Type</th>
+                        <th className="selling-price-header">
+                          Bought Quantity
+                        </th>
+                        <th className="buying-price-header">Sold Quantity</th>
+                        <th className="buying-price-header">
+                          Available Quantity
+                        </th>
+                      </tr>
+                    </thead>
+                    <tbody>
+                      {data
+                        .filter(
+                          ({ type }) =>
+                            type === search ||
+                            (type &&
+                              type.toLowerCase().includes(search.toLowerCase()))
+                        )
+                        .map(({ type, boughtQuantity, soldQuantity }) => (
+                          <tr key={`${category}-${type}`}>
+                            <td className="buying-price-cell">{type}</td>
+                            <td className="buying-price-cell">
+                              {boughtQuantity} kg
                             </td>
-                            <td className="buying-quantity-cell">
-                              {quantity.BaughtQuantity}
+                            <td className="buying-price-cell">
+                              {soldQuantity} kg
+                            </td>
+                            <td className="buying-price-cell">
+                              {boughtQuantity - soldQuantity} kg
                             </td>
                           </tr>
                         ))}
-                      </tbody>
-                    </table>
-                  </div>
-                )
-              )}
-              {quantities.length === 0 && (
+                    </tbody>
+                  </table>
+                </div>
+              ))}
+
+              {Object.entries(reportData).length === 0 && (
                 <div>
-                  <p>No quantities found for {selectedDate.toDateString()}</p>
+                  <p>No Quantities found for {selectedDate.toDateString()}</p>
                 </div>
               )}
             </div>
