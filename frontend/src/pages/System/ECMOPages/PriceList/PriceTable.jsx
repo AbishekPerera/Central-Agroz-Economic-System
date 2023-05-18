@@ -87,9 +87,11 @@ const PriceTable = () => {
       <div className="sidebar"></div>
       <Sidebar />
 
+      
       <div className="contentContainer">
-        <div className="systemNavBar"></div>
-        <NavBar />
+        <div className="systemNavBar">
+          <NavBar />
+        </div>
 
         <div className="content">
           <button
