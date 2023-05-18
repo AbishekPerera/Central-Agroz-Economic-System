@@ -136,7 +136,7 @@ const PriceTable = () => {
             id={id}
           />
 
-          <div class="container bg-white">
+          <div class="container  pricecontainer bg-white">
             <div class="row">
               {prices &&
                 prices

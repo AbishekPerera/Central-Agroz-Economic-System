@@ -152,14 +152,12 @@ function StockBuyerTable() {
 
           <div class="container bg-white">
             <div
-              className="calender"
               style={{ width: "98%", maxHeight: "500px", overflowY: "auto" }}
             >
               <table className="stock-table">
                 <thead>
                   <tr>
                     <th>Buyer Name</th>
-
                     <th>Mobile No</th>
                     <th>Address</th>
                     <th>No. of Items</th>
@@ -203,7 +201,9 @@ function StockBuyerTable() {
                                     </td>
                                     <td>
                                       {categoryData.items.map((item, index) => (
-                                        <div key={index}>{item.Quantity}</div>
+                                        <div key={index}>
+                                          {item.Quantity} kg
+                                        </div>
                                       ))}
                                     </td>
                                   </tr>

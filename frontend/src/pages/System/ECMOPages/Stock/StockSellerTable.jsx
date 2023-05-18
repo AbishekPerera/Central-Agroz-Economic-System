@@ -148,14 +148,13 @@ function StockSellerTable() {
 
           <div class="container bg-white">
             <div
-              className="calender"
               style={{ width: "98%", maxHeight: "500px", overflowY: "auto" }}
             >
               <table className="stock-table">
                 <thead>
                   <tr>
                     <th>Supplier Name</th>
-                    <th>Farmer ID</th>
+                    {/*<th>Farmer ID</th>*/}
                     <th>Mobile No</th>
                     <th>Address</th>
                     <th>No. of Items</th>
@@ -179,7 +178,7 @@ function StockSellerTable() {
                       .map((row, index) => (
                         <tr key={index}>
                           <td>{row.SupplierName}</td>
-                          <td>{row.FarmerID}</td>
+                          {/*<td>{row.FarmerID}</td>*/}
                           <td>{row.MobileNo}</td>
                           <td>{row.Address}</td>
                           <td>{row.NoOfItems}</td>
@@ -204,7 +203,7 @@ function StockSellerTable() {
                                         {categoryData.items.map(
                                           (item, index) => (
                                             <div key={index}>
-                                              {item.Quantity}
+                                              {item.Quantity} kg
                                             </div>
                                           )
                                         )}
