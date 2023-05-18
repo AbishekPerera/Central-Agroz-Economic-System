@@ -78,16 +78,8 @@ export async function deleteStockByID(req, res) {
 export async function updateStockByID(req, res) {
   const stockId = req.params.id;
   console.log(stockId);
-  const {
-    SupplierName,
-    FarmerID,
-    MobileNo,
-    Address,
-    NoOfItems,
-    Item,
-    Role,
-    Date,
-  } = req.body;
+  const { SupplierName, FarmerID, MobileNo, Address, NoOfItems, Item } =
+    req.body;
 
   const updateStock = {
     SupplierName,
@@ -96,8 +88,6 @@ export async function updateStockByID(req, res) {
     Address,
     NoOfItems,
     Item,
-    Role,
-    Date,
   };
 
   await stock
