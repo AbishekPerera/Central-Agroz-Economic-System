@@ -1,14 +1,13 @@
 import React, { useEffect, useState } from "react";
 import Modal from "react-bootstrap/Modal";
 import axios from "axios";
+import swal from "sweetalert";
 
-const AddStockModal = ({ show, handleClose }) => {
-  const [selectedDate, setSelectedDate] = useState(new Date());
-  const [formattedDate, setFormattedDate] = useState("");
+const AddStockModal = ({ show, handleClose, setIsStockUpdated }) => {
   const [categories, setCategories] = useState([]);
   const [category, setCategory] = useState("");
-
-  console.log(categories);
+  const [formErrors, setFormErrors] = useState({});
+  const [submitted, isSubmitted] = useState(false);
 
   const formatDate = (date) => {
     const originalDate = date
@@ -21,14 +20,13 @@ const AddStockModal = ({ show, handleClose }) => {
 
     return originalDate;
   };
+
   const date = formatDate(new Date());
-  const getCategoriesByDate = async (date) => {
+
+  const getCategories = async () => {
     try {
-      const formattedDate = formatDate(date);
-      setFormattedDate(formattedDate);
-      console.log(formattedDate);
       const { data } = await axios.get(
-        "http://localhost:8075/priceList/allPrices/" + formattedDate
+        "http://localhost:8075/priceList/allPrices"
       );
       setCategories(data);
     } catch (err) {
@@ -37,8 +35,8 @@ const AddStockModal = ({ show, handleClose }) => {
   };
 
   useEffect(() => {
-    getCategoriesByDate(selectedDate);
-  }, [selectedDate]);
+    getCategories();
+  }, []);
 
   const groupTypesByCategory = (data) => {
     if (!Array.isArray(data)) {
@@ -55,7 +53,7 @@ const AddStockModal = ({ show, handleClose }) => {
     }, {});
   };
 
-  const categoryWiseTypes = groupTypesByCategory(categories.result || []);
+  const categoryWiseTypes = groupTypesByCategory(categories || []);
 
   console.log(categoryWiseTypes);
 
@@ -63,7 +61,7 @@ const AddStockModal = ({ show, handleClose }) => {
 
   const [inputs, setInputs] = useState({
     CenterName: "Kandy",
-    SupplierName: " ",
+    SupplierName: "",
     FarmerID: "",
     MobileNo: "",
     Address: "",
@@ -103,29 +101,79 @@ const AddStockModal = ({ show, handleClose }) => {
     setCategory(e.target.value);
   };
 
+  const validate = (values) => {
+    const errors = {};
+
+    if (!values.SupplierName) {
+      errors.SupplierName = "Name is required";
+      console.log(errors.SupplierName);
+    }
+
+    if (!values.Address) {
+      errors.Address = "Address is required";
+    }
+
+    if (!values.MobileNo) {
+      errors.MobileNo = "Mobile Number is required";
+    } else if (values.MobileNo.length !== 10) {
+      errors.MobileNo = "Invalid MobileNo";
+    }
+
+    if (!numItems) {
+      errors.numItems = "Number of Items is required";
+    }
+
+    for (let i = 0; i < numItems; i++) {
+      const item = values.Item[i];
+
+      if (!item || !item.Category) {
+        errors[`ItemCategory${i}`] = "Category is required";
+      }
+
+      if (!item || !item.Type) {
+        errors[`ItemType${i}`] = "Type is required";
+      }
+
+      if (!item || !item.Quantity) {
+        errors[`ItemQuantity${i}`] = "Quantity is required";
+      }
+    }
+
+    return errors;
+  };
+
   const handleSubmit = async (e) => {
     e.preventDefault();
 
-    await axios
-      .post("http://localhost:8075/stock/addStock", {
-        CenterName: inputs.CenterName,
-        SupplierName: inputs.SupplierName,
-        FarmerID: inputs.FarmerID,
-        MobileNo: inputs.MobileNo,
-        Address: inputs.Address,
-        NoOfItems: numItems,
-        Item: inputs.Item,
-        Role: inputs.Role,
-        Date: inputs.Date,
-      })
-      .then((res) => {
-        alert("Stock Added Successfully");
-        window.location.reload(false);
-      })
-      .catch((error) => {
-        alert(error);
-      });
+    const errors = validate(inputs);
+    setFormErrors(errors);
+    isSubmitted(true);
   };
+
+  useEffect(() => {
+    if (Object.keys(formErrors).length === 0 && submitted) {
+      axios
+        .post("http://localhost:8075/stock/addStock", {
+          CenterName: inputs.CenterName,
+          SupplierName: inputs.SupplierName,
+          FarmerID: inputs.FarmerID,
+          MobileNo: inputs.MobileNo,
+          Address: inputs.Address,
+          NoOfItems: numItems,
+          Item: inputs.Item,
+          Role: inputs.Role,
+          Date: inputs.Date,
+        })
+        .then((res) => {
+          swal("Stock Bought Successfully");
+          setIsStockUpdated(true);
+          handleClose();
+        })
+        .catch((error) => {
+          swal(error);
+        });
+    }
+  }, [formErrors, submitted]);
 
   return (
     <Modal show={show} onHide={handleClose}>
@@ -143,6 +191,9 @@ const AddStockModal = ({ show, handleClose }) => {
             onChange={handleChange}
             required
           />
+          <p class="error" name="SupplierName" Value={formErrors.SupplierName}>
+            {formErrors.SupplierName}
+          </p>
         </div>
         <p>If Registered Farmer:</p>
         <div className="form-group">
@@ -163,6 +214,9 @@ const AddStockModal = ({ show, handleClose }) => {
             name="Address"
             onChange={handleChange}
           />
+          <p class="error" name="Address" Value={formErrors.Address}>
+            {formErrors.Address}
+          </p>
         </div>
         <div className="form-group">
           <label htmlFor="farmer-id">Mobile Number: </label>
@@ -172,6 +226,9 @@ const AddStockModal = ({ show, handleClose }) => {
             name="MobileNo"
             onChange={handleChange}
           />
+          <p class="error" name="MobileNo" Value={formErrors.MobileNo}>
+            {formErrors.MobileNo}
+          </p>
         </div>
 
         <div className="form-group">
@@ -186,6 +243,9 @@ const AddStockModal = ({ show, handleClose }) => {
             onChange={handleNumItemsChange}
             required
           />
+          <p class="error" name="numItems" Value={formErrors.numItems}>
+            {formErrors.numItems}
+          </p>
         </div>
 
         <fieldset className="items-fieldset">
@@ -210,6 +270,7 @@ const AddStockModal = ({ show, handleClose }) => {
                     </option>
                   ))}
                 </select>
+                <p className="error">{formErrors[`ItemCategory${i}`]}</p>
               </div>
 
               <div className="form-group">
@@ -217,10 +278,13 @@ const AddStockModal = ({ show, handleClose }) => {
                 <select
                   name="Type"
                   className="form-control"
+                  value={inputs.Item[i]?.Type || ""}
                   onChange={(e) => handleItemsChange(e, i)}
                   required
                 >
-                  <option value="">--Select Type--</option>
+                  <option value={inputs.Item[i]?.Type || ""}>
+                    {inputs.Item[i]?.Type || "--Select Type--"}
+                  </option>
                   {Array.isArray(categoryWiseTypes[category]) &&
                     categoryWiseTypes[category].map((type) => (
                       <option key={type.Type} value={type.Type}>
@@ -228,6 +292,8 @@ const AddStockModal = ({ show, handleClose }) => {
                       </option>
                     ))}
                 </select>
+
+                <p className="error">{formErrors[`ItemType${i}`]}</p>
               </div>
 
               <div className="form-group ">
@@ -242,6 +308,7 @@ const AddStockModal = ({ show, handleClose }) => {
                   max="10000"
                   required
                 />
+                <p className="error">{formErrors[`ItemQuantity${i}`]}</p>
               </div>
             </div>
           ))}

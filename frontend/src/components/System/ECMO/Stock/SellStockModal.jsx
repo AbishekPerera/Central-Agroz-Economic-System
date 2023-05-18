@@ -1,14 +1,13 @@
 import React, { useEffect, useState } from "react";
 import Modal from "react-bootstrap/Modal";
 import axios from "axios";
+import swal from "sweetalert";
 
-const SellStockModal = ({ show, handleClose }) => {
+const SellStockModal = ({ show, handleClose, setIsStockUpdated }) => {
   const [selectedDate, setSelectedDate] = useState(new Date());
-  const [formattedDate, setFormattedDate] = useState("");
-  const [categories, setCategories] = useState([]);
+  const [formErrors, setFormErrors] = useState({});
   const [category, setCategory] = useState("");
-
-  console.log(categories);
+  const [submitted, isSubmitted] = useState(false);
 
   const formatDate = (date) => {
     const originalDate = date
@@ -21,42 +20,75 @@ const SellStockModal = ({ show, handleClose }) => {
 
     return originalDate;
   };
-  const date = formatDate(new Date());
-  const getCategoriesByDate = async (date) => {
-    try {
-      const formattedDate = formatDate(date);
-      setFormattedDate(formattedDate);
-      console.log(formattedDate);
-      const { data } = await axios.get(
-        "http://localhost:8075/priceList/allPrices/" + formattedDate
-      );
-      setCategories(data);
-    } catch (err) {
-      console.log(err);
-    }
-  };
+
+  const [stock, setStock] = useState([]);
+  const [reportData, setReportData] = useState([]);
+  console.log(stock);
 
   useEffect(() => {
-    getCategoriesByDate(selectedDate);
+    const formattedDate = formatDate(selectedDate);
+
+    console.log(formattedDate);
+    const fetchStocks = async () => {
+      const response = await axios.get(
+        "http://localhost:8075/stock/AllStocks/" + formattedDate
+      );
+      setStock(response.data.result);
+    };
+
+    fetchStocks();
   }, [selectedDate]);
+
+  useEffect(() => {
+    const calculateReportData = () => {
+      const report = stock.reduce((acc, stock) => {
+        const { Role, Item } = stock;
+
+        Item.forEach((item) => {
+          const { Category, Type, Quantity } = item;
+          const key = `${Category}-${Type}`;
+
+          if (!acc[key]) {
+            acc[key] = { boughtQuantity: 0, soldQuantity: 0 };
+          }
+
+          if (Role === "Seller") {
+            acc[key].boughtQuantity += Quantity;
+          } else if (Role === "Buyer") {
+            acc[key].soldQuantity += Quantity;
+          }
+        });
+        setReportData(acc);
+        return acc;
+      }, {});
+    };
+
+    calculateReportData();
+  }, [stock]);
 
   const groupTypesByCategory = (data) => {
     if (!Array.isArray(data)) {
       console.log("Data is not an array");
       return {};
     }
-    return data.reduce((groups, type) => {
-      const category = type?.Category;
-      if (category) {
-        groups[category] = groups[category] || [];
-        groups[category].push(type);
-      }
+
+    return data.reduce((groups, stock) => {
+      stock.Item.forEach((item) => {
+        const { Category, Type } = item;
+
+        if (Category) {
+          groups[Category] = groups[Category] || [];
+          if (!groups[Category].includes(Type)) {
+            groups[Category].push(Type);
+          }
+        }
+      });
+
       return groups;
     }, {});
   };
 
-  const categoryWiseTypes = groupTypesByCategory(categories.result || []);
-
+  const categoryWiseTypes = groupTypesByCategory(stock || []);
   console.log(categoryWiseTypes);
 
   const [numItems, setNumItems] = useState(1);
@@ -69,7 +101,6 @@ const SellStockModal = ({ show, handleClose }) => {
     Address: "",
     Item: [],
     Role: "Buyer",
-    Date: date,
   });
 
   console.log(inputs);
@@ -85,6 +116,42 @@ const SellStockModal = ({ show, handleClose }) => {
     }));
   }
 
+  const handleCategoryChange = (e) => {
+    setCategory(e.target.value);
+  };
+
+  const handleSubmit = async (e) => {
+    e.preventDefault();
+
+    const errors = validate(inputs);
+    setFormErrors(errors);
+    isSubmitted(true);
+  };
+
+  useEffect(() => {
+    if (Object.keys(formErrors).length === 0 && submitted) {
+      axios
+        .post("http://localhost:8075/stock/addStock", {
+          CenterName: inputs.CenterName,
+          SupplierName: inputs.SupplierName,
+          MobileNo: inputs.MobileNo,
+          Address: inputs.Address,
+          NoOfItems: numItems,
+          Item: inputs.Item,
+          Role: inputs.Role,
+          Date: inputs.Date,
+        })
+        .then((res) => {
+          swal("Stock Bought Successfully");
+          setIsStockUpdated(true);
+          handleClose();
+        })
+        .catch((error) => {
+          swal(error);
+        });
+    }
+  }, [formErrors, submitted]);
+
   function handleItemsChange(e, index) {
     setInputs((prev) => {
       const updatedItems = [...prev.Item];
@@ -99,38 +166,66 @@ const SellStockModal = ({ show, handleClose }) => {
     });
   }
 
-  const handleCategoryChange = (e) => {
-    setCategory(e.target.value);
-  };
+  const validate = (values) => {
+    const errors = {};
 
-  const handleSubmit = async (e) => {
-    e.preventDefault();
+    if (!values.SupplierName) {
+      errors.SupplierName = "Name is required";
+      console.log(errors.SupplierName);
+    }
 
-    await axios
-      .post("http://localhost:8075/stock/addStock", {
-        CenterName: inputs.CenterName,
-        SupplierName: inputs.SupplierName,
-        FarmerID: inputs.FarmerID,
-        MobileNo: inputs.MobileNo,
-        Address: inputs.Address,
-        NoOfItems: numItems,
-        Item: inputs.Item,
-        Role: inputs.Role,
-        Date: inputs.Date,
-      })
-      .then((res) => {
-        alert("Stock Sold Successfully");
-        window.location.reload(false);
-      })
-      .catch((error) => {
-        alert(error);
-      });
+    if (!values.Address) {
+      errors.Address = "Address is required";
+    }
+
+    if (!values.MobileNo) {
+      errors.MobileNo = "Mobile Number is required";
+    } else if (values.MobileNo.length !== 10) {
+      errors.MobileNo = "Invalid MobileNo";
+    }
+
+    if (!numItems) {
+      errors.numItems = "Number of Items is required";
+    }
+
+    for (let i = 0; i < numItems; i++) {
+      const item = values.Item[i];
+
+      if (!item || !item.Category) {
+        errors[`ItemCategory${i}`] = "Category is required";
+      }
+
+      if (!item || !item.Type) {
+        errors[`ItemType${i}`] = "Type is required";
+      }
+
+      if (!item || !item.Quantity) {
+        errors[`ItemQuantity${i}`] = "Quantity is required";
+      } else {
+        const boughtQuantity =
+          reportData[`${item.Category}-${item.Type}`]?.boughtQuantity || 0;
+        const soldQuantity =
+          reportData[`${item.Category}-${item.Type}`]?.soldQuantity || 0;
+        const availableQuantity = boughtQuantity - soldQuantity;
+        const quantity = parseInt(item.Quantity);
+
+        if (quantity > availableQuantity) {
+          errors[
+            `ItemQuantity${i}`
+          ] = `Quantity for ${item.Category}-${item.Type} should be less than or equal to ${availableQuantity} kg.`;
+        } else {
+          // reportData[`${item.Category}-${item.Type}`].soldQuantity += quantity;
+        }
+      }
+    }
+
+    return errors;
   };
 
   return (
     <Modal show={show} onHide={handleClose}>
       <Modal.Header closeButton>
-        <Modal.Title>Buy Stock</Modal.Title>
+        <Modal.Title>Sell Stock</Modal.Title>
       </Modal.Header>
 
       <Modal.Body>
@@ -143,6 +238,10 @@ const SellStockModal = ({ show, handleClose }) => {
             onChange={handleChange}
             required
           />
+
+          <p class="error" name="SupplierName" Value={formErrors.SupplierName}>
+            {formErrors.SupplierName}
+          </p>
         </div>
 
         <div className="form-group">
@@ -153,6 +252,9 @@ const SellStockModal = ({ show, handleClose }) => {
             name="Address"
             onChange={handleChange}
           />
+          <p class="error" name="Address" Value={formErrors.Address}>
+            {formErrors.Address}
+          </p>
         </div>
         <div className="form-group">
           <label htmlFor="farmer-id">Mobile Number: </label>
@@ -162,6 +264,9 @@ const SellStockModal = ({ show, handleClose }) => {
             name="MobileNo"
             onChange={handleChange}
           />
+          <p class="error" name="MobileNo" Value={formErrors.MobileNo}>
+            {formErrors.MobileNo}
+          </p>
         </div>
 
         <div className="form-group">
@@ -176,6 +281,9 @@ const SellStockModal = ({ show, handleClose }) => {
             onChange={handleNumItemsChange}
             required
           />
+          <p class="error" name="numItems" Value={formErrors.numItems}>
+            {formErrors.numItems}
+          </p>
         </div>
 
         <fieldset className="items-fieldset">
@@ -200,26 +308,29 @@ const SellStockModal = ({ show, handleClose }) => {
                     </option>
                   ))}
                 </select>
+                <p className="error">{formErrors[`ItemCategory${i}`]}</p>
               </div>
 
               <div className="form-group">
-                <label htmlFor={`type-${i + 1}`}>Type:</label>
+                <label htmlFor={"type"}>Type:</label>
                 <select
                   name="Type"
                   className="form-control"
+                  value={inputs.Item[i]?.Type || ""}
                   onChange={(e) => handleItemsChange(e, i)}
                   required
                 >
-                  <option value="">--Select Type--</option>
-                  {Array.isArray(categoryWiseTypes[category]) &&
-                    categoryWiseTypes[category].map((type) => (
-                      <option key={type.Type} value={type.Type}>
-                        {type.Type}
-                      </option>
-                    ))}
+                  <option value={inputs.Item[i]?.Type || ""}>
+                    {inputs.Item[i]?.Type || "--Select Type--"}
+                  </option>
+                  {categoryWiseTypes[category]?.map((type) => (
+                    <option key={type} value={type}>
+                      {type}
+                    </option>
+                  ))}
                 </select>
+                <p className="error">{formErrors[`ItemType${i}`]}</p>
               </div>
-
               <div className="form-group ">
                 <label htmlFor="Quantity">Quantity:</label>
                 <input
@@ -232,6 +343,7 @@ const SellStockModal = ({ show, handleClose }) => {
                   max="10000"
                   required
                 />
+                <p className="error">{formErrors[`ItemQuantity${i}`]}</p>
               </div>
             </div>
           ))}
@@ -253,4 +365,5 @@ const SellStockModal = ({ show, handleClose }) => {
     </Modal>
   );
 };
+
 export default SellStockModal;
