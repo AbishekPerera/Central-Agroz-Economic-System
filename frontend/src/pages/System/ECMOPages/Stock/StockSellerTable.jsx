@@ -1,23 +1,30 @@
 import React, { useState, useEffect } from "react";
 import "./Styles/StockTable.css";
 import AddStockModal from "../../../../components/System/ECMO/Stock/AddStockModal";
-import UpdateStockModal from "../../../../components/System/ECMO/Stock/UpdateStockModal";
+import UpdateBuyStockModal from "../../../../components/System/ECMO/Stock/UpdateBuyStockModal";
 import Sidebar from "../../../../components/System/ECMO/Sidebar/Sidebar";
 import NavBar from "../../../../components/System/ECMO/NavBar/NavBar";
 import SystemFooter from "../../../../components/System/ECMO/Footer/SystemFooter";
 import axios from "axios";
+import swal from "sweetalert";
 
 function StockSellerTable() {
   const [showAddStockModal, setShowAddStockModal] = useState(false);
-  const [showUpdateStockModal, setShowUpdateStockModal] = useState(false);
+  const [showUpdateBuyStockModal, setShowUpdateBuyStockModal] = useState(false);
+  const [id, setID] = useState("");
+  const [stock, setStock] = useState([]);
+  const [isStockUpdated, setIsStockUpdated] = useState(false);
+  const [centerName, setCenterName] = useState("Kandy");
 
   const handleAddStockModalClose = () => setShowAddStockModal(false);
   const handleAddStockModalShow = () => setShowAddStockModal(true);
 
-  const handleUpdateStockModalClose = () => setShowUpdateStockModal(false);
-  const handleUpdateStockModalShow = () => setShowUpdateStockModal(true);
-
-  const [stock, setStock] = useState([]);
+  const handleUpdateBuyStockModalClose = () =>
+    setShowUpdateBuyStockModal(false);
+  const handleUpdateBuyStockModalShow = (id) => {
+    setShowUpdateBuyStockModal(true);
+    setID(id);
+  };
 
   useEffect(() => {
     const getStocks = async () => {
@@ -27,6 +34,7 @@ function StockSellerTable() {
           .then((res) => {
             const data = res.data;
             setStock(data);
+            setIsStockUpdated(false);
             console.log(data);
           });
       } catch (err) {
@@ -34,7 +42,7 @@ function StockSellerTable() {
       }
     };
     getStocks();
-  }, []);
+  }, [isStockUpdated]);
 
   const groupTypesByCategory = (data) => {
     if (!Array.isArray(data)) {
@@ -59,6 +67,34 @@ function StockSellerTable() {
     }));
   };
 
+  function DeleteStock(id) {
+    swal({
+      title: "Are you sure?",
+      text: "Once deleted, you will not be able to recover this record!",
+      icon: "warning",
+      buttons: true,
+      dangerMode: true,
+    }).then((willDelete) => {
+      if (willDelete) {
+        axios
+          .delete("http://localhost:8075/stock/delete/" + id)
+          .then((res) => {
+            setStock((stock) => stock.filter((_, i) => i !== id));
+            setIsStockUpdated(true);
+          })
+          .catch((err) => {
+            swal(err);
+          });
+      } else {
+        swal("Delete cancelled success!");
+      }
+    });
+  }
+
+  const [search, setSearch] = useState("");
+  const handleSearch = (e) => {
+    setSearch(e.target.value);
+  };
 
   return (
     <div className="mainContainer">
@@ -80,17 +116,41 @@ function StockSellerTable() {
             Buy Stock
           </button>
 
+          <div
+            className="text-center mb-4"
+            style={{
+              display: "flex",
+              justifyContent: "flex-end",
+              alignItems: "center",
+            }}
+          >
+            <form className="example" style={{ maxWidth: "300px" }}>
+              <input
+                type="text"
+                placeholder="Search.."
+                name="search2"
+                onChange={handleSearch}
+              />
+            </form>
+          </div>
+
           <AddStockModal
             show={showAddStockModal}
             handleClose={handleAddStockModalClose}
+            setIsStockUpdated={setIsStockUpdated}
           />
-          <UpdateStockModal
-            show={showUpdateStockModal}
-            handleClose={handleUpdateStockModalClose}
+          <UpdateBuyStockModal
+            show={showUpdateBuyStockModal}
+            handleClose={handleUpdateBuyStockModalClose}
+            id={id}
+            setIsStockUpdated={setIsStockUpdated}
           />
 
           <div class="container bg-white">
-            <div className="table-container">
+            <div
+              className="calender"
+              style={{ width: "98%", maxHeight: "500px", overflowY: "auto" }}
+            >
               <table className="stock-table">
                 <thead>
                   <tr>
@@ -107,7 +167,15 @@ function StockSellerTable() {
                 <tbody>
                   {stock &&
                     stock
-                      .filter((row) => row.Role === "Seller")
+                      .filter(
+                        (row) =>
+                          row.Role === "Seller" &&
+                          row.CenterName === centerName &&
+                          (row.SupplierName === search ||
+                            row.SupplierName.toLowerCase().includes(
+                              search.toLowerCase()
+                            ))
+                      )
                       .map((row, index) => (
                         <tr key={index}>
                           <td>{row.SupplierName}</td>
@@ -152,11 +220,16 @@ function StockSellerTable() {
                             <button
                               className="btn btn-success seller-modal-button"
                               style={{ marginRight: "10px" }}
-                              onClick={handleUpdateStockModalShow}
+                              onClick={() =>
+                                handleUpdateBuyStockModalShow(row._id)
+                              }
                             >
                               <span class="bi bi-pen"></span>
                             </button>
-                            <button className="btn btn-danger delete-seller-button">
+                            <button
+                              className="btn btn-danger delete-seller-button"
+                              onClick={() => DeleteStock(row._id)}
+                            >
                               <span class="bi bi-trash"></span>
                             </button>
                           </td>
