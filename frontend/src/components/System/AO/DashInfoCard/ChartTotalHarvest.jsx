@@ -5,23 +5,23 @@ const ChartTotalHarvest = () => {
   const data = [
     {
       name: 'January',
-      harvest: 4500,
+      harvest: 238,
     },
     {
       name: 'February',
-      harvest: 2000,
+      harvest: 302,
     },
     {
       name: 'March',
-      harvest: 2100,
+      harvest: 158,
     },
     {
       name: 'April',
-      harvest: 500,
+      harvest: 450,
     },
     {
       name: 'May',
-      harvest: 2700,
+      harvest: 210,
     },
     {
       name: 'June',
@@ -75,7 +75,7 @@ const ChartTotalHarvest = () => {
   return (
     <div>
       <BarChart
-        width={1000}
+        width={1100}
         height={350}
         data={data}
         margin={{

@@ -1,31 +1,24 @@
 [
     {
-      "farmerUsername": "johndoe",
+      "farmerUsername": "nimal_bandara",
       "fertilizerType": "Nitrogen",
-      "year": 2022,
-      "month": "January",
-      "quantity": "10 bags"
+      "year": 2023,
+      "month": "May",
+      "quantity": "50"
     },
     {
-      "farmerUsername": "janedoe",
+      "farmerUsername": "kamal_bandara",
       "fertilizerType": "Phosphorus",
-      "year": 2022,
-      "month": "February",
-      "quantity": "8 bags"
-    },
-    {
-      "farmerUsername": "johndoe",
-      "fertilizerType": "Potassium",
-      "year": 2022,
-      "month": "March",
-      "quantity": "12 bags"
-    },
-    {
-      "farmerUsername": "janedoe",
-      "fertilizerType": "Nitrogen",
-      "year": 2022,
+      "year": 2023,
       "month": "April",
-      "quantity": "6 bags"
+      "quantity": "25"
+    },
+    {
+      "farmerUsername": "kamal_bandara",
+      "fertilizerType": "Potassium",
+      "year": 2023,
+      "month": "February",
+      "quantity": "30"
     }
   ]
   

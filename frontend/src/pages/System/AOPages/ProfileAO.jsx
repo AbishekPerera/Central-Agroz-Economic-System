@@ -3,6 +3,8 @@ import Sidebar from '../../../components/System/AO/Global/Sidebar/Sidebar';
 import NavBar from '../../../components/System/AO/Global/NavBar/NavBar';
 import SystemFooter from '../../../components/System/AO/Global/Footer/SystemFooter';
 import './styles/ProfileAO.css';
+import ProfileAOUpdate from './ProfileAOUpdate';
+import { Link } from 'react-router-dom';
 
 const ProfileAO = () => {
   return (
@@ -70,13 +72,24 @@ const ProfileAO = () => {
                       </div>
                     </div>
                   </div>
+                  <div className='profileEditAO'>
+                    <span>
+                      <button class='button-18' onClick=''>
+                        Edit Profile
+                      </button>
+                    </span>
+                  </div>
                 </div>
               </div>
             </div>
           </div>
         </div>
         <br />
-        <SystemFooter />
+        <div
+          className='AOHarvestFooter'
+          style={{ position: 'absolute', bottom: '0', width: '100%' }}>
+          <SystemFooter />
+        </div>
       </div>
     </div>
   );
