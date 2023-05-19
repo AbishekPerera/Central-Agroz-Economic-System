@@ -134,7 +134,7 @@ const FarmerUpdateProduct = () => {
                   backgroundRepeat: "no-repeat",
                   backgroundSize: "cover",
                   backgroundImage:
-                    "url('https://img.freepik.com/free-photo/vegetables-arrangement-with-copy-space_23-2148949685.jpg?w=1380&t=st=1683237880~exp=1683238480~hmac=05a58bbf8d84cab41b6a501db6a3974fc023a5b5a85c7113c957db5e999c6b20')",
+                    "url('https://i.pinimg.com/564x/15/ca/2d/15ca2d7a48fb98900b981f73a9b1a30d.jpg')",
                 }}
               >
                 <br />
@@ -150,7 +150,7 @@ const FarmerUpdateProduct = () => {
                       id="type"
                       style={{ width: "50%" }}
                       onChange={(e) => setCropType(e.target.value)}
-                      defaultValue={cropType}
+                      value={cropType}
                     >
                       <option value="Fruits">Fruits</option>
                       <option value="Vegetables">Vegetables</option>
@@ -207,6 +207,21 @@ const FarmerUpdateProduct = () => {
                     />
                   </div>
                   <div class="mb-3">
+                    <label for="date" class="form-label">
+                      Crop Status
+                    </label>
+                    <input
+                      required
+                      type="text"
+                      class="form-control"
+                      aria-describedby="dateHelp"
+                      placeholder="Enter the harvested date"
+                      style={{ width: "50%" }}
+                      onChange={(e) => setStatus(e.target.value)}
+                      defaultValue={status}
+                    />
+                  </div>
+                  <div class="mb-3">
                     <label for="location" class="form-label">
                       Available Location
                     </label>
@@ -233,7 +248,7 @@ const FarmerUpdateProduct = () => {
                       id="condition"
                       style={{ width: "50%" }}
                       onChange={(e) => setCondition(e.target.value)}
-                      defaultValue={condition}
+                      value={condition}
                     >
                       <option value="fresh">Fresh</option>
                       <option value="frozen">Frozen</option>
@@ -257,6 +272,7 @@ const FarmerUpdateProduct = () => {
                       defaultValue={harvestDate}
                     />
                   </div>
+
                   <div class="mb-3">
                     <label for="phone" class="form-label">
                       Contact Info
@@ -289,28 +305,11 @@ const FarmerUpdateProduct = () => {
                     </div>
                   </div>
 
-                  <div class="mb-3 form-check">
-                    <input
-                      required
-                      type="checkbox"
-                      class="form-check-input"
-                      id="exampleCheck1"
-                    />
-                    <label class="form-check-label" for="exampleCheck1">
-                      I agree that the provided details are true and accurate
-                    </label>
-                  </div>
-                  <div className="somethingwentwrong p-2">
-                    {/* {error && (
-                      <span style={{ color: "red" }}>
-                        Something went wrong! Please try again.
-                      </span>
-                    )} */}
-                  </div>
-
-                  <button type="submit" class="registerbtn btn btn-info">
-                    Publish Product
+                  <button type="submit" class="registerbtn btn btn-success">
+                    Update Product
                   </button>
+                  <br />
+                  <br />
                 </form>
               </div>
             </div>
