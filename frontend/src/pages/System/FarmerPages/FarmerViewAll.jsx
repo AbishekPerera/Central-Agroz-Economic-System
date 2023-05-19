@@ -123,7 +123,10 @@ const FarmerViewAll = () => {
   //get all crops
   const getAllCrops = () => {
     axios
-      .get("http://localhost:8075/farmerL/getallcrops")
+      .get(
+        "http://localhost:8075/farmerL/getallcropsbyfarmerid/" +
+          userData.data._id
+      )
       .then((res) => {
         setData(res.data);
         setFilteredData(res.data);
@@ -163,6 +166,16 @@ const FarmerViewAll = () => {
       }
     });
   };
+
+  const userData = JSON.parse(localStorage.getItem("farmerInfo"));
+
+  useEffect(() => {
+    const farmerInfo = localStorage.getItem("farmerInfo");
+    // console.log(farmerInfo);
+    if (farmerInfo === null) {
+      history("/system/farmer/login");
+    }
+  }, []);
 
   return (
     <div className="mainContainer">
