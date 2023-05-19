@@ -9,20 +9,20 @@ import SystemFooter from "../../../../components/System/ECMO/Footer/SystemFooter
 import swal from "sweetalert";
 
 function StockBuyerTable() {
+
+  const [id, setID] = useState("");
+ 
+  //get data from local storage as a string
+  const ecoInfo = localStorage.getItem("ecmoInfo");
+  //set data to local storage as a JSON object
+  const ecoInfo1 = JSON.parse(ecoInfo);
+
+  const centerName = ecoInfo1["ecoCenter"]["ecoCenterName"] || "Kandy";
+
   const [showSellStockModal, setShowSellStockModal] = useState(false);
   const [showUpdateSellStockModal, setShowUpdateSellStockModal] =
     useState(false);
-  const [id, setID] = useState("");
  
-    //get data from local storage as a string
-    const ecoInfo = localStorage.getItem("ecmoInfo");
-    //set data to local storage as a JSON object
-    const ecoInfo1 = JSON.parse(ecoInfo);
-  
-    const centerName = ecoInfo1["ecoCenter"]["ecoCenterName"] || "Kandy";
-  
- 
-
   const handleSellStockModalClose = () => setShowSellStockModal(false);
   const handleSellStockModalShow = () => setShowSellStockModal(true);
 
@@ -33,10 +33,13 @@ function StockBuyerTable() {
     setID(id);
   };
 
+
+
   const [stock, setStock] = useState([]);
 
   const [isStockUpdated, setIsStockUpdated] = useState(false);
 
+  //get Stocks
   useEffect(() => {
     const getStocks = async () => {
       try {
@@ -55,29 +58,46 @@ function StockBuyerTable() {
     getStocks();
   }, [isStockUpdated]);
 
+  //Group Types according to category
   const groupTypesByCategory = (data) => {
+
+    // Check if data is an array
     if (!Array.isArray(data)) {
       console.log("Data is not an array");
       return [];
     }
 
+     // Create an empty object to store the grouped types
     const groups = {};
+
+     // Create an empty object to store the grouped types
     data.forEach((type) => {
+
+      // Check if the category exists
       const category = type?.Category;
+
+      // Check if the category exists
       if (category) {
+
+         // If the category doesn't exist in the groups object, create an empty array for it
         if (!groups[category]) {
           groups[category] = [];
         }
+
+        // Push the type into the corresponding category array
         groups[category].push(type);
+
       }
     });
 
+    // Convert the groups object into an array of category-items pairs
     return Object.entries(groups).map(([category, items]) => ({
       category,
       items,
     }));
   };
 
+  
   function DeleteStock(id) {
     swal({
       title: "Are you sure?",

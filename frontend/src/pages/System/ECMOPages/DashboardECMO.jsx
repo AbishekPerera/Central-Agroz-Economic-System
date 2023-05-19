@@ -24,7 +24,9 @@ const DashboardECMO = () => {
 
   const [stocks, setStocks] = useState([]);
   const [reportData, setReportData] = useState([]);
-  console.log(reportData);
+
+  const [availableQuantitiesByCategory, setAvailableQuantitiesByCategory] =
+    useState([]);
 
   useEffect(() => {
     const fetchStocks = async () => {
@@ -37,17 +39,23 @@ const DashboardECMO = () => {
 
   const fetchQuantitiesAndReportData = async () => {
     try {
+      // Initialize empty objects to store updated quantities and report data
       const updatedAvailableQuantitiesByCategory = {};
       const updatedReportData = {};
 
+      // Iterate over each stock item
       stocks.forEach(({ Item, Role, Date, CenterName }) => {
+        // Check if the CenterName matches the provided centerName
         if (CenterName !== centerName) {
           return;
         }
 
+        // Iterate over each item within the stock
         Item.forEach(({ Category, Type, Quantity }) => {
+          // Create a unique key based on Category and Type
           const key = `${Category}-${Type}`;
 
+          // Retrieve or create categoryData object for the Category
           const categoryData = updatedAvailableQuantitiesByCategory[
             Category
           ] || {
@@ -57,6 +65,7 @@ const DashboardECMO = () => {
             availableQuantity: 0,
           };
 
+          // Update the quantities based on the Role
           if (Role === "Seller") {
             categoryData.boughtQuantity += Quantity;
             categoryData.availableQuantity += Quantity;
@@ -65,8 +74,10 @@ const DashboardECMO = () => {
             categoryData.availableQuantity -= Quantity;
           }
 
+          // Update the categoryData in the updatedAvailableQuantitiesByCategory object
           updatedAvailableQuantitiesByCategory[Category] = categoryData;
 
+          // Check if the key exists in the updatedReportData object, if not, create the entry
           if (!updatedReportData[key]) {
             updatedReportData[key] = {
               category: Category,
@@ -77,6 +88,7 @@ const DashboardECMO = () => {
             };
           }
 
+          // Update the report data based on the categoryData quantities
           updatedReportData[key].boughtQuantity += categoryData.boughtQuantity;
           updatedReportData[key].soldQuantity += categoryData.soldQuantity;
           updatedReportData[key].availableQuantity +=
@@ -84,11 +96,13 @@ const DashboardECMO = () => {
         });
       });
 
+      // Convert the updatedAvailableQuantitiesByCategory and updatedReportData objects to arrays
       const resultQuantities = Object.values(
         updatedAvailableQuantitiesByCategory
       );
       const resultReportData = Object.values(updatedReportData);
 
+      // Set the state with the updated quantities and report data
       setAvailableQuantitiesByCategory(resultQuantities);
       setReportData(resultReportData);
     } catch (error) {
@@ -97,11 +111,9 @@ const DashboardECMO = () => {
   };
 
   useEffect(() => {
+    // Call the fetchQuantitiesAndReportData function when stocks dependency changes
     fetchQuantitiesAndReportData();
   }, [stocks]);
-
-  const [availableQuantitiesByCategory, setAvailableQuantitiesByCategory] =
-    useState([]);
 
   return (
     <div className="mainContainer">
@@ -184,7 +196,7 @@ const DashboardECMO = () => {
                       <strong>Sold Quantity:</strong> {soldQuantity} kg
                     </div>
                     <div style={{ color: "black" }}>
-                      <strong>Available Quantity:</strong> {availableQuantity}kg
+                      <strong>Remaining Quantity:</strong> {availableQuantity}kg
                     </div>
                     <hr />
                   </li>

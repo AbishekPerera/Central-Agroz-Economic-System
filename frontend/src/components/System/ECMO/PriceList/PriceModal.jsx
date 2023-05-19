@@ -4,7 +4,7 @@ import "./Styles/PriceList.css";
 import DatePicker from "react-datepicker";
 import "react-datepicker/dist/react-datepicker.css";
 
-const PriceModal = ({centerName}) => {
+const PriceModal = ({ centerName }) => {
   const [prices, setPrices] = useState([]);
   console.log(prices);
   const [selectedDate, setSelectedDate] = useState(new Date());
@@ -12,7 +12,7 @@ const PriceModal = ({centerName}) => {
   const [formattedDate, setFormattedDate] = useState("");
   const [search, setSearch] = useState("");
 
-
+  //format date into yyyy-mm-dd format
   const formatDate = (date) => {
     const originalDate = date
       .toLocaleDateString("en-US", {
@@ -25,6 +25,7 @@ const PriceModal = ({centerName}) => {
     return originalDate;
   };
 
+  //get prices by date
   const getPricesByDate = async (date) => {
     try {
       const formattedDate = formatDate(date);
@@ -43,18 +44,23 @@ const PriceModal = ({centerName}) => {
     }
   };
 
+  //handle date change
   const handleDateChange = (date) => {
     setSelectedDate(date);
   };
 
+  //Set Prevous Day
   const handlePrevDay = () => {
     const prevDay = new Date(selectedDate);
+    //current date - 1
     prevDay.setDate(prevDay.getDate() - 1);
     setSelectedDate(prevDay);
   };
 
+  //Set Next Day
   const handleNextDay = () => {
     const nextDay = new Date(selectedDate);
+    //current date + 1
     nextDay.setDate(nextDay.getDate() + 1);
     setSelectedDate(nextDay);
   };
@@ -63,15 +69,21 @@ const PriceModal = ({centerName}) => {
     getPricesByDate(selectedDate);
   }, [selectedDate]);
 
+  //Get Prices according to category & type
   const groupPricesByCategory = (data) => {
+    //check data is an array
     if (!Array.isArray(data)) {
       console.log("Data is not an array");
       return {};
     }
+
+    // Reduce the data array to group prices by category
     return data.reduce((groups, price) => {
       const category = price?.Category;
       if (category) {
+        // Create an array for the category if it doesn't exist in the groups object
         groups[category] = groups[category] || [];
+        // Add the price to the corresponding category array
         groups[category].push(price);
       }
       console.log(groups);

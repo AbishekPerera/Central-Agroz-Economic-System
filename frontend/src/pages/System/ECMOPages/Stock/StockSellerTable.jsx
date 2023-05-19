@@ -50,23 +50,35 @@ function StockSellerTable() {
     getStocks();
   }, [isStockUpdated]);
 
+  //Groups stocks according to its Type and Category
   const groupTypesByCategory = (data) => {
+    //check is array
     if (!Array.isArray(data)) {
       console.log("Data is not an array");
       return [];
     }
 
+    //create empty groups object
     const groups = {};
+
+    // Iterate over each type in the data
     data.forEach((type) => {
+      // Get the category of the type
       const category = type?.Category;
+
+      //check category exist
       if (category) {
+        // Iterate over each type in the data
         if (!groups[category]) {
           groups[category] = [];
         }
+
+        // Push the type into the corresponding category array
         groups[category].push(type);
       }
     });
 
+    // Return an array of category-items pairs
     return Object.entries(groups).map(([category, items]) => ({
       category,
       items,

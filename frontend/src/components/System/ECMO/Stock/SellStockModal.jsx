@@ -31,6 +31,7 @@ const SellStockModal = ({ show, handleClose, setIsStockUpdated }) => {
   const [reportData, setReportData] = useState([]);
   console.log(stock);
 
+  //get stock by date according to center
   useEffect(() => {
     const formattedDate = formatDate(selectedDate);
 
@@ -45,38 +46,59 @@ const SellStockModal = ({ show, handleClose, setIsStockUpdated }) => {
     fetchStocks();
   }, [selectedDate]);
 
+
+
   useEffect(() => {
     const calculateReportData = () => {
+
+      // Check if stock is an array
       if (!Array.isArray(stock)) {
         console.log("Stock is not an array");
         return;
       }
+
+      //Calculate the qunatities by iterating over each stock item and its Item array.
       const report = stock.reduce((acc, stock) => {
+
+       // Extract the necessary properties from each stock.
         const { Role, Item } = stock;
 
+       
         Item.forEach((item) => {
+
+          // Extract the necessary properties from each Item.
           const { Category, Type, Quantity } = item;
+           //Create a unique key based on the Category and Type.
           const key = `${Category}-${Type}`;
 
+         // Create a unique key based on the Category and Type.
           if (!acc[key]) {
             acc[key] = { boughtQuantity: 0, soldQuantity: 0 };
           }
 
+          // Update the quantities based on the Role.
           if (Role === "Seller") {
             acc[key].boughtQuantity += Quantity;
           } else if (Role === "Buyer") {
             acc[key].soldQuantity += Quantity;
           }
         });
+
+        // Return the accumulator.
         setReportData(acc);
         return acc;
       }, {});
     };
 
+    //call the above function
     calculateReportData();
   }, [stock]);
 
+
+  //group types by category
   const groupTypesByCategory = (data) => {
+
+    //check is array
     if (!Array.isArray(data)) {
       console.log("Data is not an array");
       return {};
@@ -87,8 +109,12 @@ const SellStockModal = ({ show, handleClose, setIsStockUpdated }) => {
         const { Category, Type } = item;
 
         if (Category) {
+
+          /// Initialize the category array if it doesn't exist
           groups[Category] = groups[Category] || [];
           if (!groups[Category].includes(Type)) {
+
+            // Add the type to the category array if it's not already included
             groups[Category].push(Type);
           }
         }
