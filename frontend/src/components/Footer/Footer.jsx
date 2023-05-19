@@ -17,7 +17,10 @@ const Footer = () => {
                     <Link to="/system/farmer/login">Farmer Login</Link>
                   </li>
                   <li>
-                    <Link>Wish List</Link>
+                    <Link>Economic Center Login</Link>
+                  </li>
+                  <li>
+                    <Link to="/ao/login">Agricultural Officer Login</Link>
                   </li>
                   <li>
                     <Link to="/admin/login">System Login</Link>
