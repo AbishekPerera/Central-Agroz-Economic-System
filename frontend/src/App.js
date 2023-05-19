@@ -35,6 +35,7 @@ import FarmerStatistics from "./pages/System/FarmerPages/FarmerStatistics";
 
 import FarmerPage from "./pages/FarmerPage/FarmerPage";
 import AdminLogin from "./pages/System/AdminPages/AdminLogin";
+import FarmerUpdateProduct from "./pages/System/FarmerPages/FarmerUpdateProduct";
 
 function App() {
   return (
@@ -95,7 +96,10 @@ function App() {
           path="/system/farmer/publishproducts"
           element={<FarmerPublishProducts />}
         />
-        <Route path="/system/farmer/viewall" element={<FarmerViewAll />} />
+        <Route
+          path="/system/farmer/viewall/:cropId"
+          element={<FarmerUpdateProduct />}
+        />
       </Routes>
     </div>
   );

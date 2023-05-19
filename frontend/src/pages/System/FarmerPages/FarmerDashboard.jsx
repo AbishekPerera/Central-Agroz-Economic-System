@@ -1,4 +1,4 @@
-import React from 'react'
+import React, { useEffect } from 'react'
 import "./Styles/FarmerDashbord.css";
 import Sidebar from '../../../components/System/Farmer/Sidebar/Sidebar'
 import NavBar from '../../../components/System/Farmer/NavBar/NavBarFarmer'
@@ -17,8 +17,20 @@ import img9 from '../../../img/Farmer/dash6.jpg';
 // import img10 from '../../../img/Farmer/dash7.jpg';
 import { alignPropType } from 'react-bootstrap/esm/types';
 import {Alert} from "react-bootstrap";
+import { useNavigate } from 'react-router-dom';
 
 const FarmerDashboard = () => {
+  const history = useNavigate();
+  const userData = JSON.parse(localStorage.getItem("farmerInfo"));
+
+  useEffect(() => {
+    const farmerInfo = localStorage.getItem("farmerInfo");
+    // console.log(farmerInfo);
+    if (farmerInfo === null) {
+      history("/system/farmer/login");
+    }
+  }, []);
+
   return (
     <div className="mainContainer">
     <div className="sidebar">

@@ -73,7 +73,7 @@ const NewsPage = () => {
               <Card style={{ width: "25rem" }}>
                 <Card.Img
                   variant="top"
-                  src="https://i.pinimg.com/564x/1d/38/82/1d3882e44a28486e8103ef2c4fdfde1d.jpg"
+                  src="https://i.pinimg.com/564x/05/d2/bb/05d2bb98ade867c6564c9b011c589e6a.jpg"
                 />
                 <Card.Body>
                   <Card.Title>Sri Lanka experiences record-breaking rice harvest</Card.Title>
