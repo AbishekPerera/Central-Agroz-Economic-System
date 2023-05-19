@@ -1,8 +1,16 @@
 import React, { useEffect, useState } from "react";
 import Modal from "react-bootstrap/Modal";
 import axios from "axios";
+import swal from "sweetalert";
 
-const AddPriceModal = ({ show, handleClose,setIsPriceUpdated }) => {
+const AddPriceModal = ({ show, handleClose, setIsPriceUpdated }) => {
+
+      //get data from local storage as a string
+      const ecoInfo = localStorage.getItem("ecmoInfo");
+      //set data to local storage as a JSON object
+      const ecoInfo1 = JSON.parse(ecoInfo);
+    
+      const centerName = ecoInfo1["ecoCenter"]["ecoCenterName"] || "Kandy";
   const date = new Date();
   const formattedDate = date
     .toLocaleDateString("en-US", {
@@ -13,7 +21,6 @@ const AddPriceModal = ({ show, handleClose,setIsPriceUpdated }) => {
     .replace(/\//g, "-");
 
   const [inputs, setInputs] = useState({
-    CenterName: "Kandy",
     Category: "",
     Type: "",
     Image: "",
@@ -47,19 +54,19 @@ const AddPriceModal = ({ show, handleClose,setIsPriceUpdated }) => {
 
     await axios
       .post("http://localhost:8075/priceList/addStockPrice", {
-        CenterName: inputs.CenterName,
+        CenterName: centerName,
         Category: inputs.Category,
         Type: inputs.Type,
         Image: inputs.Image,
         Price: inputs.Price,
       })
       .then((res) => {
-        alert("Price Added Successfully");
+        swal("Price Added Successfully");
         setIsPriceUpdated(true);
         handleClose();
       })
       .catch((error) => {
-        alert(error);
+        swal(error);
       });
 
     handleClose();

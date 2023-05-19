@@ -11,6 +11,13 @@ import axios from "axios";
 import swal from "sweetalert";
 
 const PriceTable = () => {
+  //get data from local storage as a string
+  const ecoInfo = localStorage.getItem("ecmoInfo");
+  //set data to local storage as a JSON object
+  const ecoInfo1 = JSON.parse(ecoInfo);
+
+  const centerName = ecoInfo1["ecoCenter"]["ecoCenterName"] || "Kandy";
+
   const [id, setID] = useState("");
   const [showAddPriceModal, setShowAddPriceModal] = useState(false);
   const [showUpdatePriceModal, setShowUpdatePriceModal] = useState(false);
@@ -87,7 +94,6 @@ const PriceTable = () => {
       <div className="sidebar"></div>
       <Sidebar />
 
-      
       <div className="contentContainer">
         <div className="systemNavBar">
           <NavBar />
@@ -144,7 +150,7 @@ const PriceTable = () => {
                 prices
                   .filter(
                     (priceData) =>
-                      priceData.CenterName === "Kandy" &&
+                      priceData.CenterName === centerName &&
                       (priceData.Type === search ||
                         (priceData.Type &&
                           priceData.Type.toLowerCase().includes(
