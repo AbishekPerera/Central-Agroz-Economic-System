@@ -5,16 +5,16 @@ import NavBar from '../../../components/System/Farmer/NavBar/NavBarFarmer'
 import SystemFooter from '../../../components/System/Farmer/Footer/SystemFarmerFooter'
 import { Carousel } from 'react-bootstrap';
 
-import img1 from '../../../img/Farmer/sale (1).png';
-import img2 from '../../../img/Farmer/sale (2).png';
-import img3 from '../../../img/Farmer/sale (3).png';
+// import img1 from '../../../img/Farmer/sale (1).png';
+// import img2 from '../../../img/Farmer/sale (2).png';
+// import img3 from '../../../img/Farmer/sale (3).png';
 
 import img5 from '../../../img/Farmer/dash1.jpg';
 import img6 from '../../../img/Farmer/dash2.jpg';
-import img7 from '../../../img/Farmer/dash3.jpg';
+// import img7 from '../../../img/Farmer/dash3.jpg';
 import img8 from '../../../img/Farmer/dash4.jpg';
 import img9 from '../../../img/Farmer/dash6.jpg';
-import img10 from '../../../img/Farmer/dash7.jpg';
+// import img10 from '../../../img/Farmer/dash7.jpg';
 import { alignPropType } from 'react-bootstrap/esm/types';
 import {Alert} from "react-bootstrap";
 

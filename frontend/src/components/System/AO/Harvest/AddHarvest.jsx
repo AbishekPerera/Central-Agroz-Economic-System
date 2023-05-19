@@ -3,6 +3,9 @@ import '../Farmers/FarmerAddForm.css';
 import axios from 'axios';
 
 const AddHarvest = () => {
+  const ao = JSON.parse(localStorage.getItem('agriofficer'));
+  const aoId = ao['agriculturalOfficer']['id'];
+
   const [harvestData, setHarvestData] = React.useState({
     farmerUsername: '',
     cropType: '',
@@ -11,6 +14,7 @@ const AddHarvest = () => {
     month: '',
     expectedHarvest: '',
     actualHarvest: '',
+    aoId: aoId,
   });
 
   const handleChange = (e) => {
@@ -153,7 +157,7 @@ const AddHarvest = () => {
                     </div>
                     <div class='col-md-9 pe-5'>
                       <input
-                        id='expentedHarvest'
+                        id='expectedHarvest'
                         type='number'
                         placeholder='Enter expected harvest'
                         onChange={handleChange}

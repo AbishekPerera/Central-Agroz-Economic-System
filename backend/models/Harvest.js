@@ -32,6 +32,10 @@ const HarvestSchema = new Schema(
       type: Number,
       required: true,
     },
+    aoId: {
+      type: String,
+      required: true,
+    }
   },
   {
     timestamps: true,
