@@ -5,13 +5,19 @@ import FertilizerData from './FertilizerData.json';
 import axios from 'axios';
 
 const FertilizerRecords = () => {
+  const ao = JSON.parse(localStorage.getItem('agriofficer'));
+  const aoId = ao['agriculturalOfficer']['id'];
+
   const [fertilizerData, setFertilizerData] = React.useState([]);
 
   const getAllFertilizer = () => {
     axios
       .get('http://localhost:8075/ao/getfertilizers')
       .then((res) => {
-        setFertilizerData(res.data);
+        const filteredFertilizer = res.data.filter((fertilizer) => {
+          return fertilizer.aoId === aoId;
+        });
+        setFertilizerData(filteredFertilizer);
       })
       .catch((err) => {
         alert(err.message);

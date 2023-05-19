@@ -4,12 +4,16 @@ import axios from 'axios';
 
 const FertilizerDistribution = () => {
 
+  const ao = JSON.parse(localStorage.getItem('agriofficer'));
+  const aoId = ao['agriculturalOfficer']['id'];
+
   const [fertilizerData, setFertilizerData] = React.useState({
     farmerUsername: '',
     fertilizerType: '',
     year: '',
     month: '',
     quantity: '',
+    aoId: aoId,
   });
 
   const handleChange = (e) => {
