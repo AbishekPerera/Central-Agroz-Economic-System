@@ -10,7 +10,7 @@ const DashboardAO = () => {
   return (
     <div className='mainContainer'>
       <div className='sidebar'>
-        <Sidebar />
+        <Sidebar data-testid="sidebar" />
       </div>
 
       <div className='contentContainer'>

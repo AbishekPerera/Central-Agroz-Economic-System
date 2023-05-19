@@ -4,13 +4,20 @@ import { tableCustomStyles } from '../Global/TableStyles/tableStyle.jsx';
 import axios from 'axios';
 
 const AllFarmers = () => {
+
+  const ao = JSON.parse(localStorage.getItem('agriofficer'));
+  const gramaNiladariDivision = ao['agriculturalOfficer']['gramaNiladariDivision'];
+
   const [farmers, setFarmers] = React.useState([]);
 
   const getAllFarmers = () => {
     axios
       .get('http://localhost:8075/ao/getfarmers')
       .then((res) => {
-        setFarmers(res.data);
+        const filteredFarmers = res.data.filter((farmer)=>{
+          return farmer.division === gramaNiladariDivision;
+        })
+        setFarmers(filteredFarmers);
       })
       .catch((err) => {
         alert(err.message);

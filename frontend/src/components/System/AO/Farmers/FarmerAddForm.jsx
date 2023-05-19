@@ -45,12 +45,12 @@ const FarmerAddForm = () => {
       <section
       //  style={{backgroundColor: '#2779e2'}}
       >
-        <div class='container h-100'>
-          <div class='row d-flex justify-content-center align-items-center h-100'>
-            <div class='col-xl-9'>
-              <h1 class='text-white mb-4'>Apply for a job</h1>
+        <div className='container h-100'>
+          <div className='row d-flex justify-content-center align-items-center h-100'>
+            <div className='col-xl-9'>
+              <h1 className='text-white mb-4'>Apply for a job</h1>
 
-              <div class='cardFarmerReg' style={{ bordeRadius: '15px' }}>
+              <div className='cardFarmerReg' style={{ bordeRadius: '15px' }}>
                 <div
                   className='formImgContainer'
                   style={{ width: '100%', height: '400px' }}
@@ -61,17 +61,17 @@ const FarmerAddForm = () => {
                     alt='formImg'
                   />
                 </div>
-                <div class='card-body'>
-                  <div class='row align-items-center pt-4 pb-3'>
-                    <div class='required col-md-3 ps-5'>
+                <div className='card-body'>
+                  <div className='row align-items-center pt-4 pb-3'>
+                    <div className='required col-md-3 ps-5'>
                       <label htmlFor='mb-0'>Full name</label>
                     </div>
-                    <div class='col-md-9 pe-5'>
+                    <div className='col-md-9 pe-5'>
                       <input
                         id='fullName'
                         type='text'
                         required
-                        class='form-control form-control-lg'
+                        className='form-control form-control-lg'
                         value={fullName}
                         placeholder='Enter farmer full name'
                         onChange={(e) => setFullName(e.target.value)}
@@ -79,16 +79,16 @@ const FarmerAddForm = () => {
                     </div>
                   </div>
 
-                  <div class='row align-items-center pt-4 pb-3'>
-                    <div class='required col-md-3 ps-5'>
+                  <div className='row align-items-center pt-4 pb-3'>
+                    <div className='required col-md-3 ps-5'>
                       <label htmlFor='mb-0'>Username</label>
                     </div>
-                    <div class='col-md-9 pe-5'>
+                    <div className='col-md-9 pe-5'>
                       <input
                         id='username'
                         type='text'
                         required
-                        class='form-control form-control-lg'
+                        className='form-control form-control-lg'
                         placeholder='Enter unique username'
                         value={username}
                         onChange={(e) => setUsername(e.target.value)}
@@ -96,15 +96,15 @@ const FarmerAddForm = () => {
                     </div>
                   </div>
 
-                  <div class='row align-items-center pt-4 pb-3'>
-                    <div class='notRequired col-md-3 ps-5'>
+                  <div className='row align-items-center pt-4 pb-3'>
+                    <div className='notRequired col-md-3 ps-5'>
                       <label htmlFor='mb-0'>Contact Number</label>
                     </div>
-                    <div class='col-md-9 pe-5'>
+                    <div className='col-md-9 pe-5'>
                       <input
                         id='phone'
                         type='phone'
-                        class='form-control form-control-lg'
+                        className='form-control form-control-lg'
                         placeholder='Enter contact number'
                         value={phone}
                         onChange={(e) => setPhone(e.target.value)}
@@ -112,18 +112,18 @@ const FarmerAddForm = () => {
                     </div>
                   </div>
 
-                  <hr class='mx-n3' />
+                  <hr className='mx-n3' />
 
-                  <div class='row align-items-center py-3'>
-                    <div class='required col-md-3 ps-5'>
+                  <div className='row align-items-center py-3'>
+                    <div className='required col-md-3 ps-5'>
                       <label htmlFor='mb-0'>Address</label>
                     </div>
-                    <div class='col-md-9 pe-5'>
+                    <div className='col-md-9 pe-5'>
                       <input
                         id='address'
                         type='text'
                         required
-                        class='form-control form-control-lg'
+                        className='form-control form-control-lg'
                         placeholder='Enter address'
                         value={address}
                         onChange={(e) => setAddress(e.target.value)}
@@ -131,16 +131,16 @@ const FarmerAddForm = () => {
                     </div>
                   </div>
 
-                  <div class='row align-items-center py-3'>
-                    <div class='required col-md-3 ps-5'>
+                  <div className='row align-items-center py-3'>
+                    <div className='required col-md-3 ps-5'>
                       <label htmlFor='mb-0'>Division</label>
                     </div>
-                    <div class='col-md-9 pe-5'>
+                    <div className='col-md-9 pe-5'>
                       <input
                         id='division'
                         type='text'
                         required
-                        class='form-control form-control-lg'
+                        className='form-control form-control-lg'
                         placeholder='Enter division'
                         value={division}
                         onChange={(e) => setDivision(e.target.value)}
@@ -148,16 +148,16 @@ const FarmerAddForm = () => {
                     </div>
                   </div>
 
-                  <div class='row align-items-center py-3'>
-                    <div class='required col-md-3 ps-5'>
+                  <div className='row align-items-center py-3'>
+                    <div className='required col-md-3 ps-5'>
                       <label htmlFor='mb-0'>District</label>
                     </div>
-                    <div class='col-md-9 pe-5'>
+                    <div className='col-md-9 pe-5'>
                       <input
                         id='district'
                         type='text'
                         required
-                        class='form-control form-control-lg'
+                        className='form-control form-control-lg'
                         placeholder='Enter district'
                         value={district}
                         onChange={(e) => setDistrict(e.target.value)}
@@ -165,16 +165,16 @@ const FarmerAddForm = () => {
                     </div>
                   </div>
 
-                  <hr class='mx-n3' />
+                  <hr className='mx-n3' />
 
-                  <div class='row align-items-center py-3'>
-                    <div class='required col-md-3 ps-5'>
+                  <div className='row align-items-center py-3'>
+                    <div className='required col-md-3 ps-5'>
                       <label htmlFor='mb-0'>Crop type</label>
                     </div>
-                    <div class='col-md-9 pe-5'>
+                    <div className='col-md-9 pe-5'>
                       <select
                         id='cropType'
-                        class='form-control form-control-lg'
+                        className='form-control form-control-lg'
                         style={{ fontSize: '16px' }}
                         required
                         aria-label='Default select example'
@@ -191,16 +191,16 @@ const FarmerAddForm = () => {
                     </div>
                   </div>
 
-                  <hr class='mx-n3' />
+                  <hr className='mx-n3' />
 
-                  <div class='row align-items-center py-3'>
-                    <div class='notRequired col-md-3 ps-5'>
+                  <div className='row align-items-center py-3'>
+                    <div className='notRequired col-md-3 ps-5'>
                       <label htmlFor='mb-0'>Additional Notes</label>
                     </div>
-                    <div class='col-md-9 pe-5'>
+                    <div className='col-md-9 pe-5'>
                       <textarea
                         id='notes'
-                        class='form-control'
+                        className='form-control'
                         rows='3'
                         placeholder='Add additional details on farmer if any'
                         value={notes}
@@ -209,7 +209,7 @@ const FarmerAddForm = () => {
                     </div>
                   </div>
 
-                  <hr class='mx-n3' />
+                  <hr className='mx-n3' />
 
                   {/* Password Must contain at least one number and one uppercase and
               lowercase letter, and at least 8 or more characters 
@@ -223,17 +223,17 @@ const FarmerAddForm = () => {
                   * - preceding pattern can match 0 or more times
               */}
 
-                  <div class='row align-items-center py-3'>
-                    <div class='required col-md-3 ps-5'>
+                  <div className='row align-items-center py-3'>
+                    <div className='required col-md-3 ps-5'>
                       <label htmlFor='mb-0'>Password</label>
                     </div>
-                    <div class='col-md-9 pe-5'>
+                    <div className='col-md-9 pe-5'>
                       <input
                         id='password'
                         type='password'
                         required
                         pattern='(?=.*\d)(?=.*[a-z])(?=.*[A-Z]).{8,}'
-                        class='form-control form-control-lg'
+                        className='form-control form-control-lg'
                         placeholder='Enter password'
                         value={password}
                         onChange={(e) => setPassword(e.target.value)}
@@ -249,10 +249,10 @@ const FarmerAddForm = () => {
                     </p>
                   </div>
 
-                  <div class='px-5 py-4'>
+                  <div className='px-5 py-4'>
                     <button
                       type='submit'
-                      class='button-18'
+                      className='button-18'
                       style={{ display: 'block', margin: '0 auto' }}
                       onClick={handleSubmit}
                     >

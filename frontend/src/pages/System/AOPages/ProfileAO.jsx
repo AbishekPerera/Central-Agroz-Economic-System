@@ -7,6 +7,17 @@ import ProfileAOUpdate from './ProfileAOUpdate';
 import { Link } from 'react-router-dom';
 
 const ProfileAO = () => {
+
+  const ao = JSON.parse(localStorage.getItem('agriofficer'));
+  const aoName = ao['agriculturalOfficer']['name'];
+  const district = ao['agriculturalOfficer']['district'];
+  const province = ao['agriculturalOfficer']['province'];
+  const email = ao['agriculturalOfficer']['email'];
+  const contact = ao['agriculturalOfficer']['contact'];
+  const address = ao['agriculturalOfficer']['address'];
+  const gramaNiladariDivision = ao['agriculturalOfficer']['gramaNiladariDivision'];
+  const image = ao['agriculturalOfficer']['image'];
+  
   return (
     <div className='mainContainer'>
       <div className='sidebar'>
@@ -34,8 +45,8 @@ const ProfileAO = () => {
                       alt='ao profile'
                       src='https://st3.depositphotos.com/15648834/17930/v/600/depositphotos_179308454-stock-illustration-unknown-person-silhouette-glasses-profile.jpg'
                     />
-                    <span class='font-weight-bold'>Hashen Hewawasam</span>
-                    <span class='text-black-50'>hashen@govtagri.com</span>
+                    <span class='font-weight-bold'>{aoName}</span>
+                    <span class='text-black-50'>{email}</span>
                     <span> </span>
                   </div>
                 </div>
@@ -44,31 +55,31 @@ const ProfileAO = () => {
                   <div class='p-3 pb-5 pt-2'>
                     <div class='row mt-3'>
                       <div class='col-md-12 pb-3'>
-                        <h6>Name : Hashen Hewawasam </h6>
+                        <h6>Name : {aoName} </h6>
                       </div>
 
                       <div class='col-md-12 pb-3'>
-                        <h6>District : Malabe </h6>
+                        <h6>District : {district} </h6>
                       </div>
 
                       <div class='col-md-12 pb-3'>
-                        <h6>Province : Western </h6>
+                        <h6>Province : {province} </h6>
                       </div>
 
                       <div class='col-md-12 pb-3'>
-                        <h6>Email : hashen@govtagri.com </h6>
+                        <h6>Email : {email} </h6>
                       </div>
 
                       <div class='col-md-12 pb-3'>
-                        <h6>PContact Number : 0710418245 </h6>
+                        <h6>Contact Number : {contact} </h6>
                       </div>
 
                       <div class='col-md-12 pb-3'>
-                        <h6>Address : No. 164, New kandy road, Malabe </h6>
+                        <h6>Address : {address} </h6>
                       </div>
 
                       <div class='col-md-12 pb-3'>
-                        <h6>Grama Niladhari Division : Malabe North </h6>
+                        <h6>Grama Niladhari Division : {gramaNiladariDivision} </h6>
                       </div>
                     </div>
                   </div>
