@@ -33,10 +33,15 @@ const Sidebar = () => {
         </div>
 
         <div className="logoSideBar">
-          <img className="imgLogoSideBar" src={Logo} alt="img" />
+          <img
+            className="imgLogoSideBar"
+            src={Logo}
+            style={{ width: "120px", height: "120px" }}
+            alt="img"
+          />
         </div>
 
-        <div>
+        <div style={{ marginTop: "30px" }}>
           <ul className="list-untyled px-2">
             <li className={activeItem === "/ecmo/dashboard" ? "active" : ""}>
               <Link
