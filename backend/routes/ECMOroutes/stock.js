@@ -6,6 +6,7 @@ import {
   deleteStockByID,
   getStockByID,
   getStocksByDate,
+  getStocksByDateCenterName,
   updateStockByID,
 } from "../../controllers/ECMOControllers/stock.js";
 
@@ -18,6 +19,7 @@ router.get("/AllStocks", allStocks);
 router.get("/stock/:id", getStockByID);
 
 router.get("/AllStocks/:date", getStocksByDate);
+router.get("/AllStocks/:centerName/:date", getStocksByDateCenterName);
 
 router.delete("/delete/:id", deleteStockByID);
 router.put("/update/:id", updateStockByID);

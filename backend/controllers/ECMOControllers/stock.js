@@ -115,3 +115,16 @@ export async function getStocksByDate(req, res) {
     return res.status(422).json("error", err);
   }
 }
+
+export async function getStocksByDateCenterName(req, res) {
+  try {
+    const date = req.params.date;
+    const centerName = req.params.centerName;
+
+    const result = await stock.find({ CenterName: centerName, Date: date });
+
+    return res.status(200).json({ result });
+  } catch (err) {
+    return res.status(422).json("error", err);
+  }
+}
