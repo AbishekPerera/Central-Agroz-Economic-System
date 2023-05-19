@@ -63,7 +63,7 @@ const UpdatePriceModal = ({ show, handleClose, id, setIsPriceUpdated }) => {
           setNewPrice(data.Price);
         });
     } catch (err) {
-      alert(err);
+      swal(err);
     }
   };
 
