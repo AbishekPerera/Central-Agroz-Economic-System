@@ -3,6 +3,7 @@ import "./Sidebar.css";
 import $ from "jquery";
 // import Logo from '../../../img/Logo/logo.png';
 import { Link, useLocation } from "react-router-dom";
+import Logo from "../../../../img/Logo/logo.png";
 
 const Sidebar = () => {
   const location = useLocation();
@@ -24,11 +25,7 @@ const Sidebar = () => {
       <div className="sidebar" id="side-nav">
         <div className="header-box px-3 pt-3 pb-4 d-flex">
           <h1 className="fs-3 px-4">
-            <span className="text-white">
-              Economic Center
-              <br />
-              Dambulla
-            </span>
+            <span className="text-white">CAES Economic Center Management</span>
           </h1>
           <button className="btn d-md-none d-block close-btn px-2 py-0 text-white">
             <i class="bi bi-list"></i>
@@ -36,13 +33,7 @@ const Sidebar = () => {
         </div>
 
         <div className="logoSideBar">
-          <img
-            className="imgLogoSideBar"
-            src={
-              "https://th.bing.com/th/id/R.00d18a31898e865515e1c713fde37aad?rik=PATOFjexMWYsrQ&pid=ImgRaw&r=0"
-            }
-            alt="img"
-          />
+          <img className="imgLogoSideBar" src={Logo} alt="img" />
         </div>
 
         <div>

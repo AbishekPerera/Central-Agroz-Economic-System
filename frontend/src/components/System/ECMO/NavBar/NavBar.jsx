@@ -8,7 +8,8 @@ import "./NavBar.css";
 
 const NavBar = () => {
   function logout() {
-    localStorage.removeItem("systemInfo");
+    localStorage.removeItem("ecmoInfo");
+ 
   }
 
   return (
@@ -54,7 +55,7 @@ const NavBar = () => {
                 </NavDropdown.Item>
                 <NavDropdown.Item href="#action/3.2">
                   <Link
-                    to="/system/auth"
+                    to="/ecmo/loginPage"
                     style={{ color: "#359733" }}
                     class="nav-link"
                     onClick={logout}
