@@ -6,36 +6,15 @@ import NavBar from "../../../components/System/Farmer/NavBar/NavBarFarmer";
 import SystemFooter from "../../../components/System/Farmer/Footer/SystemFarmerFooter";
 import PublishImg from "../../../img/Farmer/vege2.jpg";
 import { Button, Col, Modal, Row } from "react-bootstrap";
-import { useNavigate } from "react-router-dom";
+import { useNavigate, useParams } from "react-router-dom";
 import axios from "axios";
 import swal from "sweetalert";
 
-const FarmerPublishProducts = () => {
-  //   {
-  //     "farmerId": "FM5881",
-  //     "cropType": "Fruits",
-  //     "cropName": "RedMango",
-  //     "quantity": "55",
-  //     "price": "450.00",
-  //     "location": "Weliwa",
-  //     "condition": "fresh",
-  //     "harvestDate": "2023/05/03",
-  //     "mobile": "0710418465",
-  //     "email": "nimal@mail.com"
-  // }
-
+const FarmerUpdateProduct = () => {
   const history = useNavigate();
   const userData = JSON.parse(localStorage.getItem("farmerInfo"));
 
-  useEffect(() => {
-    const farmerInfo = localStorage.getItem("farmerInfo");
-    // console.log(farmerInfo);
-    if (farmerInfo === null) {
-      history("/system/farmer/login");
-    }
-  }, []);
-
-  const [farmerId, setFarmerId] = useState(userData.data._id);
+  const [id, setId] = useState(userData.data._id);
   const [cropType, setCropType] = useState("");
   const [cropName, setCropName] = useState("");
   const [quantity, setQuantity] = useState("");
@@ -45,12 +24,50 @@ const FarmerPublishProducts = () => {
   const [harvestDate, setHarvestDate] = useState("");
   const [mobile, setMobile] = useState("");
   const [email, setEmail] = useState("");
+  const [status, setStatus] = useState("");
+
+  useEffect(() => {
+    const farmerInfo = localStorage.getItem("farmerInfo");
+    // console.log(farmerInfo);
+    if (farmerInfo === null) {
+      history("/system/farmer/login");
+    }
+  }, []);
+
+  //get crop by id
+  const { cropId } = useParams();
+
+  const getCropById = async () => {
+    axios
+      .get("http://localhost:8075/farmerL/getcropbyid/" + cropId)
+      .then((res) => {
+        // console.log(res.data);
+        setCropType(res.data.cropType);
+        setCropName(res.data.cropName);
+        setQuantity(res.data.quantity);
+        setPrice(res.data.price);
+        setLocation(res.data.location);
+        setCondition(res.data.condition);
+        setHarvestDate(res.data.harvestDate);
+        setMobile(res.data.mobile);
+        setEmail(res.data.email);
+        setStatus(res.data.status);
+      })
+      .catch((err) => {
+        console.log(err);
+      });
+  };
+
+  useEffect(() => {
+    getCropById();
+  }, []);
 
   const submitHandler = async (e) => {
     e.preventDefault();
 
     const newOb = {
-      farmerId: farmerId,
+      id: cropId,
+      farmerId: id,
       cropType: cropType,
       cropName: cropName,
       quantity: quantity,
@@ -58,6 +75,7 @@ const FarmerPublishProducts = () => {
       location: location,
       condition: condition,
       harvestDate: harvestDate,
+      status: status,
       mobile: mobile,
       email: email,
     };
@@ -65,7 +83,7 @@ const FarmerPublishProducts = () => {
     // console.log(newOb);
 
     axios
-      .post("http://localhost:8075/farmerL/publishcrop", newOb)
+      .put("http://localhost:8075/farmerL/updatecropbyid/", newOb)
       .then(
         (res) => {
           // console.log(res.data);
@@ -106,7 +124,7 @@ const FarmerPublishProducts = () => {
         </div>
 
         <div className="content">
-          <h1 style={{ textAlign: "left" }}>Publish Crop Details</h1> <br />{" "}
+          <h1 style={{ textAlign: "left" }}>Update Crop Details</h1> <br />{" "}
           <br />
           <div class="container registerbackground">
             <div className="row ">
@@ -132,10 +150,8 @@ const FarmerPublishProducts = () => {
                       id="type"
                       style={{ width: "50%" }}
                       onChange={(e) => setCropType(e.target.value)}
+                      defaultValue={cropType}
                     >
-                      <option value="" disabled selected>
-                        Select Type
-                      </option>
                       <option value="Fruits">Fruits</option>
                       <option value="Vegetables">Vegetables</option>
                       <option value="Rice">Dried</option>
@@ -148,7 +164,6 @@ const FarmerPublishProducts = () => {
                     </label>
                     <input
                       required
-                      // onChange={(e) => setName(e.target.value)}
                       type="text"
                       class="form-control"
                       id="name"
@@ -156,6 +171,7 @@ const FarmerPublishProducts = () => {
                       placeholder="Enter Crop Name"
                       style={{ width: "50%" }}
                       onChange={(e) => setCropName(e.target.value)}
+                      defaultValue={cropName}
                     />
                   </div>
                   <div class="mb-3">
@@ -164,7 +180,6 @@ const FarmerPublishProducts = () => {
                     </label>
                     <input
                       required
-                      // onChange={(e) => setEmail(e.target.value)}
                       type="number"
                       class="form-control"
                       id="quantity"
@@ -172,6 +187,7 @@ const FarmerPublishProducts = () => {
                       placeholder="Enter the available quantity"
                       style={{ width: "50%" }}
                       onChange={(e) => setQuantity(e.target.value)}
+                      defaultValue={quantity}
                     />
                   </div>
                   <div class="mb-3">
@@ -180,7 +196,6 @@ const FarmerPublishProducts = () => {
                     </label>
                     <input
                       required
-                      // onChange={(e) => setAddress(e.target.value)}
                       type="number"
                       class="form-control"
                       id="price"
@@ -188,6 +203,7 @@ const FarmerPublishProducts = () => {
                       placeholder="Enter the price per 1kg"
                       style={{ width: "50%" }}
                       onChange={(e) => setPrice(e.target.value)}
+                      defaultValue={price}
                     />
                   </div>
                   <div class="mb-3">
@@ -196,7 +212,6 @@ const FarmerPublishProducts = () => {
                     </label>
                     <input
                       required
-                      // onChange={(e) => setPhone(e.target.value)}
                       type="text"
                       class="form-control"
                       id="location"
@@ -204,6 +219,7 @@ const FarmerPublishProducts = () => {
                       placeholder="Enter the location of the available crop"
                       style={{ width: "50%" }}
                       onChange={(e) => setLocation(e.target.value)}
+                      defaultValue={location}
                     />
                   </div>
                   <div class="mb-3">
@@ -217,10 +233,8 @@ const FarmerPublishProducts = () => {
                       id="condition"
                       style={{ width: "50%" }}
                       onChange={(e) => setCondition(e.target.value)}
+                      defaultValue={condition}
                     >
-                      <option value="" disabled selected>
-                        Select condition
-                      </option>
                       <option value="fresh">Fresh</option>
                       <option value="frozen">Frozen</option>
                       <option value="dried">Dried</option>
@@ -234,14 +248,13 @@ const FarmerPublishProducts = () => {
                     </label>
                     <input
                       required
-                      // onChange={(e) => setConfirmPassword(e.target.value)}
-                      type="date"
+                      type="text"
                       class="form-control"
-                      id="date"
                       aria-describedby="dateHelp"
                       placeholder="Enter the harvested date"
                       style={{ width: "50%" }}
                       onChange={(e) => setHarvestDate(e.target.value)}
+                      defaultValue={harvestDate}
                     />
                   </div>
                   <div class="mb-3">
@@ -259,6 +272,7 @@ const FarmerPublishProducts = () => {
                         maxlength="10"
                         style={{ width: "23%", marginLeft: "15px" }}
                         onChange={(e) => setMobile(e.target.value)}
+                        defaultValue={mobile}
                       />
 
                       <input
@@ -270,6 +284,7 @@ const FarmerPublishProducts = () => {
                         placeholder="Enter email"
                         style={{ width: "35%", marginLeft: "20px" }}
                         onChange={(e) => setEmail(e.target.value)}
+                        defaultValue={email}
                       />
                     </div>
                   </div>
@@ -307,4 +322,4 @@ const FarmerPublishProducts = () => {
   );
 };
 
-export default FarmerPublishProducts;
+export default FarmerUpdateProduct;

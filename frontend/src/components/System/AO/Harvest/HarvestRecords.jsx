@@ -4,6 +4,8 @@ import DataTable from 'react-data-table-component';
 import axios from 'axios';
 
 const HarvestRecords = () => {
+  const ao = JSON.parse(localStorage.getItem('agriofficer'));
+  const aoId = ao['agriculturalOfficer']['id'];
 
   const [harvest, setHarvest] = React.useState([]);
 
@@ -11,7 +13,10 @@ const HarvestRecords = () => {
     axios
       .get('http://localhost:8075/ao/getharvests')
       .then((res) => {
-        setHarvest(res.data);
+        const filteredHarvest = res.data.filter((harvest) => {
+          return harvest.aoId === aoId;
+        });
+        setHarvest(filteredHarvest);
       })
       .catch((err) => {
         alert(err.message);

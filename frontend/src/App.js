@@ -28,6 +28,7 @@ import ProfileAOUpdate from "./pages/System/AOPages/ProfileAOUpdate";
 import FarmerStatistics from "./pages/System/FarmerPages/FarmerStatistics";
 import FarmerPage from "./pages/FarmerPage/FarmerPage";
 import AdminLogin from "./pages/System/AdminPages/AdminLogin";
+import FarmerUpdateProduct from "./pages/System/FarmerPages/FarmerUpdateProduct";
 
 import PriceList from "./pages/System/ECMOPages/PriceList/PriceList";
 import PriceTable from "./pages/System/ECMOPages/PriceList/PriceTable";
@@ -102,7 +103,10 @@ function App() {
           path="/system/farmer/publishproducts"
           element={<FarmerPublishProducts />}
         />
-        <Route path="/system/farmer/viewall" element={<FarmerViewAll />} />
+        <Route
+          path="/system/farmer/viewall/:cropId"
+          element={<FarmerUpdateProduct />}
+        />
       </Routes>
     </div>
   );

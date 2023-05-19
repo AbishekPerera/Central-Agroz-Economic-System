@@ -1,7 +1,37 @@
-import React from 'react';
+import React, { useEffect, useState } from 'react';
 import './styles/LoginAo.css';
+import axios from 'axios';
 const LoginAO = () => {
-  
+  const [email, setEmail] = useState('');
+  const [password, setPassword] = useState('');
+
+  const submitHandler = (e) => {
+    e.preventDefault();
+
+    const loginData = {
+      email: email,
+      password: password,
+    };
+
+    axios
+      .post('http://localhost:8075/agriofficers/login', loginData)
+      .then((response) => {
+        alert('Login Successful');
+        localStorage.setItem('agriofficer', JSON.stringify(response.data));
+        window.location.href = '/ao/dashboard';
+      })
+      .catch((err) => {
+        alert('Login Failed');
+      });
+  };
+
+  // useEffect(() => {
+  //   const agriofficer = localStorage.getItem('agriofficer');
+  //   if (agriofficer) {
+  //     window.location.href = '/ao/dashboard';
+  //   }
+  // }, []);
+
   return (
     <div className='aoLoginContainer0'>
       <section class='background-radial-gradient overflow-hidden'>
@@ -37,7 +67,7 @@ const LoginAO = () => {
               ></div>
               <div class='card bg-glassAo'>
                 <div class='card-body px-4 py-5 px-md-5'>
-                  <form>
+                  <form onSubmit={submitHandler}>
                     <h2 className='aoLoginFormTitle'>Login</h2>
                     {/* <!-- Email input --> */}
                     <div class='form-outline mb-4'>
@@ -47,9 +77,10 @@ const LoginAO = () => {
                       </label>
                       <input
                         type='email'
-                        id='form3Example3'
+                        id='email'
                         class='custom-input'
                         placeholder='Enter your email address'
+                        onChange={(e) => setEmail(e.target.value)}
                       />
                     </div>
                     <br />
@@ -64,6 +95,7 @@ const LoginAO = () => {
                         id='form3Example4'
                         class='custom-input'
                         placeholder='Enter your password'
+                        onChange={(e) => setPassword(e.target.value)}
                       />
                     </div>
 
