@@ -29,6 +29,7 @@ import FarmerStatistics from "./pages/System/FarmerPages/FarmerStatistics";
 import FarmerPage from "./pages/FarmerPage/FarmerPage";
 import AdminLogin from "./pages/System/AdminPages/AdminLogin";
 import FarmerUpdateProduct from "./pages/System/FarmerPages/FarmerUpdateProduct";
+import CentersPage from "./pages/CentersPage/CentersPage";
 
 import PriceList from "./pages/System/ECMOPages/PriceList/PriceList";
 import PriceTable from "./pages/System/ECMOPages/PriceList/PriceTable";
@@ -58,6 +59,7 @@ function App() {
         <Route path="/about" element={<AboutUsPage />} />
         <Route path="/news" element={<NewsPage />} />
         <Route path="/findfarmers" element={<FarmerPage />} />
+        <Route path="/findcenter" element={<CentersPage />} />
 
         {/* Admin pages  */}
         <Route path="/admin/login" element={<AdminLogin />} />
