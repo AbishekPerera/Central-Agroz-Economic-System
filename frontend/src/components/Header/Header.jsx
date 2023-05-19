@@ -78,7 +78,7 @@ const Header = () => {
             </Nav.Link>
 
             <Nav.Link>
-              <Link to="/findfarmers">Farmers </Link>
+              <Link to="/findfarmers">Crops </Link>
             </Nav.Link>
             <Nav.Link>
               <Link to="/findcenter">Centers</Link>

@@ -1,11 +1,66 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 import Header from "../../components/Header/Header";
-import { Button, Card, Col, Container, Row } from "react-bootstrap";
+import { Button, Card, Col, Container, Modal, Row } from "react-bootstrap";
 import Footer from "../../components/Footer/Footer";
 import { Link } from "react-router-dom";
 import "./FarmerPage.css";
+import axios from "axios";
+import sampleimg from "../../img/Farmer/sample.jpg";
+import sampleimg2 from "../../img/Farmer/farmer.jpg";
 
 const FarmerPage = () => {
+  //   {
+  //     "_id": "645795ae9a1c75996e15aa10",
+  //     "farmerId": "FM5121",
+  //     "cropType": "Vegetables",
+  //     "cropName": "Banana",
+  //     "quantity": "45",
+  //     "price": "470.00",
+  //     "location": "Weliwa",
+  //     "condition": "fresh",
+  //     "harvestDate": "2023/05/05",
+  //     "status": "Out for sale",
+  //     "mobile": "0710418465",
+  //     "email": "nimal@mail.com",
+  //     "createdAt": "2023-05-07T12:12:30.109Z",
+  //     "updatedAt": "2023-05-19T14:39:02.727Z",
+  //     "__v": 0
+  // },
+
+  const [crops, setCrops] = useState([]);
+
+  // get all crops
+
+  const getCrops = async () => {
+    await axios
+      .get("http://localhost:8075/farmerL/getallcrops")
+      .then((res) => {
+        setCrops(res.data);
+        // console.log(res.data.crops);
+      })
+      .catch((err) => {
+        alert(err.message);
+      });
+  };
+
+  useEffect(() => {
+    getCrops();
+  }, []);
+
+  const [searchTerm, setSearchTerm] = useState("");
+
+  const [show, setShow] = useState(false);
+
+  const handleClose = () => setShow(false);
+  const handleShow = () => setShow(true);
+
+  const [seletedCrop, setSelectedCrop] = useState({});
+
+  const handleCropClick = (crop) => {
+    setSelectedCrop(crop);
+    handleShow();
+  };
+
   return (
     <div>
       <div>
@@ -17,7 +72,7 @@ const FarmerPage = () => {
               <div class="row">
                 <div class="col-lg-12">
                   <div class="ltn__breadcrumb-inner">
-                    <h1 class="page-title">Find Farmers</h1>
+                    <h1 class="page-title">Find Crops</h1>
                     <div class="ltn__breadcrumb-list">
                       <ul>
                         <li>
@@ -28,7 +83,7 @@ const FarmerPage = () => {
                             Home
                           </Link>
                         </li>
-                        <li>Farmers</li>
+                        <li>Crops</li>
                       </ul>
                     </div>
                   </div>
@@ -43,6 +98,9 @@ const FarmerPage = () => {
                 class="form-control me-sm-2"
                 type="search"
                 placeholder="Search"
+                onChange={(event) => {
+                  setSearchTerm(event.target.value);
+                }}
               />
               <button class="btn btn-secondary my-2 my-sm-0">Search</button>
             </form>
@@ -51,122 +109,64 @@ const FarmerPage = () => {
           <br />
           <div className="find-farmer-page-lowerbody-farmers p-5">
             <br />
-            <Row xs={1} md={2} lg={3} className="g-4">
+            <Row xs={1} md={2} lg={3} xxl={4} className="g-4">
               {/* add grid classes */}
-              <Col key={1}>
-                <Card style={{ width: "20rem" }}>
-                  <Card.Img
-                    variant="top"
-                    src="https://grain.org/system/articles/logos/000/006/774/larger/IMG_3520.jpg"
-                  />
-                  <Card.Body>
-                    <Card.Title>Diwya Sundaram</Card.Title>
-                    <Card.Text>
-                      <b>Location:</b> Colombo
-                      <br />
-                      <b>Crop Type:</b> Rice, Vegetables
-                      <br />
-                      <b>Joined :</b> 2021
-                    </Card.Text>
-                    <Button variant="primary">Read More</Button>
-                  </Card.Body>
-                </Card>
-              </Col>
-              <Col key={2}>
-                <Card style={{ width: "20rem" }}>
-                  <Card.Img
-                    variant="top"
-                    src="https://lectura.press/media-storage/press_releases/rice_farmer_in_his_paddy_field_in_monaragala_sri_lanka(6ae).jpg"
-                  />
-                  <Card.Body>
-                    <Card.Title>Ranil Wikkamasinghe</Card.Title>
-                    <Card.Text>
-                      <b>Location:</b> Colombo
-                      <br />
-                      <b>Crop Type:</b> Rice, Vegetables
-                      <br />
-                      <b>Joined :</b> 2021
-                    </Card.Text>
-                    <Button variant="primary">Read More</Button>
-                  </Card.Body>
-                </Card>
-              </Col>
-              <Col key={3}>
-                <Card style={{ width: "20rem" }}>
-                  <Card.Img
-                    variant="top"
-                    src="https://agroinsurance.com/photos/shares/Agroinsurance%20New%202021/430a62d8309752a40214f528c2d03400.jpg"
-                  />
-                  <Card.Body>
-                    <Card.Title>Babu Rakeshwaram</Card.Title>
-                    <Card.Text>
-                      <b>Location:</b> Colombo
-                      <br />
-                      <b>Crop Type:</b> Rice, Vegetables
-                      <br />
-                      <b>Joined :</b> 2021
-                    </Card.Text>
-                    <Button variant="primary">Read More</Button>
-                  </Card.Body>
-                </Card>
-              </Col>
-              <Col key={4}>
-                <Card style={{ width: "20rem" }}>
-                  <Card.Img
-                    variant="top"
-                    src="https://island.lk/wp-content/uploads/2020/07/farm.jpg"
-                  />
-                  <Card.Body>
-                    <Card.Title>Jayasumana Weerarathne</Card.Title>
-                    <Card.Text>
-                      <b>Location:</b> Colombo
-                      <br />
-                      <b>Crop Type:</b> Rice, Vegetables
-                      <br />
-                      <b>Joined :</b> 2021
-                    </Card.Text>
-                    <Button variant="primary">Read More</Button>
-                  </Card.Body>
-                </Card>
-              </Col>
-              <Col key={5}>
-                <Card style={{ width: "20rem" }}>
-                  <Card.Img
-                    variant="top"
-                    src="https://www.dailynews.lk/sites/default/files/news/2019/06/06/z_p02-Monsoon.jpg"
-                  />
-                  <Card.Body>
-                    <Card.Title>Nandasena Rajapase</Card.Title>
-                    <Card.Text>
-                      <b>Location:</b> Colombo
-                      <br />
-                      <b>Crop Type:</b> Rice, Vegetables
-                      <br />
-                      <b>Joined :</b> 2021
-                    </Card.Text>
-                    <Button variant="primary">Read More</Button>
-                  </Card.Body>
-                </Card>
-              </Col>
-              <Col key={5}>
-                <Card style={{ width: "20rem" }}>
-                  <Card.Img
-                    variant="top"
-                    src="https://gpjs3bucket.s3.amazonaws.com/wp-content/uploads/2021/01/26121749/GPJNews_Jaffna_VC_turmeric-31_web2048.jpg"
-                  />
-                  <Card.Body>
-                    <Card.Title>Diwya Sundaram</Card.Title>
-                    <Card.Text>
-                      <b>Location:</b> Colombo
-                      <br />
-                      <b>Crop Type:</b> Rice, Vegetables
-                      <br />
-                      <b>Joined :</b> 2021
-                    </Card.Text>
-                    <Button variant="primary">Read More</Button>
-                  </Card.Body>
-                </Card>
-              </Col>
+              {crops
+                .filter((val) => {
+                  if (searchTerm === "") {
+                    return val;
+                  } else if (
+                    val.cropName
+                      .toLowerCase()
+                      .includes(searchTerm.toLowerCase()) ||
+                    val.cropType
+                      .toLowerCase()
+                      .includes(searchTerm.toLowerCase()) ||
+                    val.location
+                      .toLowerCase()
+                      .includes(searchTerm.toLowerCase())
+                  ) {
+                    return val;
+                  }
+                })
+                .map((crop) => (
+                  <Col key={crop._id}>
+                    <Card style={{ width: "20rem" }}>
+                      <Card.Img variant="top" src={sampleimg} />
+                      <Card.Body>
+                        <Card.Title>{crop.cropType}</Card.Title>
+                        <Card.Text>
+                          <b>Crop Name: </b>
+                          {crop.cropName}
+                          <br />
+                          <b>Quantity: </b>
+                          {crop.quantity}
+                          <br />
+                          <b>Price: </b>
+                          {crop.price}
+                          <br />
+                          <b>Location: </b>
+                          {crop.location}
+                          <br />
+                          <b>Condition: </b>
+                          {crop.condition}
+                          <br />
+                          <b>Harvest Date: </b>
+                          {crop.harvestDate}
+                          <br />
+                        </Card.Text>
+                        <Button
+                          onClick={() => {
+                            handleCropClick(crop);
+                          }}
+                          variant="primary"
+                        >
+                          Read More
+                        </Button>
+                      </Card.Body>
+                    </Card>
+                  </Col>
+                ))}
             </Row>
           </div>
           <br />
@@ -180,6 +180,75 @@ const FarmerPage = () => {
         </div>
         <Footer />
       </div>
+      <Modal show={show} onHide={handleClose} size="lg" centered>
+        <Modal.Header closeButton>
+          <Modal.Title>{seletedCrop.cropType}</Modal.Title>
+        </Modal.Header>
+        <Modal.Body>
+          <Row>
+            <Col>
+              <img
+                src={sampleimg2}
+                alt="crop"
+                style={{
+                  width: "100%",
+                  height: "100%",
+                  objectFit: "cover",
+                }}
+              />
+            </Col>
+            <Col>
+              <p>
+                <b>Crop Name: </b>
+                {seletedCrop.cropName}
+                <br />
+                <b>Quantity: </b>
+                {seletedCrop.quantity}
+                <br />
+                <b>Price: </b>
+                {seletedCrop.price}
+                <br />
+                <b>Location: </b>
+                {seletedCrop.location}
+                <br />
+                <b>Condition: </b>
+                {seletedCrop.condition}
+                <br />
+                <b>Harvest Date: </b>
+                {seletedCrop.harvestDate}
+                <br />
+                <b>Mobile: </b>
+                {seletedCrop.mobile}
+                <br />
+                <b>Email: </b>
+                {seletedCrop.email}
+                <br />
+              </p>
+            </Col>
+          </Row>
+        </Modal.Body>
+        <Modal.Footer>
+          <Button variant="secondary" onClick={handleClose}>
+            Close
+          </Button>
+          <Button
+            variant="primary"
+            onClick={() => {
+              window.open(`tel:${seletedCrop.mobile}`);
+            }}
+          >
+            Call now
+          </Button>
+          <Button
+            variant="info"
+            onClick={() => {
+              window.open(`mailto:${seletedCrop.email}`);
+            }}
+          >
+            Send an email
+          </Button>
+        </Modal.Footer>
+      </Modal>
     </div>
   );
 };
