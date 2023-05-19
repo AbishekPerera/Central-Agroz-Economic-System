@@ -66,3 +66,23 @@
   font-weight: bold;
   text-align: center;
 }
+
+.editBtnAo {
+  background-color: #4a89dc;
+  color: white;
+  border-radius: 5px;
+  border: none;
+  padding: 0.5rem 1rem;
+  margin: 0.5rem;
+  cursor: pointer;
+}
+
+.deleteBtnAo {
+  background-color: #d9534f;
+  color: white;
+  border-radius: 5px;
+  border: none;
+  padding: 0.5rem 1rem;
+  margin: 0.5rem;
+  cursor: pointer;
+}

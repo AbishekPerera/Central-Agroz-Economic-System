@@ -35,6 +35,8 @@ import FarmerStatistics from "./pages/System/FarmerPages/FarmerStatistics";
 
 import FarmerPage from "./pages/FarmerPage/FarmerPage";
 import AdminLogin from "./pages/System/AdminPages/AdminLogin";
+import UpdateHarvest from './pages/System/AOPages/UpdateHarvest';
+import UpdateFertilizer from './pages/System/AOPages/UpdateFertilizer';
 
 function App() {
   return (
@@ -48,6 +50,8 @@ function App() {
         <Route path="/ao/fertilizers" element={<FertilizersAO />} />
         <Route path="/ao/profile" element={<ProfileAO />} />
         <Route path="/ao/update-profile" element={<ProfileAOUpdate />} />
+        <Route path="ao/updateharvest/:id" element={<UpdateHarvest />} />
+        <Route path="ao/updatefertilizer/:id" element={<UpdateFertilizer />} />
 
         <Route path="/" element={<HomePage />} />
         <Route path="/about" element={<AboutUsPage />} />
