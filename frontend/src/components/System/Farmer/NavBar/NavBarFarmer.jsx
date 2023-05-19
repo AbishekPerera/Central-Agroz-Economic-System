@@ -16,55 +16,68 @@ const NavBarFarmer = () => {
     }
     
     return (
-        <div className="mainNavContainer d-flex justify-content-end">
-        <Navbar className="subNavContainer" expand="lg" style={{ width: "20%" }}>
-        <Container>
+      <div className="mainNavContainer d-flex justify-content-end">
+        <Navbar
+          className="subNavContainer"
+          expand="lg"
+          style={{ width: "20%" }}
+        >
+          <Container>
             <Navbar.Brand href="#home">
-            <img
+              <img
                 src={Img}
                 alt="AO-Avatar"
                 style={{ height: "50px", width: "50px" }}
-            ></img>
+              ></img>
             </Navbar.Brand>
             <Navbar.Toggle aria-controls="basic-navbar-nav" />
             <Navbar.Collapse id="basic-navbar-nav">
-            <Nav className="me-auto">
+              <Nav className="me-auto">
                 {/* <Nav.Link href="#home">Home</Nav.Link> */}
 
-                <NavDropdown active title="Farmer Profile" id="basic-nav-dropdown">
-                <NavDropdown.Item href="#action/3.1">
+                <NavDropdown
+                  active
+                  title="Farmer Profile"
+                  id="basic-nav-dropdown"
+                >
+                  <NavDropdown.Item href="#action/3.1">
                     {" "}
                     <Link
-                    to="/system/admin-profile"
-                    class="nav-link"
-                    aria-current="page"
+                      to="/system/farmer/profile"
+                      class="nav-link"
+                      aria-current="page"
                     >
-                    <i
+                      <i
                         style={{
-                        color: "#359733",
+                          color: "#359733",
                         }}
                         class="bi bi-person-circle bi-2x"
-                    ></i>{" "}
-                    <span style={{ fontSize: "10x", color: "black" }}>
+                      ></i>{" "}
+                      <span style={{ fontSize: "10x", color: "black" }}>
                         Visit Profile
-                    </span>
+                      </span>
                     </Link>
-                </NavDropdown.Item>
-                <NavDropdown.Item href="#action/3.2">
-                    <Link to="/system/auth" style={{ color: "#359733" }} class="nav-link" onClick={logout}>
-                    <i class="bi bi-box-arrow-right"></i>{" "}
-                    <span style={{ fontSize: "12px", color: "black" }} >
+                  </NavDropdown.Item>
+                  <NavDropdown.Item href="#action/3.2">
+                    <Link
+                      to="/system/auth"
+                      style={{ color: "#359733" }}
+                      class="nav-link"
+                      onClick={logout}
+                    >
+                      <i class="bi bi-box-arrow-right"></i>{" "}
+                      <span style={{ fontSize: "12px", color: "black" }}>
                         Log Out
-                    </span>
+                      </span>
                     </Link>
-                </NavDropdown.Item>
+                  </NavDropdown.Item>
                 </NavDropdown>
-            </Nav>
+              </Nav>
             </Navbar.Collapse>
-        </Container>
+          </Container>
         </Navbar>
-        </div>
-    )
+      </div>
+    );
 }
 
 export default NavBarFarmer
