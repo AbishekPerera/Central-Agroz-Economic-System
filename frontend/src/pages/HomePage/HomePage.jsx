@@ -37,6 +37,10 @@ const HomePage = () => {
           </Carousel>
         </div>
         <div className="news-page-lowerbody">
+          <div className="herbcolab-title">
+            <h1>Whats New ?</h1>
+            <p>" නවතම තොරතුරු.. "</p>
+          </div>
           <Row xs={1} md={2} lg={3} className="g-4">
             {/* add grid classes */}
             <Col key={5}>
