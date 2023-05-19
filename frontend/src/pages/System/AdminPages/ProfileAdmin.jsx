@@ -1,21 +1,25 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 import Sidebar from "../../../components/System/Admin/Sidebar/Sidebar";
 import NavBar from "../../../components/System/Admin/NavBar/NavBar";
 import SystemFooter from "../../../components/System/Admin/Footer/SystemFooter";
 import "./styles/DashboardAdmin.css";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import { Button, Col, Form, Row } from "react-bootstrap";
 
 const ProfileAdmin = () => {
-  // {
-  //   id: "1";
-  //   name: "Supper Admin";
-  //   email: "abc@aa.aa";
-  //   phone: "0712345678";
-  //   address: "No 1, Colombo";
-  //   role: "Supper Admin";
-  //   image: "https://picsum.photos/200";
-  // }
+  const [adminData, setAdminData] = useState();
+  const history = useNavigate();
+
+  useEffect(() => {
+    const adminInfo = localStorage.getItem("adminInfo");
+
+    setAdminData(JSON.parse(adminInfo));
+
+    if (adminInfo === null) {
+      history("/admin/login");
+    }
+  }, [adminData]);
+
   return (
     <div className="mainContainer">
       <div className="sidebar">
@@ -35,7 +39,7 @@ const ProfileAdmin = () => {
             <Form>
               <div className="agri-officer-update-profile-picure text-center">
                 <img
-                  src="https://avatars.githubusercontent.com/u/84265431?v=4"
+                  src={adminData?.admin.image}
                   alt="profile-pic"
                   style={{ width: "250px", height: "250px" }}
                 />
@@ -48,7 +52,7 @@ const ProfileAdmin = () => {
                     <Form.Control
                       disabled
                       type="text"
-                      placeholder="Sunera Abishek"
+                      placeholder={adminData?.admin.name}
                     />
                   </Form.Group>
                 </Col>
@@ -58,7 +62,7 @@ const ProfileAdmin = () => {
                     <Form.Control
                       disabled
                       type="email"
-                      placeholder="abhishekperera77@gmail.com"
+                      placeholder={adminData?.admin.email}
                     />
                   </Form.Group>
                 </Col>
@@ -70,7 +74,7 @@ const ProfileAdmin = () => {
                     <Form.Control
                       disabled
                       type="text"
-                      placeholder="0701273992"
+                      placeholder={adminData?.admin.phone}
                     />
                   </Form.Group>
                 </Col>
@@ -80,7 +84,7 @@ const ProfileAdmin = () => {
                     <Form.Control
                       disabled
                       type="text"
-                      placeholder="123,Peralanda,Ragama"
+                      placeholder={adminData?.admin.address}
                     />
                   </Form.Group>
                 </Col>
@@ -92,7 +96,7 @@ const ProfileAdmin = () => {
                     <Form.Control
                       disabled
                       type="text"
-                      placeholder="Super Admin"
+                      placeholder={adminData?.admin.role}
                     />
                   </Form.Group>
                 </Col>
@@ -102,7 +106,7 @@ const ProfileAdmin = () => {
                     <Form.Control
                       disabled
                       type="text"
-                      placeholder="https://github.com/AbishekPerera/img/blob/main/avatar.png?raw=true"
+                      placeholder={adminData?.admin.image}
                     />
                   </Form.Group>
                 </Col>

@@ -8,7 +8,7 @@ import "./NavBar.css";
 
 const NavBar = () => {
   function logout() {
-    localStorage.removeItem("systemInfo");
+    localStorage.removeItem("adminInfo");
   }
 
   return (
