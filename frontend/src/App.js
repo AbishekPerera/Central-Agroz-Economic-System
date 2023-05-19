@@ -34,6 +34,7 @@ import ProfileAOUpdate from "./pages/System/AOPages/ProfileAOUpdate";
 import FarmerStatistics from "./pages/System/FarmerPages/FarmerStatistics";
 
 import FarmerPage from "./pages/FarmerPage/FarmerPage";
+import AdminLogin from "./pages/System/AdminPages/AdminLogin";
 
 function App() {
   return (
@@ -54,6 +55,7 @@ function App() {
         <Route path="/findfarmers" element={<FarmerPage />} />
 
         {/* Admin pages  */}
+        <Route path="/admin/login" element={<AdminLogin />} />
         <Route path="/admin/dashboard" element={<DashboardAdmin />} />
         <Route path="/admin/echoCenters" element={<EchoCentersAdmin />} />
         <Route path="/admin/addchoCenters" element={<AddEchoCenterAdmin />} />

@@ -10,6 +10,14 @@ import echoCenterImage from "../../../img/other comp/newsbanner.jpg";
 import { useNavigate } from "react-router-dom";
 
 const AgriOfficerAdmin = () => {
+  useEffect(() => {
+    const adminInfo = localStorage.getItem("adminInfo");
+
+    if (adminInfo === null) {
+      history("/admin/login");
+    }
+  }, []);
+
   const [Agriofficers, setAgriofficers] = useState([
     {
       _id: "64576083201b6a587daef13a",
