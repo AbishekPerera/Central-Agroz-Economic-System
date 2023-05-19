@@ -13,7 +13,15 @@ function StockBuyerTable() {
   const [showUpdateSellStockModal, setShowUpdateSellStockModal] =
     useState(false);
   const [id, setID] = useState("");
-  const [centerName, setCenterName] = useState("Kandy");
+ 
+    //get data from local storage as a string
+    const ecoInfo = localStorage.getItem("ecmoInfo");
+    //set data to local storage as a JSON object
+    const ecoInfo1 = JSON.parse(ecoInfo);
+  
+    const centerName = ecoInfo1["ecoCenter"]["ecoCenterName"] || "Kandy";
+  
+ 
 
   const handleSellStockModalClose = () => setShowSellStockModal(false);
   const handleSellStockModalShow = () => setShowSellStockModal(true);

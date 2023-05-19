@@ -8,6 +8,12 @@ const AddStockModal = ({ show, handleClose, setIsStockUpdated }) => {
   const [category, setCategory] = useState("");
   const [formErrors, setFormErrors] = useState({});
   const [submitted, isSubmitted] = useState(false);
+      //get data from local storage as a string
+      const ecoInfo = localStorage.getItem("ecmoInfo");
+      //set data to local storage as a JSON object
+      const ecoInfo1 = JSON.parse(ecoInfo);
+    
+      const centerName = ecoInfo1["ecoCenter"]["ecoCenterName"] || "Kandy";
 
   const formatDate = (date) => {
     const originalDate = date
@@ -60,7 +66,7 @@ const AddStockModal = ({ show, handleClose, setIsStockUpdated }) => {
   const [numItems, setNumItems] = useState(1);
 
   const [inputs, setInputs] = useState({
-    CenterName: "Kandy",
+    CenterName: centerName,
     SupplierName: "",
     FarmerID: "",
     MobileNo: "",

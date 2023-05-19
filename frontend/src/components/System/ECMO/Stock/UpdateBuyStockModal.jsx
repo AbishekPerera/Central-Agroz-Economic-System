@@ -287,7 +287,9 @@ const UpdateBuyStockModal = ({ show, handleClose, setIsStockUpdated, id }) => {
                   }}
                   required
                 >
-                  <option value="">--Select Category--</option>
+                  <option value={inputs.Item[i]?.Category || ""} disabled>
+                    {inputs.Item[i]?.Category || "--Select Category--"}
+                  </option>
                   {Object.keys(categoryWiseTypes).map((category) => (
                     <option key={category} value={category}>
                       {category}

@@ -10,6 +10,7 @@ const UpdateSellStockModal = ({ show, handleClose, setIsStockUpdated, id }) => {
   const [numItems, setNumItems] = useState(1);
 
   const [inputs, setInputs] = useState({
+    CenterName: "",
     SupplierName: " ",
     FarmerID: "Not a Farmer",
     MobileNo: "",
@@ -20,22 +21,30 @@ const UpdateSellStockModal = ({ show, handleClose, setIsStockUpdated, id }) => {
   console.log(inputs);
 
   const [stock, setStock] = useState([]);
+  console.log(stock);
   const [reportData, setReportData] = useState([]);
   console.log(stock);
 
   useEffect(() => {
     const fetchStocks = async () => {
       const response = await axios.get(
-        "http://localhost:8075/stock/AllStocks/" + inputs.Date
+        "http://localhost:8075/stock/AllStocks/" +
+          inputs.CenterName +
+          "/" +
+          inputs.Date
       );
-      setStock(response.data);
+      setStock(response.data.result);
     };
 
     fetchStocks();
-  }, []);
+  }, [inputs.CenterName, inputs.Date]);
 
   useEffect(() => {
     const calculateReportData = () => {
+      if (!Array.isArray(stock)) {
+        console.log("Stock is not an array");
+        return;
+      }
       const report = stock.reduce((acc, stock) => {
         const { Role, Item } = stock;
 
@@ -306,7 +315,7 @@ const UpdateSellStockModal = ({ show, handleClose, setIsStockUpdated, id }) => {
                   }}
                   required
                 >
-                  <option value={inputs.Item[i]?.Category || ""}>
+                  <option value={inputs.Item[i]?.Category || ""} disabled>
                     {inputs.Item[i]?.Category || "--Select Category--"}
                   </option>
                   {Object.keys(categoryWiseTypes).map((category) => (
@@ -327,7 +336,7 @@ const UpdateSellStockModal = ({ show, handleClose, setIsStockUpdated, id }) => {
                   onChange={(e) => handleItemsChange(e, i)}
                   required
                 >
-                  <option value={inputs.Item[i]?.Type || ""}>
+                  <option value={inputs.Item[i]?.Type || ""} disabled>
                     {inputs.Item[i]?.Type || "--Select Type--"}
                   </option>
                   {categoryWiseTypes[category]?.map((type) => (

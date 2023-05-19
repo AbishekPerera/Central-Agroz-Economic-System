@@ -4,6 +4,12 @@ import axios from "axios";
 import swal from "sweetalert";
 
 const SellStockModal = ({ show, handleClose, setIsStockUpdated }) => {
+      //get data from local storage as a string
+      const ecoInfo = localStorage.getItem("ecmoInfo");
+      //set data to local storage as a JSON object
+      const ecoInfo1 = JSON.parse(ecoInfo);
+    
+      const centerName = ecoInfo1["ecoCenter"]["ecoCenterName"] || "Kandy";
   const [selectedDate, setSelectedDate] = useState(new Date());
   const [formErrors, setFormErrors] = useState({});
   const [category, setCategory] = useState("");
@@ -31,7 +37,7 @@ const SellStockModal = ({ show, handleClose, setIsStockUpdated }) => {
     console.log(formattedDate);
     const fetchStocks = async () => {
       const response = await axios.get(
-        "http://localhost:8075/stock/AllStocks/" + formattedDate
+        "http://localhost:8075/stock/AllStocks/"+centerName + '/' + formattedDate
       );
       setStock(response.data.result);
     };
@@ -41,6 +47,10 @@ const SellStockModal = ({ show, handleClose, setIsStockUpdated }) => {
 
   useEffect(() => {
     const calculateReportData = () => {
+      if (!Array.isArray(stock)) {
+        console.log("Stock is not an array");
+        return;
+      }
       const report = stock.reduce((acc, stock) => {
         const { Role, Item } = stock;
 
@@ -94,9 +104,8 @@ const SellStockModal = ({ show, handleClose, setIsStockUpdated }) => {
   const [numItems, setNumItems] = useState(1);
 
   const [inputs, setInputs] = useState({
-    CenterName: "Kandy",
-    SupplierName: " ",
-    FarmerID: "Not a Farmer",
+    CenterName: centerName,
+    SupplierName: "",
     MobileNo: "",
     Address: "",
     Item: [],

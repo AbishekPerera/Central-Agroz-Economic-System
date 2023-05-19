@@ -60,3 +60,7 @@
 .stock-table .btn span {
   margin-right: 5px;
 }
+
+.error {
+  color: #dc3545;
+}
