@@ -24,18 +24,22 @@ import FarmerLogin from "./pages/System/FarmerPages/FarmerLogin";
 import FarmerProfile from "./pages/System/FarmerPages/FarmerProfile";
 import FarmerPublishProducts from "./pages/System/FarmerPages/FarmerPublishProducts";
 import FarmerViewAll from "./pages/System/FarmerPages/FarmerViewAll";
-import PriceList from "./pages/System/ECMOPages/PriceList/PriceList";
-import PriceTable from "./pages/System/ECMOPages/PriceList/PriceTable";
-import StockTable from "./pages/System/ECMOPages/Stock/StockTable";
-import QuantityList from "./pages/System/ECMOPages/Stock/QuantityList";
-import DashboardECMO from "./pages/System/ECMOPages/DashboardECMO";
-import StockBuyerTable from "./pages/System/ECMOPages/Stock/StockBuyerTable ";
 import ProfileAOUpdate from "./pages/System/AOPages/ProfileAOUpdate";
 import FarmerStatistics from "./pages/System/FarmerPages/FarmerStatistics";
-
 import FarmerPage from "./pages/FarmerPage/FarmerPage";
 import AdminLogin from "./pages/System/AdminPages/AdminLogin";
 import FarmerUpdateProduct from "./pages/System/FarmerPages/FarmerUpdateProduct";
+
+import PriceList from "./pages/System/ECMOPages/PriceList/PriceList";
+import PriceTable from "./pages/System/ECMOPages/PriceList/PriceTable";
+import QuantityList from "./pages/System/ECMOPages/Stock/QuantityList";
+import StockBuyerTable from "./pages/System/ECMOPages/Stock/StockBuyerTable ";
+import StockSellerTable from "./pages/System/ECMOPages/Stock/StockSellerTable";
+import DashboardECMO from "./pages/System/ECMOPages/DashboardECMO";
+import ECMOLoginPage from "./pages/System/ECMOPages/ECMOLoginPage";
+import ECMOUI from "./pages/System/ECMOPages/ECMOUI";
+
+
 
 function App() {
   return (
@@ -72,12 +76,15 @@ function App() {
         />
         <Route path="/admin/profile" element={<ProfileAdmin />} />
 
+        {/* Economic Center Routes */}
         <Route path="/ecmo/priceList" element={<PriceList />} />
         <Route path="/ecmo/priceTable" element={<PriceTable />} />
-        <Route path="/ecmo/stockTable" element={<StockTable />} />
         <Route path="/ecmo/quantityList" element={<QuantityList />} />
+        <Route path="/ecmo/stockSellersTable" element={<StockSellerTable />} />
+        <Route path="/ecmo/stockBuyersTable" element={<StockBuyerTable />} />
         <Route path="/ecmo/dashboard" element={<DashboardECMO />} />
-        <Route path="/ecmo/stockBuyerTable" element={<StockBuyerTable />} />
+        <Route path="/ecmo/loginPage" element={<ECMOLoginPage />} />
+        <Route path="/ecmo/ecmoUI/:centerName" element={<ECMOUI />} />
 
         {/* Farmer Routes */}
         <Route path="/system/farmer/dashboard" element={<FarmerDashboard />} />

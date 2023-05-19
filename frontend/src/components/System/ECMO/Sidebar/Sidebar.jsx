@@ -3,6 +3,7 @@ import "./Sidebar.css";
 import $ from "jquery";
 // import Logo from '../../../img/Logo/logo.png';
 import { Link, useLocation } from "react-router-dom";
+import Logo from "../../../../img/Logo/logo.png";
 
 const Sidebar = () => {
   const location = useLocation();
@@ -24,11 +25,7 @@ const Sidebar = () => {
       <div className="sidebar" id="side-nav">
         <div className="header-box px-3 pt-3 pb-4 d-flex">
           <h1 className="fs-3 px-4">
-            <span className="text-white">
-              Economic Center
-              <br />
-              Dambulla
-            </span>
+            <span className="text-white">CAES Economic Center Management</span>
           </h1>
           <button className="btn d-md-none d-block close-btn px-2 py-0 text-white">
             <i class="bi bi-list"></i>
@@ -38,18 +35,17 @@ const Sidebar = () => {
         <div className="logoSideBar">
           <img
             className="imgLogoSideBar"
-            src={
-              "https://th.bing.com/th/id/R.00d18a31898e865515e1c713fde37aad?rik=PATOFjexMWYsrQ&pid=ImgRaw&r=0"
-            }
+            src={Logo}
+            style={{ width: "120px", height: "120px" }}
             alt="img"
           />
         </div>
 
-        <div>
+        <div style={{ marginTop: "30px" }}>
           <ul className="list-untyled px-2">
-            <li className={activeItem === "/ao/dashboard" ? "active" : ""}>
+            <li className={activeItem === "/ecmo/dashboard" ? "active" : ""}>
               <Link
-                to="/ao/dashboard"
+                to="/ecmo/dashboard"
                 className="text-decoration-none px-3 py-2 d-block"
               >
                 <i class="bi bi-house-door"></i>
@@ -75,9 +71,13 @@ const Sidebar = () => {
               </Link>
             </li>
 
-            <li className={activeItem === "/ecmo/stockTable" ? "active" : ""}>
+            <li
+              className={
+                activeItem === "/ecmo/stockSellersTable" ? "active" : ""
+              }
+            >
               <Link
-                to="/ecmo/stockTable"
+                to="/ecmo/stockSellersTable"
                 className="text-decoration-none px-3 py-2 d-block"
               >
                 <i class="bi bi-bag"></i>
@@ -86,10 +86,12 @@ const Sidebar = () => {
             </li>
 
             <li
-              className={activeItem === "/ecmo/stockBuyerTable" ? "active" : ""}
+              className={
+                activeItem === "/ecmo/stockBuyersTable" ? "active" : ""
+              }
             >
               <Link
-                to="/ecmo/stockBuyerTable"
+                to="/ecmo/stockBuyersTable"
                 className="text-decoration-none px-3 py-2 d-block"
               >
                 <i class="bi bi-truck"></i>

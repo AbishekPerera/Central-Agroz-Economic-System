@@ -3,12 +3,17 @@ import Modal from "react-bootstrap/Modal";
 import axios from "axios";
 import swal from "sweetalert";
 
-const UpdateBuyStockModal = ({ show, handleClose, setIsStockUpdated, id }) => {
-  const [categories, setCategories] = useState([]);
-  const [category, setCategory] = useState("");
+const SellStockModal = ({ show, handleClose, setIsStockUpdated }) => {
+      //get data from local storage as a string
+      const ecoInfo = localStorage.getItem("ecmoInfo");
+      //set data to local storage as a JSON object
+      const ecoInfo1 = JSON.parse(ecoInfo);
+    
+      const centerName = ecoInfo1["ecoCenter"]["ecoCenterName"] || "Kandy";
+  const [selectedDate, setSelectedDate] = useState(new Date());
   const [formErrors, setFormErrors] = useState({});
+  const [category, setCategory] = useState("");
   const [submitted, isSubmitted] = useState(false);
-  console.log(formErrors);
 
   const formatDate = (date) => {
     const originalDate = date
@@ -22,77 +27,119 @@ const UpdateBuyStockModal = ({ show, handleClose, setIsStockUpdated, id }) => {
     return originalDate;
   };
 
-  const date = formatDate(new Date());
+  const [stock, setStock] = useState([]);
+  const [reportData, setReportData] = useState([]);
+  console.log(stock);
 
-  const getCategories = async () => {
-    try {
-      const { data } = await axios.get(
-        "http://localhost:8075/priceList/allPrices"
+  //get stock by date according to center
+  useEffect(() => {
+    const formattedDate = formatDate(selectedDate);
+
+    console.log(formattedDate);
+    const fetchStocks = async () => {
+      const response = await axios.get(
+        "http://localhost:8075/stock/AllStocks/"+centerName + '/' + formattedDate
       );
-      setCategories(data);
-    } catch (err) {
-      console.log(err);
-    }
-  };
+      setStock(response.data.result);
+    };
+
+    fetchStocks();
+  }, [selectedDate]);
+
+
 
   useEffect(() => {
-    getCategories();
-  }, []);
+    const calculateReportData = () => {
 
+      // Check if stock is an array
+      if (!Array.isArray(stock)) {
+        console.log("Stock is not an array");
+        return;
+      }
+
+      //Calculate the qunatities by iterating over each stock item and its Item array.
+      const report = stock.reduce((acc, stock) => {
+
+       // Extract the necessary properties from each stock.
+        const { Role, Item } = stock;
+
+       
+        Item.forEach((item) => {
+
+          // Extract the necessary properties from each Item.
+          const { Category, Type, Quantity } = item;
+           //Create a unique key based on the Category and Type.
+          const key = `${Category}-${Type}`;
+
+         // Create a unique key based on the Category and Type.
+          if (!acc[key]) {
+            acc[key] = { boughtQuantity: 0, soldQuantity: 0 };
+          }
+
+          // Update the quantities based on the Role.
+          if (Role === "Seller") {
+            acc[key].boughtQuantity += Quantity;
+          } else if (Role === "Buyer") {
+            acc[key].soldQuantity += Quantity;
+          }
+        });
+
+        // Return the accumulator.
+        setReportData(acc);
+        return acc;
+      }, {});
+    };
+
+    //call the above function
+    calculateReportData();
+  }, [stock]);
+
+
+  //group types by category
   const groupTypesByCategory = (data) => {
+
+    //check is array
     if (!Array.isArray(data)) {
       console.log("Data is not an array");
       return {};
     }
-    return data.reduce((groups, type) => {
-      const category = type?.Category;
-      if (category) {
-        groups[category] = groups[category] || [];
-        groups[category].push(type);
-      }
+
+    return data.reduce((groups, stock) => {
+      stock.Item.forEach((item) => {
+        const { Category, Type } = item;
+
+        if (Category) {
+
+          /// Initialize the category array if it doesn't exist
+          groups[Category] = groups[Category] || [];
+          if (!groups[Category].includes(Type)) {
+
+            // Add the type to the category array if it's not already included
+            groups[Category].push(Type);
+          }
+        }
+      });
+
       return groups;
     }, {});
   };
 
-  const categoryWiseTypes = groupTypesByCategory(categories || []);
-
+  const categoryWiseTypes = groupTypesByCategory(stock || []);
   console.log(categoryWiseTypes);
 
   const [numItems, setNumItems] = useState(1);
 
   const [inputs, setInputs] = useState({
+    CenterName: centerName,
     SupplierName: "",
-    FarmerID: "",
     MobileNo: "",
     Address: "",
-    Item: [
-      {
-        Category: "",
-        Type: "",
-        Quantity: 0,
-      },
-    ],
+    Item: [],
+    Role: "Buyer",
+    Date: formatDate(new Date()),
   });
 
   console.log(inputs);
-
-  useEffect(() => {
-    const getStocks = async (id) => {
-      try {
-        const res = await axios
-          .get("http://localhost:8075/stock/stock/" + id)
-          .then((res) => {
-            const data = res.data;
-            setInputs(data);
-            setNumItems(data.NoOfItems);
-            console.log(data);
-          });
-      } catch (err) {
-        console.log(err);
-      }
-    };
-    getStocks(id);
-  }, [id]);
 
   function handleNumItemsChange(event) {
     setNumItems(parseInt(event.target.value));
@@ -104,6 +151,42 @@ const UpdateBuyStockModal = ({ show, handleClose, setIsStockUpdated, id }) => {
       [e.target.name]: e.target.value,
     }));
   }
+
+  const handleCategoryChange = (e) => {
+    setCategory(e.target.value);
+  };
+
+  const handleSubmit = async (e) => {
+    e.preventDefault();
+
+    const errors = validate(inputs);
+    setFormErrors(errors);
+    isSubmitted(true);
+  };
+
+  useEffect(() => {
+    if (Object.keys(formErrors).length === 0 && submitted) {
+      axios
+        .post("http://localhost:8075/stock/addStock", {
+          CenterName: inputs.CenterName,
+          SupplierName: inputs.SupplierName,
+          MobileNo: inputs.MobileNo,
+          Address: inputs.Address,
+          NoOfItems: numItems,
+          Item: inputs.Item,
+          Role: inputs.Role,
+          Date: inputs.Date,
+        })
+        .then((res) => {
+          swal("Stock Bought Successfully");
+          setIsStockUpdated(true);
+          handleClose();
+        })
+        .catch((error) => {
+          swal(error);
+        });
+    }
+  }, [formErrors, submitted]);
 
   function handleItemsChange(e, index) {
     setInputs((prev) => {
@@ -119,10 +202,6 @@ const UpdateBuyStockModal = ({ show, handleClose, setIsStockUpdated, id }) => {
     });
   }
 
-  const handleCategoryChange = (e) => {
-    setCategory(e.target.value);
-  };
-
   const validate = (values) => {
     const errors = {};
 
@@ -137,7 +216,10 @@ const UpdateBuyStockModal = ({ show, handleClose, setIsStockUpdated, id }) => {
 
     if (!values.MobileNo) {
       errors.MobileNo = "Mobile Number is required";
+    } else if (values.MobileNo.length !== 10) {
+      errors.MobileNo = "Invalid MobileNo";
     }
+
     if (!numItems) {
       errors.numItems = "Number of Items is required";
     }
@@ -155,76 +237,51 @@ const UpdateBuyStockModal = ({ show, handleClose, setIsStockUpdated, id }) => {
 
       if (!item || !item.Quantity) {
         errors[`ItemQuantity${i}`] = "Quantity is required";
+      } else {
+        const boughtQuantity =
+          reportData[`${item.Category}-${item.Type}`]?.boughtQuantity || 0;
+        const soldQuantity =
+          reportData[`${item.Category}-${item.Type}`]?.soldQuantity || 0;
+        const availableQuantity = boughtQuantity - soldQuantity;
+        const quantity = parseInt(item.Quantity);
+
+        if (quantity > availableQuantity) {
+          if (availableQuantity === 0) {
+            errors[`ItemQuantity${i}`] = ` ${item.Type} not available`;
+          } else if (availableQuantity > 0) {
+            errors[
+              `ItemQuantity${i}`
+            ] = `Quantity for ${item.Type} should be less than or equal to ${availableQuantity} kg.`;
+          } else {
+            // reportData[`${item.Category}-${item.Type}`].soldQuantity += quantity;
+          }
+        }
       }
     }
 
     return errors;
   };
 
-  const handleSubmit = async (e) => {
-    e.preventDefault();
-
-    if (formErrors.length > 0) {
-      setFormErrors({});
-    }
-    const errors = validate(inputs);
-    setFormErrors(errors);
-    isSubmitted(true);
-  };
-
-  useEffect(() => {
-    if (Object.keys(formErrors).length === 0 && submitted) {
-      axios
-        .put("http://localhost:8075/stock/update/" + id, {
-          SupplierName: inputs.SupplierName,
-          FarmerID: inputs.FarmerID,
-          MobileNo: inputs.MobileNo,
-          Address: inputs.Address,
-          NoOfItems: numItems,
-          Item: inputs.Item,
-        })
-        .then((res) => {
-          swal("Bought Stock Updated Successfully");
-          setIsStockUpdated(true);
-          handleClose();
-        })
-        .catch((error) => {
-          swal(error);
-        });
-    }
-  }, [formErrors, submitted]);
-
   return (
     <Modal show={show} onHide={handleClose}>
       <Modal.Header closeButton>
-        <Modal.Title>Buy Stock</Modal.Title>
+        <Modal.Title>Sell Stock</Modal.Title>
       </Modal.Header>
 
       <Modal.Body>
         <div className="form-group">
-          <label htmlFor="stock-name">Seller Name:</label>
+          <label htmlFor="stock-name">Buyer Name:</label>
           <input
             type="text"
             className="form-control"
             name="SupplierName"
-            value={inputs.SupplierName}
             onChange={handleChange}
             required
           />
+
           <p class="error" name="SupplierName" Value={formErrors.SupplierName}>
             {formErrors.SupplierName}
           </p>
-        </div>
-        <p>If Registered Farmer:</p>
-        <div className="form-group">
-          <label htmlFor="farmer-id">Farmer ID:</label>
-          <input
-            type="text"
-            className="form-control"
-            name="FarmerID"
-            value={inputs.FarmerID}
-            onChange={handleChange}
-          />
         </div>
 
         <div className="form-group">
@@ -233,7 +290,6 @@ const UpdateBuyStockModal = ({ show, handleClose, setIsStockUpdated, id }) => {
             type="text"
             className="form-control"
             name="Address"
-            value={inputs.Address}
             onChange={handleChange}
           />
           <p class="error" name="Address" Value={formErrors.Address}>
@@ -246,7 +302,6 @@ const UpdateBuyStockModal = ({ show, handleClose, setIsStockUpdated, id }) => {
             type="text"
             className="form-control"
             name="MobileNo"
-            value={inputs.MobileNo}
             onChange={handleChange}
           />
           <p class="error" name="MobileNo" Value={formErrors.MobileNo}>
@@ -255,11 +310,11 @@ const UpdateBuyStockModal = ({ show, handleClose, setIsStockUpdated, id }) => {
         </div>
 
         <div className="form-group">
-          <label htmlFor="numItems">Number of Items:</label>
+          <label htmlFor="num-items">Number of Items:</label>
           <input
             type="number"
             className="form-control"
-            name="numItems"
+            name="num-items"
             min="1"
             max="10"
             value={numItems}
@@ -280,16 +335,13 @@ const UpdateBuyStockModal = ({ show, handleClose, setIsStockUpdated, id }) => {
                 <select
                   name="Category"
                   className="form-control"
-                  value={inputs.Item[i]?.Category || ""}
                   onChange={(e) => {
                     handleItemsChange(e, i);
                     handleCategoryChange(e);
                   }}
                   required
                 >
-                  <option value={inputs.Item[i]?.Category || ""} disabled>
-                    {inputs.Item[i]?.Category || "--Select Category--"}
-                  </option>
+                  <option value="">--Select Category--</option>
                   {Object.keys(categoryWiseTypes).map((category) => (
                     <option key={category} value={category}>
                       {category}
@@ -300,7 +352,7 @@ const UpdateBuyStockModal = ({ show, handleClose, setIsStockUpdated, id }) => {
               </div>
 
               <div className="form-group">
-                <label htmlFor={`type-${i + 1}`}>Type:</label>
+                <label htmlFor={"type"}>Type:</label>
                 <select
                   name="Type"
                   className="form-control"
@@ -311,17 +363,14 @@ const UpdateBuyStockModal = ({ show, handleClose, setIsStockUpdated, id }) => {
                   <option value={inputs.Item[i]?.Type || ""}>
                     {inputs.Item[i]?.Type || "--Select Type--"}
                   </option>
-                  {Array.isArray(categoryWiseTypes[category]) &&
-                    categoryWiseTypes[category].map((type) => (
-                      <option key={type.Type} value={type.Type}>
-                        {type.Type}
-                      </option>
-                    ))}
+                  {categoryWiseTypes[category]?.map((type) => (
+                    <option key={type} value={type}>
+                      {type}
+                    </option>
+                  ))}
                 </select>
-
                 <p className="error">{formErrors[`ItemType${i}`]}</p>
               </div>
-
               <div className="form-group ">
                 <label htmlFor="Quantity">Quantity:</label>
                 <input
@@ -329,7 +378,6 @@ const UpdateBuyStockModal = ({ show, handleClose, setIsStockUpdated, id }) => {
                   name="Quantity"
                   className="form-control"
                   placeholder="in kg"
-                  value={inputs.Item[i]?.Quantity || ""}
                   onChange={(e) => handleItemsChange(e, i)}
                   min="1"
                   max="10000"
@@ -348,7 +396,7 @@ const UpdateBuyStockModal = ({ show, handleClose, setIsStockUpdated, id }) => {
           variant="secondary"
           onClick={handleSubmit}
         >
-          Update Bought Stock
+          Sell Stock
         </button>
         <button class="btn btn-danger" variant="primary" onClick={handleClose}>
           Close
@@ -357,4 +405,5 @@ const UpdateBuyStockModal = ({ show, handleClose, setIsStockUpdated, id }) => {
     </Modal>
   );
 };
-export default UpdateBuyStockModal;
+
+export default SellStockModal;
