@@ -27,6 +27,7 @@ import FarmerViewAll from "./pages/System/FarmerPages/FarmerViewAll";
 import ProfileAOUpdate from "./pages/System/AOPages/ProfileAOUpdate";
 import FarmerStatistics from "./pages/System/FarmerPages/FarmerStatistics";
 import FarmerPage from "./pages/FarmerPage/FarmerPage";
+import AdminLogin from "./pages/System/AdminPages/AdminLogin";
 
 import PriceList from "./pages/System/ECMOPages/PriceList/PriceList";
 import PriceTable from "./pages/System/ECMOPages/PriceList/PriceTable";
@@ -58,6 +59,7 @@ function App() {
         <Route path="/findfarmers" element={<FarmerPage />} />
 
         {/* Admin pages  */}
+        <Route path="/admin/login" element={<AdminLogin />} />
         <Route path="/admin/dashboard" element={<DashboardAdmin />} />
         <Route path="/admin/echoCenters" element={<EchoCentersAdmin />} />
         <Route path="/admin/addchoCenters" element={<AddEchoCenterAdmin />} />

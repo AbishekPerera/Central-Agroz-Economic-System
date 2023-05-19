@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import Sidebar from "../../../components/System/Admin/Sidebar/Sidebar";
 import NavBar from "../../../components/System/Admin/NavBar/NavBar";
 import SystemFooter from "../../../components/System/Admin/Footer/SystemFooter";
@@ -11,8 +11,18 @@ import {
   PolarAngleAxis,
   PolarRadiusAxis,
 } from "recharts";
+import { useNavigate } from "react-router-dom";
 
 const DashboardAdmin = () => {
+  const history = useNavigate();
+
+  useEffect(() => {
+    const adminInfo = localStorage.getItem("adminInfo");
+
+    if (adminInfo === null) {
+      history("/admin/login");
+    }
+  }, []);
   const [echoCenters, setEchoCenters] = useState([
     {
       name: "Western Province",
