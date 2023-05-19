@@ -9,6 +9,14 @@ import echoCenterImage from "../../../img/other comp/newsbanner.jpg";
 import { useNavigate } from "react-router-dom";
 
 const EchoCentersAdmin = () => {
+  useEffect(() => {
+    const adminInfo = localStorage.getItem("adminInfo");
+
+    if (adminInfo === null) {
+      history("/admin/login");
+    }
+  }, []);
+
   const [echoCenters, setEchoCenters] = useState([
     {
       _id: "64575de3201b6a587daef125",

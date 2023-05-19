@@ -20,7 +20,7 @@ const Footer = () => {
                     <Link>Wish List</Link>
                   </li>
                   <li>
-                    <Link to="/system/auth">System Login</Link>
+                    <Link to="/admin/login">System Login</Link>
                   </li>
                 </ul>
               </div>

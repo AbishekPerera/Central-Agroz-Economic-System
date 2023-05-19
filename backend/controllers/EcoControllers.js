@@ -109,21 +109,50 @@ export const updateEconomicCenter = async (req, res) => {
     }
     if (!password) {
       password = updateEcoCenter.password;
+    } else {
+      const saltRounds = 10;
+      password = await bcrypt.hash(password, saltRounds);
     }
 
-    updateEcoCenter.ecoCenterName = ecoCenterName;
-    updateEcoCenter.ecoCenterAddress = ecoCenterAddress;
-    updateEcoCenter.province = province;
-    updateEcoCenter.district = district;
-    updateEcoCenter.phone = phone;
-    updateEcoCenter.officerName = officerName;
-    updateEcoCenter.officerEmail = officerEmail;
-    updateEcoCenter.officerContact = officerContact;
-    updateEcoCenter.officerAddress = officerAddress;
-    updateEcoCenter.password = password;
+    const updatedEcoCenter = await EconomicCenter.findByIdAndUpdate(
+      id,
+      {
+        ecoCenterName,
+        ecoCenterAddress,
+        province,
+        district,
+        phone,
+        officerName,
+        officerEmail,
+        officerContact,
+        officerAddress,
+        password,
+      },
+      { new: true }
+    );
 
-    await updateEcoCenter.save();
-    res.status(200).json(updateEcoCenter);
+    const token = jwt.sign(
+      { id: updatedEcoCenter._id },
+      process.env.JWT_SECRET_KEY
+    );
+
+    res.status(200).json({
+      message: "Eco Center updated successfully",
+      token,
+      ecoCenter: {
+        id: updatedEcoCenter._id,
+        ecoCenterName: updatedEcoCenter.ecoCenterName,
+        email: updatedEcoCenter.email,
+        ecoCenterAddress: updatedEcoCenter.ecoCenterAddress,
+        province: updatedEcoCenter.province,
+        district: updatedEcoCenter.district,
+        phone: updatedEcoCenter.phone,
+        officerName: updatedEcoCenter.officerName,
+        officerEmail: updatedEcoCenter.officerEmail,
+        officerContact: updatedEcoCenter.officerContact,
+        officerAddress: updatedEcoCenter.officerAddress,
+      },
+    });
   } catch (error) {
     res.status(500).json({ message: error.message });
   }

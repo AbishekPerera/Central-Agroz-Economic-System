@@ -110,6 +110,9 @@ export const updateAgriculturalOfficer = async (req, res) => {
     }
     if (!password) {
       password = updateAgriculturalOfficer.password;
+    } else {
+      const saltRounds = 10;
+      password = await bcrypt.hash(password, saltRounds);
     }
 
     const updatedAgriculturalOfficer =
@@ -129,7 +132,26 @@ export const updateAgriculturalOfficer = async (req, res) => {
         { new: true }
       );
 
-    res.status(200).json(updatedAgriculturalOfficer);
+    const token = jwt.sign(
+      { id: updatedAgriculturalOfficer._id },
+      process.env.JWT_SECRET_KEY
+    );
+
+    res.status(200).json({
+      message: "Agricultural officer updated successfully",
+      token,
+      agriculturalOfficer: {
+        id: updatedAgriculturalOfficer._id,
+        name: updatedAgriculturalOfficer.name,
+        email: updatedAgriculturalOfficer.email,
+        contact: updatedAgriculturalOfficer.contact,
+        address: updatedAgriculturalOfficer.address,
+        gramaNiladariDivision: updatedAgriculturalOfficer.gramaNiladariDivision,
+        district: updatedAgriculturalOfficer.district,
+        province: updatedAgriculturalOfficer.province,
+        image: updatedAgriculturalOfficer.image,
+      },
+    });
   } catch (error) {
     res.status(404).json({ message: error.message });
   }
