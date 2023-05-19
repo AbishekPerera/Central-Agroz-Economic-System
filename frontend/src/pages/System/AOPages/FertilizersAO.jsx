@@ -32,7 +32,13 @@ const FertilizersAO = () => {
             </TabPanel>
           </Tabs>
         </div>
-        <SystemFooter />
+        <br />
+        <br />
+        <div
+          className='AOHarvestFooter'
+          style={{ position: 'absolute', bottom: '0', width: '100%' }}>
+          <SystemFooter />
+        </div>
       </div>
     </div>
   );

@@ -8,14 +8,14 @@ const DashInfoCard = () => {
         <section id='stats-subtitle'>
           <div class='row'>
             <div class='col-12 mt-3 mb-1'>
-              <h2 class='cardTopic text-uppercase'>Overall Statistics</h2>
+              <h2 class='cardTopicAO text-uppercase'>Overall Statistics</h2>
               <br />
               <br />
             </div>
           </div>
 
-          <div class='row'>
-            <div class='cardDash col-xl-5 col-md-12'>
+          <div class='row display-flex justify-content-center'>
+            <div class='cardDashAO col-xl-5 col-md-12'>
               <div class='overflow-hidden'>
                 <div class='card-content'>
                   <div class='card-body cleartfix'>
@@ -26,8 +26,12 @@ const DashInfoCard = () => {
                         </div>
                         <div
                           class='align-self-center px-4'
-                          style={{ marginTop: '1rem', marginBottom: '1rem' }}>
-                          <h1>2645</h1>
+                          style={{
+                            marginTop: '1rem',
+                            marginBottom: '1rem',
+                            marginLeft: '2rem',
+                          }}>
+                          <h1>3</h1>
                         </div>
                       </div>
                       <div className='cardIcon col-4'>
@@ -44,7 +48,7 @@ const DashInfoCard = () => {
             <div class='col-xl-1 col-md-12'></div>
 
             <div class='col-xl-5 col-md-12'>
-              <div class='cardDash overflow-hidden'>
+              <div class='cardDashAO overflow-hidden'>
                 <div class='card-content'>
                   <div class='card-body cleartfix'>
                     <div className='row'>
@@ -55,7 +59,7 @@ const DashInfoCard = () => {
                         <div
                           class='align-self-center px-4'
                           style={{ marginTop: '1rem', marginLeft: '3rem' }}>
-                          <h1>9800 kg</h1>
+                          <h1>1358 kg</h1>
                         </div>
                       </div>
                       <div className='cardIcon col-4'>

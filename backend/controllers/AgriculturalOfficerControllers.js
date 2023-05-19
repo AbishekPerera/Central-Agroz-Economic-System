@@ -1,12 +1,36 @@
 import { AgriculturalOfficers } from "../models/AgriculturalOfficers.js";
 import dotenv from "dotenv";
 import jwt from "jsonwebtoken";
+import bcrypt from "bcrypt";
 
 //register agricultural officer
 export const registerAgriculturalOfficer = async (req, res) => {
-  const newAgriculturalOfficer = new AgriculturalOfficers(req.body);
+  const {
+    name,
+    email,
+    contact,
+    address,
+    gramaNiladariDivision,
+    district,
+    province,
+    image,
+    password,
+  } = req.body;
 
   try {
+    const saltRounds = 10;
+    const hashedPassword = await bcrypt.hash(password, saltRounds);
+    const newAgriculturalOfficer = new AgriculturalOfficers({
+      name,
+      email,
+      contact,
+      address,
+      gramaNiladariDivision,
+      district,
+      province,
+      image,
+      password: hashedPassword,
+    });
     await newAgriculturalOfficer.save();
     res.status(201).json(newAgriculturalOfficer);
   } catch (error) {
@@ -139,16 +163,12 @@ export const loginAgriculturalOfficer = async (req, res) => {
       return res.status(404).json({ message: "User doesn't exist" });
     }
 
-    // const isPasswordCorrect = await bcrypt.compare(
-    //   password,
-    //   existingAgriculturalOfficer.password
-    // );
+    const isPasswordValid = await bcrypt.compare(
+      password,
+      existingAgriculturalOfficer.password
+    );
 
-    // if (!isPasswordCorrect) {
-    //   return res.status(400).json({ message: "Invalid credentials" });
-    // }
-
-    if (password !== existingAgriculturalOfficer.password) {
+    if (!isPasswordValid) {
       return res.status(400).json({ message: "Invalid credentials" });
     }
 

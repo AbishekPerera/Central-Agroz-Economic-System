@@ -33,12 +33,20 @@ const HarvestAO = () => {
               <AddHarvest />
             </TabPanel>
             <TabPanel>
-              <h2 style={{ margin: '2rem' }}>Crop wise Total Harvest</h2>
+              <h2 style={{ margin: '2rem', fontFamily: 'math' }}>
+                Crop wise Total Harvest
+              </h2>
               <HarvestReports />
             </TabPanel>
           </Tabs>
         </div>
-        <SystemFooter />
+        <br />
+        <br />
+        <div
+          className='AOHarvestFooter'
+          style={{ position: 'absolute', bottom: '0', width: '100%' }}>
+          <SystemFooter />
+        </div>
       </div>
     </div>
   );

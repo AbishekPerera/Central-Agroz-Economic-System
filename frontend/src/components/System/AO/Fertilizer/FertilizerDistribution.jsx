@@ -1,7 +1,35 @@
 import React from 'react';
 import '../Farmers/FarmerAddForm.css';
+import axios from 'axios';
 
 const FertilizerDistribution = () => {
+
+  const [fertilizerData, setFertilizerData] = React.useState({
+    farmerUsername: '',
+    fertilizerType: '',
+    year: '',
+    month: '',
+    quantity: '',
+  });
+
+  const handleChange = (e) => {
+    //spreading previous state data & update it with a new key value pair
+    setFertilizerData({ ...fertilizerData, [e.target.id]: e.target.value });
+  };
+
+  const handleSubmit = (e) => {
+    e.preventDefault();
+
+    axios
+      .post('http://localhost:8075/ao/addfertilizer', fertilizerData)
+      .then(() => {
+        alert('Fertilizer record added successfully');
+      })
+      .catch((err) => {
+        alert(err.response.data.message);
+      });
+  };
+
   return (
     <div className='farmerRegForm'>
       <section>
@@ -21,8 +49,10 @@ const FertilizerDistribution = () => {
                     </div>
                     <div class='col-md-9 pe-5'>
                       <input
-                        id='fUsername'
+                        id='farmerUsername'
                         type='text'
+                        onChange={handleChange}
+                        value={fertilizerData.farmerUsername}
                         placeholder='Enter farmer username'
                         required
                         class='form-control form-control-lg'
@@ -38,6 +68,8 @@ const FertilizerDistribution = () => {
                       <input
                         id='fertilizerType'
                         type='text'
+                        onChange={handleChange}
+                        value={fertilizerData.fertilizerType}
                         placeholder='Enter fetilizer type'
                         required
                         class='form-control form-control-lg'
@@ -53,6 +85,8 @@ const FertilizerDistribution = () => {
                       <input
                         id='year'
                         type='text'
+                        onChange={handleChange}
+                        value={fertilizerData.year}
                         pattern='\d{4}'
                         placeholder='Enter year'
                         required
@@ -71,6 +105,8 @@ const FertilizerDistribution = () => {
                         class='form-control form-control-lg'
                         style={{ fontSize: '16px' }}
                         required
+                        onChange={handleChange}
+                        value={fertilizerData.month}
                         placeholder='Select month'
                         aria-label='Default select example'>
                         <option selected style={{ fontSize: '16px' }} disabled>
@@ -100,6 +136,8 @@ const FertilizerDistribution = () => {
                       <input
                         id='quantity'
                         type='number'
+                        onChange={handleChange}
+                        value={fertilizerData.quantity}
                         placeholder='Enter quantity'
                         required
                         class='form-control form-control-lg'
@@ -111,8 +149,9 @@ const FertilizerDistribution = () => {
                     <button
                       type='submit'
                       class='button-18'
+                      onClick={handleSubmit}
                       style={{ display: 'block', margin: '0 auto' }}>
-                      Add Harvest Record
+                      Add Fertilizer Record
                     </button>
                   </div>
                 </div>

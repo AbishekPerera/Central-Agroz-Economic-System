@@ -36,6 +36,7 @@
 .header-nav-bar {
   background-color: #fff;
   overflow: hidden;
+  z-index: 1000;
 }
 
 .header-nav-bar Link,
