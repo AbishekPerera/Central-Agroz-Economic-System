@@ -2,7 +2,7 @@ import React, { useEffect, useState } from "react";
 import { Button, Col, Container, Form, Row } from "react-bootstrap";
 import LoginImage from "../../../img/Logo/farmerlogin.png";
 import axios from "axios";
-import { useNavigate } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import swal from "sweetalert";
 import ErrorMsgLogin from "../../../components/CustomAlert/ErrorMsgLogin";
 import Loading from "../../../components/Loading/Loading";
@@ -67,6 +67,11 @@ const AdminLogin = () => {
       className="d-flex align-items-center justify-content-center"
       style={{ height: "100vh" }}
     >
+      <div className="floating-on-login">
+        <Link to="/">
+          <i class="bi bi-house"></i>
+        </Link>
+      </div>
       <Container>
         <Row className="d-flex align-items-stretch">
           <Col md={6} className="mb-5" style={{ backgroundColor: "#eaeee3" }}>

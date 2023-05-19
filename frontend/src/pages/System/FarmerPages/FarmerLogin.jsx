@@ -70,6 +70,11 @@ const FarmerLogin = () => {
 
   return (
     <div className="mainContainer">
+      <div className="floating-on-login">
+        <Link to="/">
+          <i class="bi bi-house"></i>
+        </Link>
+      </div>
       <div className="contentContainer">
         <br />
         <br />
