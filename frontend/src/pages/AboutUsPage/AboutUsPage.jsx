@@ -41,41 +41,83 @@ const AboutUsPage = () => {
 
       {/* AboutUs Content      */}
       <div className="BackgroundAboutUs">
-        <div style={{ width: "90%", margin: "0 auto" }}>        
-    <br/><br/>
-            <Alert variant="light"  style={{ width: '95%'  }}>
-              <Alert.Heading>What is Central Agroz Economic System ? </Alert.Heading>
-              <hr/><p><br/>
-              Central Agroz Economic System is a web-based platform designed to address the problems prevailing in the agriculture sector in Sri Lanka. The platform aims to provide a comprehensive solution by increasing productivity and efficiency in the sector through better coordination and communication between farmers, agricultural officers, economic centers, and customers.
+        <div style={{ width: "90%", margin: "0 auto" }}>
+          <br />
+          <br />
+          <Alert variant="light" style={{ width: "95%" }}>
+            <Alert.Heading>
+              <b>What is Central Agroz Economic System ? </b>
+            </Alert.Heading>
+            <hr />
+            <p>
+              <br />
+              Central Agroz Economic System is a web-based platform designed to
+              address the problems prevailing in the agriculture sector in Sri
+              Lanka. The platform aims to provide a comprehensive solution by
+              increasing productivity and efficiency in the sector through
+              better coordination and communication between farmers,
+              agricultural officers, economic centers, and customers.
               <hr />
-              </p>
-            
-            </Alert>
-            <Alert variant="light" style={{ width: '95%' }}>
-              <Alert.Heading> Our Motive  </Alert.Heading>
-              <hr/><p><br/>
-              Our platform is designed to serve the needs of all registered farmers, agricultural officers, and economic centers in Sri Lanka. The platform's main objective is to establish an accurate database of all the farmers in the country, which will help the government and related authorities to identify the difficulties faced by farmers and ensure that they are addressed through monitoring. Additionally, the platform will provide a medium for farmers to sell their crops directly to customers without interference from intermediaries, thereby earning a fair and reasonable price for their produce.
-              </p>
-              <hr />
-            </Alert>
-            <Alert variant="light  "  style={{ width: '95%'  }}>
-              <Alert.Heading>Our Team </Alert.Heading>
-              <hr/><p><br/>
-              At Central Agroz, we have a dedicated team of professionals who are passionate about improving Sri Lanka's agriculture industry. Our team includes experts in the fields of agriculture, technology, data analysis, and marketing, who work together to develop and maintain our platform. We are committed to providing the best possible service to our clients and are always looking for ways to improve our system.        </p>
-            <hr/>
-            </Alert>
-            
-            <Alert variant="light"  style={{ width: '95%' }}>
-              <Alert.Heading>Our Vision </Alert.Heading>
-              <hr/><p><br/>
-              Our vision is to create a sustainable and profitable agriculture industry in Sri Lanka, where farmers can earn a fair price for their crops, and consumers can enjoy high-quality local produce. We believe that by connecting farmers directly with customers and improving coordination and communication within the industry, we can help reduce food waste, improve food security, and contribute to the country's economic growth. Our ultimate goal is to be the leading platform for agricultural trade in Sri Lanka and beyond, promoting transparency, efficiency, and sustainability.       
-              </p>
-              <hr/>
-            </Alert>
-                  
-        </div>
+            </p>
+          </Alert>
+          <Alert variant="light" style={{ width: "95%" }}>
+            <Alert.Heading>
+              <b>Our Motive</b>
+            </Alert.Heading>
+            <hr />
+            <p>
+              <br />
+              Our platform is designed to serve the needs of all registered
+              farmers, agricultural officers, and economic centers in Sri Lanka.
+              The platform's main objective is to establish an accurate database
+              of all the farmers in the country, which will help the government
+              and related authorities to identify the difficulties faced by
+              farmers and ensure that they are addressed through monitoring.
+              Additionally, the platform will provide a medium for farmers to
+              sell their crops directly to customers without interference from
+              intermediaries, thereby earning a fair and reasonable price for
+              their produce.
+            </p>
+            <hr />
+          </Alert>
+          <Alert variant="light  " style={{ width: "95%" }}>
+            <Alert.Heading>
+              <b>Our Team</b>
+            </Alert.Heading>
+            <hr />
+            <p>
+              <br />
+              At Central Agroz, we have a dedicated team of professionals who
+              are passionate about improving Sri Lanka's agriculture industry.
+              Our team includes experts in the fields of agriculture,
+              technology, data analysis, and marketing, who work together to
+              develop and maintain our platform. We are committed to providing
+              the best possible service to our clients and are always looking
+              for ways to improve our system.{" "}
+            </p>
+            <hr />
+          </Alert>
 
-       
+          <Alert variant="light" style={{ width: "95%" }}>
+            <Alert.Heading>
+              <b>Our Vision </b>
+            </Alert.Heading>
+            <hr />
+            <p>
+              <br />
+              Our vision is to create a sustainable and profitable agriculture
+              industry in Sri Lanka, where farmers can earn a fair price for
+              their crops, and consumers can enjoy high-quality local produce.
+              We believe that by connecting farmers directly with customers and
+              improving coordination and communication within the industry, we
+              can help reduce food waste, improve food security, and contribute
+              to the country's economic growth. Our ultimate goal is to be the
+              leading platform for agricultural trade in Sri Lanka and beyond,
+              promoting transparency, efficiency, and sustainability.
+            </p>
+            <hr />
+          </Alert>
+        </div>
       </div>
 
       {/* Element */}
@@ -116,7 +158,8 @@ const AboutUsPage = () => {
                 style={{ color: "#CDBE78" }}
                 href="/"
               >
-                " Pioneering a new era of agricultural developmeht in Sri Lanka "
+                " Pioneering a new era of agricultural developmeht in Sri Lanka
+                "
               </Link>
             </div>
             {/* </div> */}

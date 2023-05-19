@@ -1,28 +1,31 @@
 @import url("https://fonts.googleapis.com/css2?family=Montserrat:wght@400;500;600;800&display=swap");
 
-.container .item-item {
+.pricecontainer .item-item {
   min-height: 300px;
   border: none;
+
   overflow: hidden;
   position: relative;
   border-radius: 0;
 }
 
-.container .item-item .item {
+.pricecontainer .item-item .item {
   width: 100%;
   height: 200px;
   position: relative;
   overflow: hidden;
   cursor: pointer;
+  border: none;
 }
 
-.container .item-item .item img {
+.pricecontainer .item-item .item img {
   width: 100%;
-  height: 100%;
+  height: 200px;
   object-fit: cover;
+  border: none;
 }
 
-.container .item-item .item .icons .icon {
+.pricecontainer .item-item .item .icons .icon {
   width: 40px;
   height: 40px;
   background-color: #fff;
@@ -35,7 +38,7 @@
   cursor: pointer;
 }
 
-.container .item-item .item .icons .icon1 {
+.pricecontainer .item-item .item .icons .icon1 {
   width: 40px;
   height: 40px;
   background-color: #fff;
@@ -48,7 +51,7 @@
   cursor: pointer;
 }
 
-.container .item-item .item .icons .icon:hover {
+.pricecontainer .item-item .item .icons .icon:hover {
   background-color: #b71c1c;
   color: #fff;
 }
@@ -58,23 +61,23 @@
   color: #fff;
 }
 
-.container .item-item .item .icons .icon:nth-last-of-type(3) {
+.pricecontainer .item-item .item .icons .icon:nth-last-of-type(3) {
   transition-delay: 0.2s;
 }
 
-.container .item-item .item .icons .icon:nth-last-of-type(2) {
+.pricecontainer .item-item .item .icons .icon:nth-last-of-type(2) {
   transition-delay: 0.15s;
 }
 
-.container .item-item .item .icons .icon:nth-last-of-type(1) {
+.pricecontainer .item-item .item .icons .icon:nth-last-of-type(1) {
   transition-delay: 0.1s;
 }
 
-.container .item-item:hover .item .icons .icon {
+.pricecontainer .item-item:hover .item .icons .icon {
   transform: translateY(-60px);
 }
 
-.container .item-item .tag {
+.pricecontainer .item-item .tag {
   text-transform: uppercase;
   font-size: 0.75rem;
   font-weight: 500;
@@ -84,7 +87,7 @@
   padding: 0 0.4rem;
 }
 
-.container .item-item .tag1 {
+.pricecontainer .item-item .tag1 {
   width: 30px;
   height: 30px;
   text-align: "center";
@@ -97,17 +100,17 @@
   padding: 0 0.4rem;
 }
 
-.container .item-item .title {
+.pricecontainer .item-item .title {
   font-size: 0.95rem;
   letter-spacing: 0.5px;
 }
 
-.container .item-item .fa-star {
+.pricecontainer .item-item .fa-star {
   font-size: 0.65rem;
   color: goldenrod;
 }
 
-.container .item-item .price {
+.pricecontainer .item-item .price {
   margin-top: 10px;
   margin-bottom: 10px;
   font-weight: 600;
@@ -151,4 +154,3 @@
   background-color: #000000;
   color: #08781f;
 }
-

@@ -14,7 +14,7 @@ const Footer = () => {
                 <h3>Services</h3>
                 <ul>
                   <li>
-                    <Link>Order tracking</Link>
+                    <Link to="/system/farmer/login">Farmer Login</Link>
                   </li>
                   <li>
                     <Link>Wish List</Link>

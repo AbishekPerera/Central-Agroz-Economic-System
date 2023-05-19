@@ -12,6 +12,7 @@ import {
   PolarRadiusAxis,
 } from "recharts";
 import { useNavigate } from "react-router-dom";
+import axios from "axios";
 
 const DashboardAdmin = () => {
   const history = useNavigate();
@@ -23,44 +24,42 @@ const DashboardAdmin = () => {
       history("/admin/login");
     }
   }, []);
-  const [echoCenters, setEchoCenters] = useState([
-    {
-      name: "Western Province",
-      economic_center_count: 15,
-    },
-    {
-      name: "Central Province",
-      economic_center_count: 8,
-    },
-    {
-      name: "Southern Province",
-      economic_center_count: 6,
-    },
-    {
-      name: "Northern Province",
-      economic_center_count: 3,
-    },
-    {
-      name: "Eastern Province",
-      economic_center_count: 5,
-    },
-    {
-      name: "North Western Province",
-      economic_center_count: 4,
-    },
-    {
-      name: "North Central Province",
-      economic_center_count: 2,
-    },
-    {
-      name: "Uva Province",
-      economic_center_count: 3,
-    },
-    {
-      name: "Sabaragamuwa Province",
-      economic_center_count: 2,
-    },
-  ]);
+  const [echoCenters, setEchoCenters] = useState([]);
+
+  const getAllEchoCenters = async () => {
+    axios
+      .get("http://localhost:8075/ecocenters/")
+      .then((res) => {
+        const data = res.data;
+
+        // Group data by province and count economic centers in each province
+        const groupedData = data.reduce((acc, center) => {
+          const province = center.province;
+          if (acc[province]) {
+            acc[province].economic_center_count++;
+          } else {
+            acc[province] = {
+              name: province,
+              economic_center_count: 1,
+            };
+          }
+          return acc;
+        }, {});
+
+        // Convert the groupedData object to an array of values
+        const restructuredData = Object.values(groupedData);
+
+        // Update the state with the restructured data
+        setEchoCenters(restructuredData);
+      })
+      .catch((err) => {
+        alert(err.message);
+      });
+  };
+
+  useEffect(() => {
+    getAllEchoCenters();
+  }, []);
 
   return (
     <div className="mainContainer">

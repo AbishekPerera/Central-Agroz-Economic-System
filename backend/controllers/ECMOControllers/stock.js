@@ -78,16 +78,8 @@ export async function deleteStockByID(req, res) {
 export async function updateStockByID(req, res) {
   const stockId = req.params.id;
   console.log(stockId);
-  const {
-    SupplierName,
-    FarmerID,
-    MobileNo,
-    Address,
-    NoOfItems,
-    Item,
-    Role,
-    Date,
-  } = req.body;
+  const { SupplierName, FarmerID, MobileNo, Address, NoOfItems, Item } =
+    req.body;
 
   const updateStock = {
     SupplierName,
@@ -96,8 +88,6 @@ export async function updateStockByID(req, res) {
     Address,
     NoOfItems,
     Item,
-    Role,
-    Date,
   };
 
   await stock
@@ -111,4 +101,30 @@ export async function updateStockByID(req, res) {
       console.log(err);
       res.status(400).json({ status: "Error with update stock" });
     });
+}
+
+// Get stock by date
+export async function getStocksByDate(req, res) {
+  try {
+    const date = req.params.date;
+
+    const result = await stock.find({ Date: date });
+
+    return res.status(200).json({ result });
+  } catch (err) {
+    return res.status(422).json("error", err);
+  }
+}
+
+export async function getStocksByDateCenterName(req, res) {
+  try {
+    const date = req.params.date;
+    const centerName = req.params.centerName;
+
+    const result = await stock.find({ CenterName: centerName, Date: date });
+
+    return res.status(200).json({ result });
+  } catch (err) {
+    return res.status(422).json("error", err);
+  }
 }

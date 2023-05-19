@@ -3,9 +3,9 @@ import Modal from "react-bootstrap/Modal";
 import axios from "axios";
 import swal from "sweetalert";
 
-const UpdatePriceModal = ({ show, handleClose, id }) => {
+const UpdatePriceModal = ({ show, handleClose, id, setIsPriceUpdated }) => {
   const formattedDate = (date) => {
-    const Date = date
+    const formatted = new Date(date)
       .toLocaleDateString("en-US", {
         year: "numeric",
         month: "2-digit",
@@ -13,20 +13,21 @@ const UpdatePriceModal = ({ show, handleClose, id }) => {
       })
       .replace(/\//g, "-");
 
-    return Date;
+    return formatted;
   };
 
-  const [newPrice, setNewPrice] = useState({
-    BuyingPrice: "",
-    SellingPrice: "",
-    Date: "",
-  });
+  const [newPrice, setNewPrice] = useState([
+    {
+      BuyingPrice: "",
+      SellingPrice: "",
+      Date: formattedDate(new Date()),
+    },
+  ]);
 
   const [price, setPrice] = useState({
     Category: "",
     Type: "",
     Image: "",
-    Price: [],
   });
 
   function handleChange(e) {
@@ -39,20 +40,22 @@ const UpdatePriceModal = ({ show, handleClose, id }) => {
   function handlePriceChange(e) {
     const { name, value } = e.target;
     if (name === "Date") {
+      const updatedValue = value ? formattedDate(value) : "";
       setNewPrice((prev) => {
-        const updatedPrice = { ...prev.Price[0], [name]: formattedDate(value) };
-        return { ...prev, Price: [updatedPrice] };
+        const updatedPrice = { ...prev[0], Date: updatedValue };
+        return [updatedPrice];
       });
     } else {
       setNewPrice((prev) => {
-        const updatedPrice = { ...prev.Price[0], [name]: value };
-        return { ...prev, Price: [updatedPrice] };
+        const updatedPrice = { ...prev[0], [name]: value };
+        return [updatedPrice];
       });
     }
   }
+
   const getData = async () => {
     try {
-      const res = await axios
+      await axios
         .get("http://localhost:8075/priceList/price/" + id)
         .then((res) => {
           const data = res.data;
@@ -60,7 +63,7 @@ const UpdatePriceModal = ({ show, handleClose, id }) => {
           setNewPrice(data.Price);
         });
     } catch (err) {
-      alert(err);
+      swal(err);
     }
   };
 
@@ -68,19 +71,21 @@ const UpdatePriceModal = ({ show, handleClose, id }) => {
     if (show) {
       getData();
     }
-  }, [show, id]);
+  }, [show]);
 
   const sendData = async (e) => {
     e.preventDefault();
     await axios
-      .put("http://localhost:8084/users/update/" + id, {
+      .put("http://localhost:8075/priceList/update/" + id, {
         Category: price.Category,
         Type: price.Type,
         Image: price.Image,
         Price: newPrice,
       })
-      .then((res) => {
+      .then(() => {
         swal("You have successfully updated.");
+        setIsPriceUpdated(true);
+        handleClose();
       })
       .catch((error) => {
         swal(error);
@@ -131,7 +136,7 @@ const UpdatePriceModal = ({ show, handleClose, id }) => {
             class="form-control"
             name="BuyingPrice"
             placeholder="Buying Price in Rs"
-            value={newPrice.BuyingPrice}
+            value={newPrice.slice(-1)[0].BuyingPrice}
             onChange={handlePriceChange}
           />
         </div>
@@ -142,7 +147,7 @@ const UpdatePriceModal = ({ show, handleClose, id }) => {
             class="form-control"
             placeholder="Selling Price in Rs"
             name="SellingPrice"
-            value={newPrice.SellingPrice}
+            value={newPrice.slice(-1)[0].SellingPrice}
             onChange={handlePriceChange}
           />
         </div>
@@ -164,7 +169,9 @@ const UpdatePriceModal = ({ show, handleClose, id }) => {
             class="form-control"
             placeholder="Date"
             name="Date"
-            value={newPrice.Date}
+            value={new Date(newPrice.slice(-1)[0].Date)
+              .toISOString()
+              .substr(0, 10)}
             onChange={handlePriceChange}
           />
         </div>

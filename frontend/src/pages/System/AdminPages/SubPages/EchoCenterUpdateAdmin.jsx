@@ -1,22 +1,117 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 import Sidebar from "../../../../components/System/Admin/Sidebar/Sidebar";
 import SystemFooter from "../../../../components/System/Admin/Footer/SystemFooter";
 import NavBar from "../../../../components/System/Admin/NavBar/NavBar";
-import { Link } from "react-router-dom";
+import { Link, useNavigate, useParams } from "react-router-dom";
 import { Col, Form, Row } from "react-bootstrap";
+import axios from "axios";
+import swal from "sweetalert";
 
 const EchoCenterUpdateAdmin = () => {
-  //       id: "EC004",
-  //   echo_name: "Echo Center 4",
-  //   echo_address: "No 4, Colombo Road, Colombo",
-  //   province: "Western",
-  //   district: "Colombo",
-  //   phone: "0112345678",
-  //   officer_name: "Asanka",
-  //   officer_email: "saa@aa.aa",
-  //   officer_contact: "0771234567",
-  //   officer_address: "No 4, Colombo Road, Colombo",
-  //   center_registered_date: "2021-09-01",
+  const { id } = useParams();
+
+  // {
+  //     "_id": "64575ded201b6a587daef127",
+  //     "ecoCenterName": "Kurunegala Economic Center",
+  //     "ecoCenterAddress": "Dambulla Road, Kurunegala",
+  //     "province": "North Western",
+  //     "district": "Kurunegala",
+  //     "phone": "+94 37 223 2200",
+  //     "officerName": "Mala Perera",
+  //     "officerEmail": "malaperera@company.com",
+  //     "officerContact": "+94 76 555 4444",
+  //     "officerAddress": "No. 456, Negombo Road, Kurunegala",
+  //     "createdAt": "2023-05-07T08:14:37.152Z",
+  //     "updatedAt": "2023-05-07T08:14:37.152Z",
+  //     "__v": 0
+  // }
+
+  const [ecoCenterName, setEcoCenterName] = useState("");
+  const [ecoCenterAddress, setEcoCenterAddress] = useState("");
+  const [province, setProvince] = useState("");
+  const [district, setDistrict] = useState("");
+  const [phone, setPhone] = useState("");
+  const [officerName, setOfficerName] = useState("");
+  const [officerEmail, setOfficerEmail] = useState("");
+  const [officerContact, setOfficerContact] = useState("");
+  const [officerAddress, setOfficerAddress] = useState("");
+  const [password, setPassword] = useState("");
+  const [confirmPassword, setConfirmPassword] = useState("");
+
+  //get echo center details
+  const getEchoCenterDetails = async () => {
+    try {
+      axios
+        .get(`http://localhost:8075/ecocenters/${id}`)
+        .then((res) => {
+          setEcoCenterName(res.data.ecoCenterName);
+          setEcoCenterAddress(res.data.ecoCenterAddress);
+          setProvince(res.data.province);
+          setDistrict(res.data.district);
+          setPhone(res.data.phone);
+          setOfficerName(res.data.officerName);
+          setOfficerEmail(res.data.officerEmail);
+          setOfficerContact(res.data.officerContact);
+          setOfficerAddress(res.data.officerAddress);
+        })
+        .catch((err) => {
+          alert(err.message);
+        });
+    } catch (error) {
+      // alert(error.message);
+      swal("Error!", error.message, "error");
+    }
+  };
+
+  //get echo center details
+  useEffect(() => {
+    getEchoCenterDetails();
+  }, []);
+
+  const history = useNavigate();
+
+  //update echo center details
+  const updateEchoCenterDetails = async (e) => {
+    e.preventDefault();
+
+    try {
+      if (password === confirmPassword) {
+        const echoCenter = {
+          id,
+          ecoCenterName,
+          ecoCenterAddress,
+          province,
+          district,
+          phone,
+          officerName,
+          officerEmail,
+          officerContact,
+          officerAddress,
+          password,
+        };
+
+        axios
+          .put(`http://localhost:8075/ecocenters/update`, echoCenter)
+          .then((res) => {
+            // alert(res.data.message);
+            swal("Success!", "Informations updated", "success").then(() => {
+              history("/admin/echoCenters");
+            });
+          })
+          .catch((err) => {
+            // alert(err.message);
+            swal("Error!", err.message, "error");
+          });
+      } else {
+        // alert("Password and Confirm Password does not match");
+        swal("Error!", "Password and Confirm Password does not match", "error");
+      }
+    } catch (error) {
+      // alert(error.message);
+      swal("Error!", error.message, "error");
+    }
+  };
+
   return (
     <div className="mainContainer update-echo-center-details-background">
       <div className="contentContainer">
@@ -37,7 +132,7 @@ const EchoCenterUpdateAdmin = () => {
             <h1>Update Economic Center Details</h1>
             <br />
             <hr />
-            <Form>
+            <Form onSubmit={updateEchoCenterDetails}>
               <Row>
                 <Col>
                   <h3>Economic center informations</h3>
@@ -46,7 +141,10 @@ const EchoCenterUpdateAdmin = () => {
                     <Form.Label>Eco Center Name</Form.Label>
                     <Form.Control
                       type="text"
-                      placeholder="Jaffna Economic Center"
+                      defaultValue={ecoCenterName}
+                      onChange={(e) => {
+                        setEcoCenterName(e.target.value);
+                      }}
                       required
                     />
                   </Form.Group>
@@ -60,7 +158,10 @@ const EchoCenterUpdateAdmin = () => {
                       as="textarea"
                       rows={3}
                       required
-                      placeholder="Kankesanthurai Road, Kokuvil, Jaffna"
+                      defaultValue={ecoCenterAddress}
+                      onChange={(e) => {
+                        setEcoCenterAddress(e.target.value);
+                      }}
                     />
                   </Form.Group>
 
@@ -71,31 +172,28 @@ const EchoCenterUpdateAdmin = () => {
                         controlId="formBasicProvince"
                       >
                         <Form.Label>Province</Form.Label>
-                        <Form.Select>
-                          <option value="">Select a province</option>
-                          <option value="Central Province">
-                            Central Province
-                          </option>
-                          <option value="Eastern Province">
-                            Eastern Province
-                          </option>
-                          <option value="Northern Province" selected>
+                        <Form.Select
+                          value={province}
+                          required
+                          onChange={(e) => {
+                            setProvince(e.target.value);
+                          }}
+                        >
+                          <option value="Central">Central Province</option>
+                          <option value="Eastern">Eastern Province</option>
+                          <option value="Northern" selected>
                             Northern Province
                           </option>
-                          <option value="Southern Province">
-                            Southern Province
-                          </option>
-                          <option value="Western Province">
-                            Western Province
-                          </option>
-                          <option value="North Western Province">
+                          <option value="Southern">Southern Province</option>
+                          <option value="Western">Western Province</option>
+                          <option value="North Western">
                             North Western Province
                           </option>
-                          <option value="North Central Province">
+                          <option value="North Central">
                             North Central Province
                           </option>
-                          <option value="Uva Province">Uva Province</option>
-                          <option value="Sabaragamuwa Province">
+                          <option value="Uva ">Uva Province</option>
+                          <option value="Sabaragamuwa">
                             Sabaragamuwa Province
                           </option>
                         </Form.Select>
@@ -107,8 +205,13 @@ const EchoCenterUpdateAdmin = () => {
                         controlId="formBasicDistrict"
                       >
                         <Form.Label>District</Form.Label>
-                        <Form.Select>
-                          <option value="">Select a district</option>
+                        <Form.Select
+                          value={district}
+                          required
+                          onChange={(e) => {
+                            setDistrict(e.target.value);
+                          }}
+                        >
                           <option value="Ampara">Ampara</option>
                           <option value="Anuradhapura">Anuradhapura</option>
                           <option value="Badulla">Badulla</option>
@@ -143,34 +246,83 @@ const EchoCenterUpdateAdmin = () => {
 
                   <Form.Group className="mb-3" controlId="formBasicEmail">
                     <Form.Label>Phone</Form.Label>
-                    <Form.Control type="text" placeholder="0701273992" />
+                    <Form.Control
+                      type="text"
+                      defaultValue={phone}
+                      onChange={(e) => {
+                        setPhone(e.target.value);
+                      }}
+                    />
                   </Form.Group>
                 </Col>
                 <Col>
                   <h3>Officer informations</h3>
                   <Form.Group className="mb-3" controlId="formBasicEmail">
                     <Form.Label>Officer Name</Form.Label>
-                    <Form.Control type="text" placeholder="Raj Kumar" />
+                    <Form.Control
+                      type="text"
+                      defaultValue={officerName}
+                      onChange={(e) => {
+                        setOfficerName(e.target.value);
+                      }}
+                    />
                   </Form.Group>
 
                   <Form.Group className="mb-3" controlId="formBasicEmail">
                     <Form.Label>Officer Email</Form.Label>
                     <Form.Control
                       type="text"
-                      placeholder="rajkumar@company.com"
+                      defaultValue={officerEmail}
+                      onChange={(e) => {
+                        setOfficerEmail(e.target.value);
+                      }}
                     />
                   </Form.Group>
 
                   <Form.Group className="mb-3" controlId="formBasicEmail">
                     <Form.Label>Officer Contact</Form.Label>
-                    <Form.Control type="text" placeholder="0701234556" />
+                    <Form.Control
+                      type="text"
+                      defaultValue={officerContact}
+                      onChange={(e) => {
+                        setOfficerContact(e.target.value);
+                      }}
+                    />
                   </Form.Group>
 
                   <Form.Group className="mb-3" controlId="formBasicEmail">
                     <Form.Label>Officer Address</Form.Label>
                     <Form.Control
                       type="text"
-                      placeholder="No. 123, Main Street, Jaffna"
+                      defaultValue={officerAddress}
+                      onChange={(e) => {
+                        setOfficerAddress(e.target.value);
+                      }}
+                    />
+                  </Form.Group>
+
+                  {/* password */}
+                  <Form.Group className="mb-3" controlId="formBasicPassword">
+                    <Form.Label>Officer Password</Form.Label>
+                    <Form.Control
+                      type="password"
+                      defaultValue={password}
+                      required
+                      onChange={(e) => {
+                        setPassword(e.target.value);
+                      }}
+                    />
+                  </Form.Group>
+
+                  <Form.Group className="mb-3" controlId="formBasicPassword">
+                    <Form.Label>Confirm Password</Form.Label>
+                    <Form.Control
+                      type="password"
+                      defaultValue={confirmPassword}
+                      required
+                      onChange={(e) => {
+                        setConfirmPassword(e.target.value);
+                      }}
                     />
                   </Form.Group>
                 </Col>

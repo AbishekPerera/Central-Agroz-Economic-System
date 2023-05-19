@@ -1,0 +1,19 @@
+.croptable {
+  width: 100%;
+  border-collapse: collapse;
+}
+
+.croptable th,
+.croptable td {
+  border: 1px solid #e3d3d3;
+  padding: 8px;
+  text-align: left;
+}
+
+.croptable th {
+  background-color: #bbf7af;
+}
+
+.croptable-row:hover {
+  background-color: #e3f1e0;
+}

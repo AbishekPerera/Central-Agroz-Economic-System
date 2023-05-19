@@ -92,15 +92,11 @@ export async function updatePriceByID(req, res) {
       Category,
       Type,
       Image,
-      Price: result[0].Price.map((p, index) =>
-        index === existingPriceIndex
-          ? {
-              ...p,
-              SellingPrice: SellingPrice,
-              BuyingPrice: BuyingPrice,
-            }
-          : p
-      ),
+      $set: {
+        [`Price.${existingPriceIndex}.SellingPrice`]: SellingPrice || 0,
+        [`Price.${existingPriceIndex}.BuyingPrice`]: BuyingPrice || 0,
+        [`Price.${existingPriceIndex}.Date`]: Date || 0,
+      },
     };
   } else {
     // Insert new price
