@@ -1,5 +1,9 @@
 import express from "express";
-import { farmerLogin, publishCrop } from "../controllers/FarmerLControllers.js";
+import {
+  farmerLogin,
+  getAllCropsByFarmerId,
+  publishCrop,
+} from "../controllers/FarmerLControllers.js";
 import { getAllCrops } from "../controllers/FarmerLControllers.js";
 import { getCropById } from "../controllers/FarmerLControllers.js";
 import { updateCropById } from "../controllers/FarmerLControllers.js";
@@ -19,5 +23,7 @@ router.put("/updatecropbyid/", updateCropById);
 router.delete("/deletecropbyid/:id", deleteCropById);
 //farmer login
 router.post("/farmerlogin", farmerLogin);
+//get all crops by farmerid
+router.get("/getallcropsbyfarmerid/:id", getAllCropsByFarmerId);
 
 export default router;

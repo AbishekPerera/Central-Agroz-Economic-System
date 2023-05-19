@@ -113,3 +113,14 @@ export const farmerLogin = async (req, res) => {
     res.status(500).json({ message: error.message });
   }
 };
+
+//get all crops by farmerid
+export const getAllCropsByFarmerId = async (req, res) => {
+  const { id } = req.params;
+  try {
+    const crops = await FarmerCrop.find({ farmerId: id });
+    res.status(200).json(crops);
+  } catch (error) {
+    res.status(404).json({ message: error.message });
+  }
+};
