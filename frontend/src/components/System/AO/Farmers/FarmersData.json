@@ -1,0 +1,36 @@
+{
+    "farmers": [
+      {
+        "username": "kamal_bandara",
+        "fullName": "Kamal Bandara",
+        "address": "No 164, Weliwa, Matara",
+        "phone": "0710418465",
+        "division": "Weliwa",
+        "district": "Matara",
+        "cropType": "Rice",
+        "notes": "Owns 31ha of paddy fiels. Has been cultivating paddy for more than 30 years.",
+        "password": "password123"
+      },
+      {
+        "username": "sunil65",
+        "fullName": "Sunil Dissanayake",
+        "address": "No 564, Weliwa, Matara",
+        "phone": "0710418465",
+        "division": "Weliwa",
+        "district": "Matara",
+        "cropType": "Vegetables",
+        "password": "password456"
+      },
+      {
+        "username": "nimal_bandara",
+        "fullName": "Nimal Bandara",
+        "address": "No 784/B, Weliwa, Matara",
+        "phone": "0710418465",
+        "division": "Weliwa",
+        "district": "Matara",
+        "cropType": "Fruits",
+        "password": "password789"
+      }
+    ]
+  }
+  

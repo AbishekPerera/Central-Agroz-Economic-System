@@ -1,0 +1,24 @@
+[
+    {
+      "farmerUsername": "nimal_bandara",
+      "fertilizerType": "Nitrogen",
+      "year": 2023,
+      "month": "May",
+      "quantity": "50"
+    },
+    {
+      "farmerUsername": "kamal_bandara",
+      "fertilizerType": "Phosphorus",
+      "year": 2023,
+      "month": "April",
+      "quantity": "25"
+    },
+    {
+      "farmerUsername": "kamal_bandara",
+      "fertilizerType": "Potassium",
+      "year": 2023,
+      "month": "February",
+      "quantity": "30"
+    }
+  ]
+  

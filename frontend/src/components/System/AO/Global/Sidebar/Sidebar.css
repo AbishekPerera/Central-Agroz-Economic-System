@@ -1,0 +1,58 @@
+.main-container {
+  display: flex;
+  background-color: black;
+}
+
+#side-nav {
+  background: #000;
+  min-width: 250px;
+  max-width: 250px;
+}
+
+.logoSideBar {
+  height: 120px;
+  width: 50px;
+  padding-left: 50px;
+}
+
+.imgLogoSideBar_ao {
+  height: 120px;
+  width: 120px;
+}
+
+hr.h-color {
+  background: #d71212;
+}
+
+.sidebar li.active {
+  background: #ffffff;
+  border-radius: 8px;
+}
+
+.sidebar li.active a,
+.sidebar li.active a:hover {
+  color: #000;
+}
+
+.sidebar li a {
+  color: #fff;
+}
+
+.sidebar li {
+  margin-bottom: 10px;
+}
+
+.sidebarTitle_ao {
+  color: #fff;
+  font-size: 30px;
+  font-weight: bold;
+  margin-left: 50px;
+  font-family: 'Lucida Sans', 'Lucida Sans Regular', 'Lucida Grande',
+    'Lucida Sans Unicode', Geneva, Verdana, sans-serif;
+}
+
+.aoSidebarIcons {
+  height: 30px;
+  width: 30px;
+  margin-right: 10px;
+}

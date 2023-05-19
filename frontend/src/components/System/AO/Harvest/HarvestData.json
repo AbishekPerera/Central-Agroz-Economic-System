@@ -1,0 +1,28 @@
+[
+    {
+      "farmerUsername": "kamal_bandara",
+      "cropType": "Fruits",
+      "year": 2023,
+      "month": "February",
+      "expectedHarvest": 50,
+      "actualHarvest": 48
+    },
+    {
+      "farmerUsername": "sunil65",
+      "cropType": "Rice",
+      "season": "Yala",
+      "year": 2023,
+      "month": "May",
+      "expectedHarvest": 250,
+      "actualHarvest": 238
+    },
+    {
+      "farmerUsername": "nimal_bandara",
+      "cropType": "Vegetable",
+      "year": 2023,
+      "month": "April",
+      "expectedHarvest": 250,
+      "actualHarvest": 238
+    }
+  ]
+  
