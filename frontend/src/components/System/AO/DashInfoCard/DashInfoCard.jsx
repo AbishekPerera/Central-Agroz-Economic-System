@@ -5,13 +5,13 @@ import axios from 'axios';
 
 const DashInfoCard = () => {
   const ao = JSON.parse(localStorage.getItem('agriofficer'));
-  const aoId = ao['agriculturalOfficer']['id'];
+  // const aoId = ao['agriculturalOfficer']['id'];
   const gramaNiladariDivision =
     ao['agriculturalOfficer']['gramaNiladariDivision'];
 
   const [farmers, setFarmers] = useState([]);
   const [farmerCount, setFarmerCount] = useState([]);
-  const [harvestCount, setHarvestCount] = useState([]);
+  // const [harvestCount, setHarvestCount] = useState([]);
 
   const countDivisionFarmers = () => {
     axios
