@@ -2,9 +2,10 @@ import React, { useState } from "react";
 import Sidebar from "../../../../components/System/Admin/Sidebar/Sidebar";
 import SystemFooter from "../../../../components/System/Admin/Footer/SystemFooter";
 import NavBar from "../../../../components/System/Admin/NavBar/NavBar";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import { Col, Form, Row } from "react-bootstrap";
 import axios from "axios";
+import swal from "sweetalert";
 
 const AddEchoCenterAdmin = () => {
   //   {
@@ -32,6 +33,8 @@ const AddEchoCenterAdmin = () => {
   const [password, setPassword] = useState("");
   const [confirmPassword, setConfirmPassword] = useState("");
 
+  const history = useNavigate();
+
   const submitHandler = (e) => {
     e.preventDefault();
     // ?log all the values
@@ -50,7 +53,8 @@ const AddEchoCenterAdmin = () => {
     // );
 
     if (password !== confirmPassword) {
-      alert("Passwords do not match");
+      // alert("Passwords do not match");
+      swal("Passwords do not match", "", "error");
     } else {
       const echoCenterAdmin = {
         ecoCenterName,
@@ -68,10 +72,13 @@ const AddEchoCenterAdmin = () => {
       axios
         .post("http://localhost:8075/ecocenters/register", echoCenterAdmin)
         .then((res) => {
-          alert("Eco Center Admin Added");
+          // alert("Eco Center Admin Added");
+          swal("Eco Center Admin Added", "", "success");
+          history("/admin/echoCenters");
         })
         .catch((err) => {
-          alert(err);
+          // alert(err);
+          swal(err, "", "error");
         });
     }
   };
