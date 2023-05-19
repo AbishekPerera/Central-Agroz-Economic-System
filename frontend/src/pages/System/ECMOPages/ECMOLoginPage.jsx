@@ -49,7 +49,7 @@ const ECMOLoginPage = () => {
         // console.log("local store", systemInfo1["user"]["_id"]);
       })
       .catch((error) => {
-        swal(error);
+        swal("Login error", "Please check your email and password");
       });
   };
   return (
