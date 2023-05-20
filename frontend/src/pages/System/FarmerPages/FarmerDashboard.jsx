@@ -18,6 +18,7 @@ import img9 from "../../../img/Farmer/dash6.jpg";
 import { alignPropType } from "react-bootstrap/esm/types";
 import { Alert } from "react-bootstrap";
 import { useNavigate } from "react-router-dom";
+import CropTable from "../../../components/System/Farmer/CropTable/CropTable";
 
 const FarmerDashboard = () => {
   const history = useNavigate();
@@ -94,24 +95,7 @@ const FarmerDashboard = () => {
             </Alert.Heading>
             {/* <hr /> */}
           </Alert>
-          <Alert variant="primary" style={{ width: "100%" }}>
-            <Alert.Heading>
-              View Your GramaNiladari Details from here
-            </Alert.Heading>
-            {/* <hr /> */}
-          </Alert>
-          <Alert variant="secondary" style={{ width: "100%" }}>
-            <Alert.Heading>
-              View crops suitable for different climatic zones
-            </Alert.Heading>
-            {/* <hr /> */}
-          </Alert>
-          <Alert variant="danger" style={{ width: "100%" }}>
-            <Alert.Heading>
-              Instructions for common crop diseases, pest infestations and other
-              related issues
-            </Alert.Heading>
-          </Alert>
+          <CropTable />
           <br /> <br />
         </div>
         <SystemFooter />
