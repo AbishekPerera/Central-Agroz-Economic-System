@@ -1,3 +1,4 @@
+import React from 'react';
 import Container from 'react-bootstrap/Container';
 import Nav from 'react-bootstrap/Nav';
 import Navbar from 'react-bootstrap/Navbar';
@@ -7,10 +8,14 @@ import AOImg from '../../../../../img/AO/AO.png';
 import './NavBar.css';
 
 const NavBar = () => {
-  function logout() {
-    localStorage.removeItem('systemInfo');
-  }
-
+  const logout = async (req, res) => {
+    const token = localStorage.removeItem('token');
+    if (!token) {
+      res.status(200).json({ message: 'Logged out successfully' });
+    } else {
+      res.status(500).json({ message: 'Error with log out' });
+    }
+  };
   return (
     <div className='mainNavContainer d-flex justify-content-end'>
       <Navbar className='subNavContainer' expand='lg'>
@@ -19,7 +24,8 @@ const NavBar = () => {
             <img
               src={AOImg}
               alt='AO-Avatar'
-              style={{ height: '40px', width: '40px' }}></img>
+              style={{ height: '40px', width: '40px' }}
+            ></img>
           </Navbar.Brand>
           <Navbar.Toggle aria-controls='basic-navbar-nav' />
           <Navbar.Collapse id='basic-navbar-nav'>
@@ -29,18 +35,17 @@ const NavBar = () => {
               <NavDropdown
                 active
                 title='Agricultural Officer'
-                id='basic-nav-dropdown'>
+                id='basic-nav-dropdown'
+              >
                 <NavDropdown.Item href='#action/3.1'>
                   {' '}
-                  <Link
-                    to='/system/admin-profile'
-                    class='nav-link'
-                    aria-current='page'>
+                  <Link to='/ao/profile' class='nav-link' aria-current='page'>
                     <i
                       style={{
                         color: '#359733',
                       }}
-                      class='bi bi-person-circle bi-2x'></i>{' '}
+                      class='bi bi-person-circle bi-2x'
+                    ></i>{' '}
                     <span style={{ fontSize: '10x', color: 'black' }}>
                       Visit Profile
                     </span>
@@ -48,12 +53,13 @@ const NavBar = () => {
                 </NavDropdown.Item>
                 <NavDropdown.Item href='#action/3.2'>
                   <Link
-                    to='/system/auth'
+                    to='/ao/login'
                     style={{ color: '#359733' }}
                     class='nav-link'
-                    onClick={logout}>
+                    onClick={logout}
+                  >
                     <i class='bi bi-box-arrow-right'></i>{' '}
-                    <span style={{ fontSize: '12px', color: 'black' }}>
+                    <span style={{ fontSize: '14px', color: 'black' }}>
                       Log Out
                     </span>
                   </Link>

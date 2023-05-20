@@ -2,6 +2,9 @@ import React, { useState } from 'react';
 import axios from 'axios';
 import './FarmerAddForm.css';
 import '../../../../pages/System/AOPages/styles/button-18.css';
+import { useNavigate } from 'react-router';
+import swal from 'sweetalert';
+
 const FarmerAddForm = () => {
   const [fullName, setFullName] = useState('');
   const [username, setUsername] = useState('');
@@ -12,6 +15,8 @@ const FarmerAddForm = () => {
   const [cropType, setCropType] = useState('');
   const [notes, setNotes] = useState('');
   const [password, setPassword] = useState('');
+
+  const navigate = useNavigate();
 
   const handleSubmit = (e) => {
     e.preventDefault();
@@ -33,7 +38,9 @@ const FarmerAddForm = () => {
     axios
       .post('http://localhost:8075/farmers/register', newFarmer)
       .then(() => {
-        alert('Farmer added');
+        swal('Success', 'Farmer Registered Successfully', 'success');
+        window.location.reload();
+        setTimeout(function () {}, 1000);
       })
       .catch((err) => {
         alert(err);

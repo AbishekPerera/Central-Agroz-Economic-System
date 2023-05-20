@@ -1,6 +1,8 @@
 import React from 'react';
 import '../Farmers/FarmerAddForm.css';
 import axios from 'axios';
+import swal from 'sweetalert';
+import { useNavigate } from 'react-router';
 
 const AddHarvest = () => {
   const ao = JSON.parse(localStorage.getItem('agriofficer'));
@@ -17,6 +19,8 @@ const AddHarvest = () => {
     aoId: aoId,
   });
 
+  const navigate = useNavigate();
+
   const handleChange = (e) => {
     //spreading previous state data & update it with a new key value pair
     setHarvestData({ ...harvestData, [e.target.id]: e.target.value });
@@ -28,7 +32,10 @@ const AddHarvest = () => {
     axios
       .post('http://localhost:8075/ao/addharvest', harvestData)
       .then(() => {
-        alert('Harvest record added successfully');
+        swal('Success', 'Harvest Record Added Successfully', 'success');
+        window.location.reload();
+
+        setTimeout(function () {}, 1000);
       })
       .catch((err) => {
         alert(err.response.data.message);

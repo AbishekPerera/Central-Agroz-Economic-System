@@ -1,11 +1,13 @@
 import React from 'react';
 import '../Farmers/FarmerAddForm.css';
 import axios from 'axios';
+import swal from 'sweetalert';
+import { useNavigate } from 'react-router';
 
 const FertilizerDistribution = () => {
-
   const ao = JSON.parse(localStorage.getItem('agriofficer'));
   const aoId = ao['agriculturalOfficer']['id'];
+  const navigate = useNavigate();
 
   const [fertilizerData, setFertilizerData] = React.useState({
     farmerUsername: '',
@@ -27,7 +29,10 @@ const FertilizerDistribution = () => {
     axios
       .post('http://localhost:8075/ao/addfertilizer', fertilizerData)
       .then(() => {
-        alert('Fertilizer record added successfully');
+        swal('Success', 'Fertilizer Record Added Successfully', 'success');
+        window.location.reload();
+
+        setTimeout(function () {}, 1000);
       })
       .catch((err) => {
         alert(err.response.data.message);
@@ -43,7 +48,8 @@ const FertilizerDistribution = () => {
               <div class='cardFarmerReg' style={{ bordeRadius: '15px' }}>
                 <div
                   class='d-flex justify-content-center align-items-center pb-4 pt-4'
-                  style={{ fontFamily: 'fantasy' }}>
+                  style={{ fontFamily: 'fantasy' }}
+                >
                   <h2 class='text-right'>New Fetilizer Record</h2>
                 </div>
                 <div class='card-body'>
@@ -112,7 +118,8 @@ const FertilizerDistribution = () => {
                         onChange={handleChange}
                         value={fertilizerData.month}
                         placeholder='Select month'
-                        aria-label='Default select example'>
+                        aria-label='Default select example'
+                      >
                         <option selected style={{ fontSize: '16px' }} disabled>
                           Select Month
                         </option>
@@ -154,7 +161,8 @@ const FertilizerDistribution = () => {
                       type='submit'
                       class='button-18'
                       onClick={handleSubmit}
-                      style={{ display: 'block', margin: '0 auto' }}>
+                      style={{ display: 'block', margin: '0 auto' }}
+                    >
                       Add Fertilizer Record
                     </button>
                   </div>
