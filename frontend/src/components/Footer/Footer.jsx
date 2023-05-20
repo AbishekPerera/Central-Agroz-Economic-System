@@ -17,7 +17,7 @@ const Footer = () => {
                     <Link to="/system/farmer/login">Farmer Login</Link>
                   </li>
                   <li>
-                    <Link>Economic Center Login</Link>
+                    <Link to="/Ecmo/loginPage">Economic Center Login</Link>
                   </li>
                   <li>
                     <Link to="/ao/login">Agricultural Officer Login</Link>
