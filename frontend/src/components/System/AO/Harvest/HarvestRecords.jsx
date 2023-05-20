@@ -2,6 +2,9 @@ import React from 'react';
 import { tableCustomStyles } from '../Global/TableStyles/tableRecordStyles.jsx';
 import DataTable from 'react-data-table-component';
 import axios from 'axios';
+import { Link } from 'react-router-dom';
+import '../../../../pages/System/AOPages/styles/DashboardAO.css';
+import swal from 'sweetalert';
 
 const HarvestRecords = () => {
   const ao = JSON.parse(localStorage.getItem('agriofficer'));
@@ -17,6 +20,20 @@ const HarvestRecords = () => {
           return harvest.aoId === aoId;
         });
         setHarvest(filteredHarvest);
+      })
+      .catch((err) => {
+        alert(err.message);
+      });
+  };
+
+  const deleteHandler = (id) => {
+    axios
+      .delete(`http://localhost:8075/ao/deleteharvest/${id}`)
+      .then((res) => {
+        swal('Success', 'Harvest Record Deleted Successfully!', 'success');
+        setTimeout(function () {
+          window.location.reload();
+        }, 1000);
       })
       .catch((err) => {
         alert(err.message);
@@ -77,6 +94,24 @@ const HarvestRecords = () => {
       name: 'Actual Harvest(kg)',
       selector: (row) => row.actualHarvest,
       sortable: true,
+    },
+    {
+      name: 'Action',
+      selector: (row) => (
+        <>
+          <Link to={`/ao/updateharvest/${row._id}`}>
+            <button className='editBtnAo'>
+              <i class='bi bi-pencil'></i>
+            </button>
+          </Link>
+          <button
+            onClick={(e) => deleteHandler(row._id)}
+            className='deleteBtnAo'
+          >
+            <i class='bi bi-trash3-fill'></i>
+          </button>
+        </>
+      ),
     },
   ];
 

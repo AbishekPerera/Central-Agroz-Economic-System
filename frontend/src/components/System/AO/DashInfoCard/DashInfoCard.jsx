@@ -5,12 +5,13 @@ import axios from 'axios';
 
 const DashInfoCard = () => {
   const ao = JSON.parse(localStorage.getItem('agriofficer'));
-  // const aoId = ao['agriculturalOfficer']['id'];
+  const aoId = ao['agriculturalOfficer']['id'];
   const gramaNiladariDivision =
     ao['agriculturalOfficer']['gramaNiladariDivision'];
 
   const [farmers, setFarmers] = useState([]);
   const [farmerCount, setFarmerCount] = useState([]);
+  const [totalHarvest, setTotalHarvest] = useState([]);
   // const [harvestCount, setHarvestCount] = useState([]);
 
   const countDivisionFarmers = () => {
@@ -33,21 +34,28 @@ const DashInfoCard = () => {
       });
   };
 
-  // const countDivisionHarvests = () => {
-  //   axios
-  //     .get('http://localhost:8075/ao/getharvests')
-  //     .then((res) => {
-  //       const filteredHarvests = res.data.filter((harvest) => {
-  //         return harvest.aoId === aoId;
-  //       });
-  //     })
-  //     .catch((err) => {
-  //       alert(err.message);
-  //     });
-  // };
+  const countDivisionTotalHarvest = () => {
+    axios
+      .get('http://localhost:8075/ao/getharvests')
+      .then((res) => {
+        const filteredHarvests = res.data.filter((harvest) => {
+          return harvest.aoId === aoId;
+        });
+
+        const totalHarvest = filteredHarvests.reduce((total, harvest) => {
+          return total + harvest.actualHarvest;
+        }, 0);
+
+        setTotalHarvest(totalHarvest);
+      })
+      .catch((err) => {
+        alert(err.message);
+      });
+  };
 
   useEffect(() => {
     countDivisionFarmers();
+    countDivisionTotalHarvest();
   }, []);
 
   return (
@@ -110,7 +118,7 @@ const DashInfoCard = () => {
                           class='align-self-center px-4'
                           style={{ marginTop: '1rem', marginLeft: '3rem' }}
                         >
-                          <h1>1358 kg</h1>
+                          <h1>{totalHarvest} kg</h1>
                         </div>
                       </div>
                       <div className='cardIcon col-4'>
