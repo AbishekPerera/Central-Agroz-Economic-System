@@ -8,7 +8,7 @@ import "./NavBar.css";
 
 const NavBar = () => {
   function logout() {
-    localStorage.removeItem("systemInfo");
+    localStorage.removeItem("adminInfo");
   }
 
   return (
@@ -50,6 +50,7 @@ const NavBar = () => {
                     style={{ color: "#359733" }}
                     class="nav-link"
                     onClick={logout}
+                    to={"/admin/login"}
                   >
                     <i class="bi bi-box-arrow-right"></i>{" "}
                     <span style={{ fontSize: "12px", color: "black" }}>

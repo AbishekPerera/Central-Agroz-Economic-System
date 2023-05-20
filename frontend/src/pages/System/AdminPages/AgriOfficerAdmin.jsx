@@ -8,54 +8,36 @@ import DataTable from "react-data-table-component";
 import { Button, Col, Modal, Row, Table } from "react-bootstrap";
 import echoCenterImage from "../../../img/other comp/newsbanner.jpg";
 import { useNavigate } from "react-router-dom";
+import axios from "axios";
+import swal from "sweetalert";
 
 const AgriOfficerAdmin = () => {
-  const [Agriofficers, setAgriofficers] = useState([
-    {
-      id: 1,
-      name: "Agri Officer 1",
-      email: "officer@mail.com",
-      contact: "1771234567",
-      address: "No 1, Colombo",
-      image:
-        "https://github.com/AbishekPerera/img/blob/main/avatar.png?raw=true",
-      gramaniladariDivision: "div 1",
-      district: "gampaha",
-      province: "western",
-      officerRegDate: "2021-09-01",
-    },
-    {
-      id: 2,
-      name: "Agri Officer 2",
-      email: "officer2@mail.com",
-      contact: "6771234567",
-      address: "No 2, Colombo",
-      image:
-        "https://github.com/AbishekPerera/img/blob/main/avatar.png?raw=true",
-      gramaniladariDivision: "div 1",
-      district: "gampaha",
-      province: "western",
-      officerRegDate: "2021-09-01",
-    },
-    {
-      id: 3,
-      name: "Agri Officer 3",
-      email: "officer3@mail.com",
-      contact: "0771234567",
-      address: "No 3, Colombo",
-      image:
-        "https://github.com/AbishekPerera/img/blob/main/avatar.png?raw=true",
-      gramaniladariDivision: "div 1",
-      district: "gampaha",
-      province: "western",
-      officerRegDate: "2021-09-01",
-    },
-  ]);
+  useEffect(() => {
+    const adminInfo = localStorage.getItem("adminInfo");
+
+    if (adminInfo === null) {
+      history("/admin/login");
+    }
+  }, []);
+
+  const [Agriofficers, setAgriofficers] = useState([]);
+
+  //get all agri officers
+  const getAgriOfficers = async () => {
+    axios.get("http://localhost:8075/agriofficers/").then((res) => {
+      setAgriofficers(res.data);
+      setFilteredData(res.data);
+    });
+  };
+
+  useEffect(() => {
+    getAgriOfficers();
+  }, []);
 
   const history = useNavigate();
 
   const [searchInput, setSearchInput] = useState("");
-  const [filteredData, setFilteredData] = useState(Agriofficers);
+  const [filteredData, setFilteredData] = useState();
   const [show, setShow] = useState(false);
   const [selectedAgriOfficer, setSelectedAgriOfficer] = useState({});
 
@@ -78,6 +60,35 @@ const AgriOfficerAdmin = () => {
   const selectAgriOfficer = (row) => {
     setShow(true);
     setSelectedAgriOfficer(row);
+  };
+
+  //delete agri officer
+  const deleteAgriOfficer = (id) => {
+    swal({
+      title: "Are you sure?",
+      text: "Once deleted, you will not be able to recover this Agri Officer!",
+      icon: "warning",
+      buttons: true,
+      dangerMode: true,
+    }).then((willDelete) => {
+      if (willDelete) {
+        axios
+          .delete("http://localhost:8075/agriofficers/delete/" + id)
+          .then((res) => {
+            swal("Poof! Agri Officer has been deleted!", {
+              icon: "success",
+            });
+            getAgriOfficers();
+          })
+          .catch((err) => {
+            swal("Oops! Something went wrong, try again later!", {
+              icon: "error",
+            });
+          });
+      } else {
+        swal("Your Agri Officer is safe!");
+      }
+    });
   };
 
   const columns = [
@@ -125,7 +136,7 @@ const AgriOfficerAdmin = () => {
     },
     {
       name: "Grama Niladari Division",
-      selector: (row) => row.gramaniladariDivision,
+      selector: (row) => row.gramaNiladariDivision,
       sortable: true,
     },
     {
@@ -140,7 +151,7 @@ const AgriOfficerAdmin = () => {
     },
     {
       name: "Officer Reg Date",
-      selector: (row) => row.officerRegDate,
+      selector: (row) => row.createdAt,
       sortable: true,
     },
     {
@@ -157,11 +168,15 @@ const AgriOfficerAdmin = () => {
           <Button
             variant="success"
             className="m-1"
-            onClick={() => history("/admin/agriofficers/" + row.id)}
+            onClick={() => history("/admin/agriofficers/" + row._id)}
           >
             <i class="bi bi-pencil-square"></i>
           </Button>
-          <Button variant="danger" className="m-1">
+          <Button
+            variant="danger"
+            className="m-1"
+            onClick={() => deleteAgriOfficer(row._id)}
+          >
             <i class="bi bi-trash3"></i>
           </Button>
         </div>
@@ -256,7 +271,7 @@ const AgriOfficerAdmin = () => {
                     <p>
                       <b>Grama Niladari Division : </b>
 
-                      {selectedAgriOfficer.gramaniladariDivision}
+                      {selectedAgriOfficer.gramaNiladariDivision}
                     </p>
                     <p>
                       <b>District : </b>
@@ -271,7 +286,7 @@ const AgriOfficerAdmin = () => {
                     <p>
                       <b>Officer Reg Date : </b>
 
-                      {selectedAgriOfficer.officerRegDate}
+                      {selectedAgriOfficer.createdAt}
                     </p>
                   </Col>
                 </Row>

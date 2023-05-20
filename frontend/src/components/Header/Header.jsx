@@ -37,9 +37,7 @@ const Header = () => {
         <Col lg={7}>
           <div className="herbcolab-title">
             <h1>Central Agroz Economic System</h1>
-            <p>
-              "Pioneering a new era of agricultural development in Sri Lanka."
-            </p>
+            <p>" ශ්‍රී ලංකාවේ කෘෂිකාර්මික සංවර්ධනයේ නව යුගයක පුරෝගාමීයා"</p>
           </div>
         </Col>
         <Col lg={2} className="company-info-nav">
@@ -80,7 +78,10 @@ const Header = () => {
             </Nav.Link>
 
             <Nav.Link>
-              <Link to="/shop">Shop </Link>
+              <Link to="/findfarmers">Crops </Link>
+            </Nav.Link>
+            <Nav.Link>
+              <Link to="/findcenter">Centers</Link>
             </Nav.Link>
 
             <Nav.Link>

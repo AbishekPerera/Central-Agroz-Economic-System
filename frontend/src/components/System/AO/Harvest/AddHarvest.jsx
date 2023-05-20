@@ -1,6 +1,47 @@
 import React from 'react';
 import '../Farmers/FarmerAddForm.css';
+import axios from 'axios';
+import swal from 'sweetalert';
+import { useNavigate } from 'react-router';
+
 const AddHarvest = () => {
+  const ao = JSON.parse(localStorage.getItem('agriofficer'));
+  const aoId = ao['agriculturalOfficer']['id'];
+
+  const [harvestData, setHarvestData] = React.useState({
+    farmerUsername: '',
+    cropType: '',
+    season: '',
+    year: '',
+    month: '',
+    expectedHarvest: '',
+    actualHarvest: '',
+    aoId: aoId,
+  });
+
+  const navigate = useNavigate();
+
+  const handleChange = (e) => {
+    //spreading previous state data & update it with a new key value pair
+    setHarvestData({ ...harvestData, [e.target.id]: e.target.value });
+  };
+
+  const handleSubmit = (e) => {
+    e.preventDefault();
+
+    axios
+      .post('http://localhost:8075/ao/addharvest', harvestData)
+      .then(() => {
+        swal('Success', 'Harvest Record Added Successfully', 'success');
+        window.location.reload();
+
+        setTimeout(function () {}, 1000);
+      })
+      .catch((err) => {
+        alert(err.response.data.message);
+      });
+  };
+
   return (
     <div className='farmerRegForm'>
       <section>
@@ -10,7 +51,8 @@ const AddHarvest = () => {
               <div class='cardFarmerReg' style={{ bordeRadius: '15px' }}>
                 <div
                   class='d-flex justify-content-center align-items-center pb-4 pt-4'
-                  style={{ fontFamily: 'fantasy' }}>
+                  style={{ fontFamily: 'fantasy' }}
+                >
                   <h2 class='text-right'>New Harvest Record</h2>
                 </div>
                 <div class='card-body'>
@@ -20,10 +62,12 @@ const AddHarvest = () => {
                     </div>
                     <div class='col-md-9 pe-5'>
                       <input
-                        id='fUsername'
+                        id='farmerUsername'
                         type='text'
                         placeholder='Enter farmer username'
                         required
+                        onChange={handleChange}
+                        value={harvestData.farmerUsername}
                         class='form-control form-control-lg'
                       />
                     </div>
@@ -39,20 +83,8 @@ const AddHarvest = () => {
                         type='text'
                         placeholder='Enter crop type'
                         required
-                        class='form-control form-control-lg'
-                      />
-                    </div>
-                  </div>
-
-                  <div class='row align-items-center pt-4 pb-3'>
-                    <div class='required col-md-3 ps-5'>
-                      <label htmlFor='mb-0'>Crop</label>
-                    </div>
-                    <div class='col-md-9 pe-5'>
-                      <input
-                        id='crop'
-                        type='text'
-                        placeholder='Enter crop'
+                        onChange={handleChange}
+                        value={harvestData.cropType}
                         class='form-control form-control-lg'
                       />
                     </div>
@@ -67,7 +99,8 @@ const AddHarvest = () => {
                         id='season'
                         type='text'
                         placeholder='Enter season'
-                        required
+                        onChange={handleChange}
+                        value={harvestData.season}
                         class='form-control form-control-lg'
                       />
                     </div>
@@ -84,6 +117,8 @@ const AddHarvest = () => {
                         pattern='\d{4}'
                         placeholder='Enter year'
                         required
+                        onChange={handleChange}
+                        value={harvestData.year}
                         class='form-control form-control-lg'
                       />
                     </div>
@@ -100,7 +135,10 @@ const AddHarvest = () => {
                         style={{ fontSize: '16px' }}
                         required
                         placeholder='Select Month'
-                        aria-label='Default select example'>
+                        onChange={handleChange}
+                        value={harvestData.month}
+                        aria-label='Default select example'
+                      >
                         <option selected style={{ fontSize: '16px' }} disabled>
                           Select Month
                         </option>
@@ -126,10 +164,11 @@ const AddHarvest = () => {
                     </div>
                     <div class='col-md-9 pe-5'>
                       <input
-                        id='expentedHarvest'
+                        id='expectedHarvest'
                         type='number'
                         placeholder='Enter expected harvest'
-                        required
+                        onChange={handleChange}
+                        value={harvestData.expectedHarvest}
                         class='form-control form-control-lg'
                       />
                     </div>
@@ -145,6 +184,8 @@ const AddHarvest = () => {
                         type='number'
                         placeholder='Enter actual harvest'
                         required
+                        onChange={handleChange}
+                        value={harvestData.actualHarvest}
                         class='form-control form-control-lg'
                       />
                     </div>
@@ -155,8 +196,10 @@ const AddHarvest = () => {
                   <div class='px-5 py-4'>
                     <button
                       type='submit'
+                      onClick={handleSubmit}
                       class='button-18'
-                      style={{ display: 'block', margin: '0 auto' }}>
+                      style={{ display: 'block', margin: '0 auto' }}
+                    >
                       Enter Harvest Record
                     </button>
                   </div>

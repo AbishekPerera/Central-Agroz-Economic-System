@@ -1,18 +1,66 @@
+.table-container {
+  width: 100%;
+  overflow-x: auto;
+}
+
 .stock-table {
+  width: 100%;
   border-collapse: collapse;
-  width: 80%;
-  margin: auto;
-  margin-top: 20px;
-  margin-bottom: 20px;
 }
 
 .stock-table th,
 .stock-table td {
-  border: 1px solid #ddd;
   padding: 10px;
-  text-align: left;
+  border: 1px solid #ddd;
 }
 
 .stock-table th {
-  background-color: #f2f2f2;
+  background-color: #27ae60;
+  font-weight: bold;
+}
+
+.stock-table tbody tr:hover {
+  background-color: #e9e9e9;
+}
+
+.stock-table td table {
+  width: 100%;
+  border-collapse: collapse;
+}
+
+.stock-table td table td {
+  padding: 5px;
+  border: none;
+}
+
+.stock-table td table td:first-child {
+  font-weight: bold;
+}
+
+.stock-table td table td div {
+  margin-bottom: 5px;
+}
+
+.stock-table .btn {
+  padding: 5px 10px;
+  border-radius: 3px;
+  border: none;
+  color: #fff;
+  cursor: pointer;
+}
+
+.stock-table .btn-success {
+  background-color: #28a745;
+}
+
+.stock-table .btn-danger {
+  background-color: #dc3545;
+}
+
+.stock-table .btn span {
+  margin-right: 5px;
+}
+
+.error {
+  color: #dc3545;
 }

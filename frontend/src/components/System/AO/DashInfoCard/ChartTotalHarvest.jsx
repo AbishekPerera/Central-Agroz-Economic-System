@@ -1,55 +1,203 @@
-import React from 'react';
+import axios from 'axios';
+import React, { useEffect } from 'react';
 import { BarChart, Bar, Cell, XAxis, YAxis, CartesianGrid } from 'recharts';
 
 const ChartTotalHarvest = () => {
+  const currentDate = new Date();
+  const currentYear = currentDate.getFullYear();
+
+  const ao = JSON.parse(localStorage.getItem('agriofficer'));
+  const aoId = ao['agriculturalOfficer']['id'];
+
+  console.log(currentYear);
+
+  const [harvest, setHarvest] = React.useState([]);
+
+  const [months, setMonths] = React.useState({
+    January: [],
+    February: [],
+    March: [],
+    April: [],
+    May: [],
+    June: [],
+    July: [],
+    August: [],
+    September: [],
+    October: [],
+    November: [],
+    December: [],
+  });
+
+  const [monthValues, setMonthValues] = React.useState({
+    January: 0,
+    February: 0,
+    March: 0,
+    April: 0,
+    May: 0,
+    June: 0,
+    July: 0,
+    August: 0,
+    September: 0,
+    October: 0,
+    November: 0,
+    December: 0,
+  });
+
+  //function to get harvest of each month
+  const getMonthlyHarvest = () => {
+    axios
+      .get('http://localhost:8075/ao/getharvests')
+      .then((res) => {
+        const filteredHarvest = res.data.filter((harvest) => {
+          return harvest.aoId === aoId && harvest.year == currentYear;
+        });
+        setHarvest(filteredHarvest);
+
+        // Create a copy of the months state
+        const updatedMonths = { ...months };
+
+        // Loop through the filteredHarvest array
+        filteredHarvest.forEach((harvest) => {
+          const { month } = harvest;
+
+          // Check if the month exists in the updatedMonths object
+          if (updatedMonths.hasOwnProperty(month)) {
+            // If the month exists, push the value into its array
+            updatedMonths[month].push(harvest);
+          }
+        });
+
+        // Update the months state with the updatedMonths object
+        setMonths(updatedMonths);
+
+        const janVal = months.January.reduce((acc, curr) => {
+          return acc + curr.actualHarvest;
+        }, 0);
+
+        const febVal = months.February.reduce((acc, curr) => {
+          return acc + curr.actualHarvest;
+        }, 0);
+
+        const marVal = months.March.reduce((acc, curr) => {
+          return acc + curr.actualHarvest;
+        }, 0);
+
+        const aprVal = months.April.reduce((acc, curr) => {
+          return acc + curr.actualHarvest;
+        }, 0);
+
+        const mayVal = months.May.reduce((acc, curr) => {
+          return acc + curr.actualHarvest;
+        }, 0);
+
+        const junVal = months.June.reduce((acc, curr) => {
+          return acc + curr.actualHarvest;
+        }, 0);
+
+        const julVal = months.July.reduce((acc, curr) => {
+          return acc + curr.actualHarvest;
+        }, 0);
+
+        const augVal = months.August.reduce((acc, curr) => {
+          return acc + curr.actualHarvest;
+        }, 0);
+
+        const sepVal = months.September.reduce((acc, curr) => {
+          return acc + curr.actualHarvest;
+        }, 0);
+
+        const octVal = months.October.reduce((acc, curr) => {
+          return acc + curr.actualHarvest;
+        }, 0);
+
+        const novVal = months.November.reduce((acc, curr) => {
+          return acc + curr.actualHarvest;
+        }, 0);
+
+        const decVal = months.December.reduce((acc, curr) => {
+          return acc + curr.actualHarvest;
+        }, 0);
+
+        const updatedMonthValues = {
+          January: janVal,
+          February: febVal,
+          March: marVal,
+          April: aprVal,
+          May: mayVal,
+          June: junVal,
+          July: julVal,
+          August: augVal,
+          September: sepVal,
+          October: octVal,
+          November: novVal,
+          December: decVal,
+        };
+
+        setMonthValues(updatedMonthValues);
+
+        console.log('month val', monthValues);
+
+        console.log(monthValues);
+        console.log(updatedMonths);
+      })
+      .catch((err) => {
+        alert(err.message);
+      });
+  };
+
+  useEffect(() => {
+    getMonthlyHarvest();
+  }, []);
+
+  //chart data
   const data = [
     {
       name: 'January',
-      harvest: 4500,
+      harvest: monthValues.January,
     },
     {
       name: 'February',
-      harvest: 2000,
+      harvest: monthValues.February,
     },
     {
       name: 'March',
-      harvest: 2100,
+      harvest: monthValues.March,
     },
     {
       name: 'April',
-      harvest: 500,
+      harvest: monthValues.April,
     },
     {
       name: 'May',
-      harvest: 2700,
+      harvest: monthValues.May,
     },
     {
       name: 'June',
-      harvest: 0,
+      harvest: monthValues.June,
     },
     {
       name: 'July',
-      harvest: 0,
+      harvest: monthValues.July,
     },
     {
       name: 'August',
-      harvest: 0,
+      harvest: monthValues.August,
     },
     {
       name: 'September',
-      harvest: 0,
+      harvest: monthValues.September,
     },
     {
       name: 'October',
-      harvest: 0,
+      harvest: monthValues.October,
     },
     {
       name: 'November',
-      harvest: 0,
+      harvest: monthValues.November,
     },
     {
       name: 'December',
-      harvest: 0,
+      harvest: monthValues.December,
     },
   ];
 
@@ -75,7 +223,7 @@ const ChartTotalHarvest = () => {
   return (
     <div>
       <BarChart
-        width={1000}
+        width={1100}
         height={350}
         data={data}
         margin={{
@@ -83,7 +231,8 @@ const ChartTotalHarvest = () => {
           right: 30,
           left: 20,
           bottom: 5,
-        }}>
+        }}
+      >
         <CartesianGrid strokeDasharray='3 3' />
         <XAxis dataKey='name' />
         <YAxis />
@@ -91,7 +240,8 @@ const ChartTotalHarvest = () => {
           dataKey='harvest'
           fill='#8884d8'
           shape={<TriangleBar />}
-          label={{ position: 'top' }}>
+          label={{ position: 'top' }}
+        >
           {data.map((entry, index) => (
             <Cell key={`cell-${index}`} fill={colors[index % colors.length]} />
           ))}

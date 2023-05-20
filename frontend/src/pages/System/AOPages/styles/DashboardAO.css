@@ -55,3 +55,34 @@
   background-color: #fff;
   box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
 }
+
+.dashChartTitle {
+  margin: 2rem;
+  /* font-family: 'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif; */
+  font-family: 'math' !important;
+}
+
+.cardTopicAO {
+  font-weight: bold;
+  text-align: center;
+}
+
+.editBtnAo {
+  background-color: #4a89dc;
+  color: white;
+  border-radius: 5px;
+  border: none;
+  padding: 0.5rem 1rem;
+  margin: 0.5rem;
+  cursor: pointer;
+}
+
+.deleteBtnAo {
+  background-color: #d9534f;
+  color: white;
+  border-radius: 5px;
+  border: none;
+  padding: 0.5rem 1rem;
+  margin: 0.5rem;
+  cursor: pointer;
+}

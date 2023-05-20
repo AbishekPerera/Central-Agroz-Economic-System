@@ -1,12 +1,36 @@
 import { AgriculturalOfficers } from "../models/AgriculturalOfficers.js";
 import dotenv from "dotenv";
 import jwt from "jsonwebtoken";
+import bcrypt from "bcrypt";
 
 //register agricultural officer
 export const registerAgriculturalOfficer = async (req, res) => {
-  const newAgriculturalOfficer = new AgriculturalOfficers(req.body);
+  const {
+    name,
+    email,
+    contact,
+    address,
+    gramaNiladariDivision,
+    district,
+    province,
+    image,
+    password,
+  } = req.body;
 
   try {
+    const saltRounds = 10;
+    const hashedPassword = await bcrypt.hash(password, saltRounds);
+    const newAgriculturalOfficer = new AgriculturalOfficers({
+      name,
+      email,
+      contact,
+      address,
+      gramaNiladariDivision,
+      district,
+      province,
+      image,
+      password: hashedPassword,
+    });
     await newAgriculturalOfficer.save();
     res.status(201).json(newAgriculturalOfficer);
   } catch (error) {
@@ -86,6 +110,9 @@ export const updateAgriculturalOfficer = async (req, res) => {
     }
     if (!password) {
       password = updateAgriculturalOfficer.password;
+    } else {
+      const saltRounds = 10;
+      password = await bcrypt.hash(password, saltRounds);
     }
 
     const updatedAgriculturalOfficer =
@@ -105,7 +132,26 @@ export const updateAgriculturalOfficer = async (req, res) => {
         { new: true }
       );
 
-    res.status(200).json(updatedAgriculturalOfficer);
+    const token = jwt.sign(
+      { id: updatedAgriculturalOfficer._id },
+      process.env.JWT_SECRET_KEY
+    );
+
+    res.status(200).json({
+      message: "Agricultural officer updated successfully",
+      token,
+      agriculturalOfficer: {
+        id: updatedAgriculturalOfficer._id,
+        name: updatedAgriculturalOfficer.name,
+        email: updatedAgriculturalOfficer.email,
+        contact: updatedAgriculturalOfficer.contact,
+        address: updatedAgriculturalOfficer.address,
+        gramaNiladariDivision: updatedAgriculturalOfficer.gramaNiladariDivision,
+        district: updatedAgriculturalOfficer.district,
+        province: updatedAgriculturalOfficer.province,
+        image: updatedAgriculturalOfficer.image,
+      },
+    });
   } catch (error) {
     res.status(404).json({ message: error.message });
   }
@@ -139,16 +185,12 @@ export const loginAgriculturalOfficer = async (req, res) => {
       return res.status(404).json({ message: "User doesn't exist" });
     }
 
-    // const isPasswordCorrect = await bcrypt.compare(
-    //   password,
-    //   existingAgriculturalOfficer.password
-    // );
+    const isPasswordValid = await bcrypt.compare(
+      password,
+      existingAgriculturalOfficer.password
+    );
 
-    // if (!isPasswordCorrect) {
-    //   return res.status(400).json({ message: "Invalid credentials" });
-    // }
-
-    if (password !== existingAgriculturalOfficer.password) {
+    if (!isPasswordValid) {
       return res.status(400).json({ message: "Invalid credentials" });
     }
 

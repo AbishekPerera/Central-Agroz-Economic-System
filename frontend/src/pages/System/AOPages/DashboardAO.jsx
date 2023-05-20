@@ -10,7 +10,7 @@ const DashboardAO = () => {
   return (
     <div className='mainContainer'>
       <div className='sidebar'>
-        <Sidebar />
+        <Sidebar data-testid="sidebar" />
       </div>
 
       <div className='contentContainer'>
@@ -22,7 +22,7 @@ const DashboardAO = () => {
             <DashInfoCard />
           </div>
           <div className='row d-flex '>
-            <h2 style={{ margin: '2rem' }}>Total Harvest for the year 2023</h2>
+            <h2 className='dashChartTitle'>Total Harvest for the year 2023</h2>
             <ChartTotalHarvest />
           </div>
         </div>

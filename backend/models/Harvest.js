@@ -12,10 +12,6 @@ const HarvestSchema = new Schema(
       type: String,
       required: true,
     },
-    crop: {
-      type: String,
-      required: true,
-    },
     season: {
       type: String,
       required: false,
@@ -36,6 +32,10 @@ const HarvestSchema = new Schema(
       type: Number,
       required: true,
     },
+    aoId: {
+      type: String,
+      required: true,
+    }
   },
   {
     timestamps: true,

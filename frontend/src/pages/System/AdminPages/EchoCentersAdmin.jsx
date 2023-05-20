@@ -7,75 +7,54 @@ import "./styles/DashboardAdmin.css";
 import { Button, Col, Modal, Row, Table } from "react-bootstrap";
 import echoCenterImage from "../../../img/other comp/newsbanner.jpg";
 import { useNavigate } from "react-router-dom";
+import axios from "axios";
+import swal from "sweetalert";
 
 const EchoCentersAdmin = () => {
-  const [echoCenters, setEchoCenters] = useState([
-    {
-      id: "EC001",
-      echo_name: "Echo Center 1",
-      echo_address: "No 1, Colombo Road, Colombo",
-      province: "Western",
-      district: "Colombo",
-      phone: "0112345678",
-      officer_name: "Asanka",
-      officer_email: "asa@aa.aa",
-      officer_contact: "0771234567",
-      officer_address: "No 1, Colombo Road, Colombo",
-      center_registered_date: "2021-09-01",
-    },
-    {
-      id: "EC002",
-      echo_name: "Echo Center 2",
-      echo_address: "No 2, Colombo Road, Colombo",
-      province: "Western",
-      district: "Colombo",
-      phone: "0112345678",
-      officer_name: "Asanka",
-      officer_email: "bbb@bb.aa",
-      officer_contact: "0771234567",
-      officer_address: "No 2, Colombo Road, Colombo",
-      center_registered_date: "2021-09-01",
-    },
-    {
-      id: "EC003",
-      echo_name: "Echo Center 3",
-      echo_address: "No 3, Colombo Road, Colombo",
-      province: "Western",
-      district: "Colombo",
-      phone: "0112345678",
-      officer_name: "Asanka",
-      officer_email: "asa@aa.aa",
-      officer_contact: "0771234567",
-      officer_address: "No 3, Colombo Road, Colombo",
-      center_registered_date: "2021-09-01",
-    },
-    {
-      id: "EC004",
-      echo_name: "Echo Center 4",
-      echo_address: "No 4, Colombo Road, Colombo",
-      province: "Western",
-      district: "Colombo",
-      phone: "0112345678",
-      officer_name: "Asanka",
-      officer_email: "saa@aa.aa",
-      officer_contact: "0771234567",
-      officer_address: "No 4, Colombo Road, Colombo",
-      center_registered_date: "2021-09-01",
-    },
-  ]);
+  useEffect(() => {
+    const adminInfo = localStorage.getItem("adminInfo");
+
+    if (adminInfo === null) {
+      history("/admin/login");
+    }
+  }, []);
+
+  const [echoCenters, setEchoCenters] = useState([]);
 
   const [searchInput, setSearchInput] = useState("");
-  const [filteredData, setFilteredData] = useState(echoCenters);
+  const [filteredData, setFilteredData] = useState([]);
   const [show, setShow] = useState(false);
   const [selectedEchoCenter, setSelectedEchoCenter] = useState({});
 
   const history = useNavigate();
 
+  const getEchoCenters = async () => {
+    try {
+      axios
+        .get("http://localhost:8075/ecocenters/")
+        .then((res) => {
+          setEchoCenters(res.data);
+          setFilteredData(res.data);
+        })
+        .catch((err) => {
+          alert(err.message);
+        });
+    } catch (error) {
+      alert(error.message);
+    }
+  };
+
+  useEffect(() => {
+    getEchoCenters();
+  }, []);
+
   const handleSearch = () => {
     const newData = echoCenters.filter(
       (center) =>
-        center.echo_name.toLowerCase().includes(searchInput.toLowerCase()) ||
-        center.id.toLowerCase().includes(searchInput.toLowerCase()) ||
+        center.ecoCenterName
+          .toLowerCase()
+          .includes(searchInput.toLowerCase()) ||
+        center._id.toLowerCase().includes(searchInput.toLowerCase()) ||
         center.province.toLowerCase().includes(searchInput.toLowerCase()) ||
         center.district.toLowerCase().includes(searchInput.toLowerCase())
     );
@@ -91,10 +70,38 @@ const EchoCentersAdmin = () => {
     setShow(true);
   };
 
+  // ::::::::::::::::::::: delete echo center ::::::::::::::::::::::::::::
+
+  const deleteEchoCenter = async (id) => {
+    swal({
+      title: "Are you sure?",
+      text: "Once deleted, you will not be able to recover this echo center!",
+      icon: "warning",
+      buttons: true,
+      dangerMode: true,
+    }).then((willDelete) => {
+      if (willDelete) {
+        axios
+          .delete("http://localhost:8075/ecocenters/delete/" + id)
+          .then((res) => {
+            swal("Poof! Your echo center has been deleted!", {
+              icon: "success",
+            });
+            getEchoCenters();
+          })
+          .catch((err) => {
+            alert(err.message);
+          });
+      } else {
+        swal("Your echo center is safe!");
+      }
+    });
+  };
+
   const columns = [
     {
-      name: "Echo Center ID",
-      selector: (row) => row.id,
+      name: "Eco Center ID",
+      selector: (row) => row._id,
       sortable: true,
     },
     {
@@ -102,12 +109,12 @@ const EchoCentersAdmin = () => {
       cell: (row) => (
         <div>
           <p>
-            <b>Echo Center Name: </b>
-            {row.echo_name}
+            <b>Eco Center Name: </b>
+            {row.ecoCenterName}
           </p>
           <p>
-            <b>Echo Center Address: </b>
-            {row.echo_address}
+            <b>Eco Center Address: </b>
+            {row.ecoCenterAddress}
           </p>
           <p>
             <b>Province: </b>
@@ -119,7 +126,7 @@ const EchoCentersAdmin = () => {
           </p>
         </div>
       ),
-      selector: (row) => row.echo_name,
+      selector: (row) => row.ecoCenterName,
       sortable: true,
     },
     {
@@ -129,7 +136,7 @@ const EchoCentersAdmin = () => {
     },
     {
       name: "Officer Email",
-      selector: (row) => row.officer_email,
+      selector: (row) => row.officerEmail,
       sortable: true,
     },
     {
@@ -146,11 +153,15 @@ const EchoCentersAdmin = () => {
           <Button
             variant="success"
             className="m-1"
-            onClick={() => history("/admin/echoCenters/" + row.id)}
+            onClick={() => history("/admin/echoCenters/" + row._id)}
           >
             <i class="bi bi-pencil-square"></i>
           </Button>
-          <Button variant="danger" className="m-1">
+          <Button
+            variant="danger"
+            className="m-1"
+            onClick={() => deleteEchoCenter(row._id)}
+          >
             <i class="bi bi-trash3"></i>
           </Button>
         </div>
@@ -170,14 +181,14 @@ const EchoCentersAdmin = () => {
         </div>
         <div className="content">
           <div className="admin-pages-header-title">
-            <h3>Manage Echonomic Centers</h3>
+            <h3>Manage Economic Centers</h3>
           </div>
           <div className="manage-echo-center-boday">
             <Row>
               <Col lg={9}></Col>
               <Col lg={3}>
                 <Button onClick={() => history("/admin/addchoCenters")}>
-                  Add Echonomic Center
+                  Add Economic Center
                 </Button>
               </Col>
             </Row>
@@ -220,7 +231,7 @@ const EchoCentersAdmin = () => {
               id="VIEW-SINGLE-ECHONOMIC-CENTER"
               style={{ color: "#fff" }}
             >
-              {selectedEchoCenter.echo_name}
+              {selectedEchoCenter.ecoCenterName}
             </Modal.Title>
           </Modal.Header>
           <Modal.Body>
@@ -232,19 +243,19 @@ const EchoCentersAdmin = () => {
                   style={{ width: "100%", height: "200px", objectFit: "cover" }}
                 />
                 <div className="e-center-model-header-h4 p-3">
-                  <h4>Echonomic Center Details</h4>
+                  <h4>Economic Center Details</h4>
                 </div>
               </div>
               <div className="e-center-model-details p-3">
                 <Row>
                   <Col lg={6}>
                     <p>
-                      <b>Echo Center ID: </b>
-                      {selectedEchoCenter.id}
+                      <b>Eco Center ID: </b>
+                      {selectedEchoCenter._id}
                     </p>
                     <p>
-                      <b>Echo Center Address: </b>
-                      {selectedEchoCenter.echo_address}
+                      <b>Eco Center Address: </b>
+                      {selectedEchoCenter.ecoCenterAddress}
                     </p>
                     <p>
                       <b>Province: </b>
@@ -262,23 +273,23 @@ const EchoCentersAdmin = () => {
                   <Col lg={6}>
                     <p>
                       <b>Officer Name: </b>
-                      {selectedEchoCenter.officer_name}
+                      {selectedEchoCenter.officerName}
                     </p>
                     <p>
                       <b>Officer Email: </b>
-                      {selectedEchoCenter.officer_email}
+                      {selectedEchoCenter.officerEmail}
                     </p>
                     <p>
                       <b>Officer Contact: </b>
-                      {selectedEchoCenter.officer_contact}
+                      {selectedEchoCenter.officerContact}
                     </p>
                     <p>
                       <b>Officer Address: </b>
-                      {selectedEchoCenter.officer_address}
+                      {selectedEchoCenter.officerAddress}
                     </p>
                     <p>
                       <b>Registered Date: </b>
-                      {selectedEchoCenter.center_registered_date}
+                      {selectedEchoCenter.createdAt}
                     </p>
                   </Col>
                 </Row>

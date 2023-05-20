@@ -1,11 +1,88 @@
-import React from "react";
+import React, { useState } from "react";
 import Sidebar from "../../../../components/System/Admin/Sidebar/Sidebar";
 import SystemFooter from "../../../../components/System/Admin/Footer/SystemFooter";
 import NavBar from "../../../../components/System/Admin/NavBar/NavBar";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import { Col, Form, Row } from "react-bootstrap";
+import axios from "axios";
+import swal from "sweetalert";
 
 const AddEchoCenterAdmin = () => {
+  //   {
+  //   "ecoCenterName": "Green Oasis",
+  //   "ecoCenterAddress": "456 Oak Street",
+  //   "province": "Ontario",
+  //   "district": "Toronto",
+  //   "phone": "555-1234",
+  //   "officerName": "Jane Smith",
+  //   "officerEmail": "jane.smith@greenoasis.com",
+  //   "officerContact": "416-555-4321",
+  //   "officerAddress": "789 Maple Avenue",
+  //   "password": "mypassword123"
+  // }
+
+  const [ecoCenterName, setEcoCenterName] = useState("");
+  const [ecoCenterAddress, setEcoCenterAddress] = useState("");
+  const [province, setProvince] = useState("");
+  const [district, setDistrict] = useState("");
+  const [phone, setPhone] = useState("");
+  const [officerName, setOfficerName] = useState("");
+  const [officerEmail, setOfficerEmail] = useState("");
+  const [officerContact, setOfficerContact] = useState("");
+  const [officerAddress, setOfficerAddress] = useState("");
+  const [password, setPassword] = useState("");
+  const [confirmPassword, setConfirmPassword] = useState("");
+
+  const history = useNavigate();
+
+  const submitHandler = (e) => {
+    e.preventDefault();
+    // ?log all the values
+    // console.log(
+    //   ecoCenterName,
+    //   ecoCenterAddress,
+    //   province,
+    //   district,
+    //   phone,
+    //   officerName,
+    //   officerEmail,
+    //   officerContact,
+    //   officerAddress,
+    //   password,
+    //   confirmPassword
+    // );
+
+    if (password !== confirmPassword) {
+      // alert("Passwords do not match");
+      swal("Passwords do not match", "", "error");
+    } else {
+      const echoCenterAdmin = {
+        ecoCenterName,
+        ecoCenterAddress,
+        province,
+        district,
+        phone,
+        officerName,
+        officerEmail,
+        officerContact,
+        officerAddress,
+        password,
+      };
+
+      axios
+        .post("http://localhost:8075/ecocenters/register", echoCenterAdmin)
+        .then((res) => {
+          // alert("Eco Center Admin Added");
+          swal("Eco Center Admin Added", "", "success");
+          history("/admin/echoCenters");
+        })
+        .catch((err) => {
+          // alert(err);
+          swal(err, "", "error");
+        });
+    }
+  };
+
   return (
     <div className="mainContainer update-echo-center-details-background">
       <div className="contentContainer">
@@ -23,20 +100,21 @@ const AddEchoCenterAdmin = () => {
           <br />
 
           <div className="update-echo-center-details-body">
-            <h1>Create New Echonomic Center</h1>
+            <h1>Create New Economic Center</h1>
             <br />
             <hr />
-            <Form>
+            <Form onSubmit={submitHandler}>
               <Row>
                 <Col>
-                  <h3>Echonomic center informations</h3>
+                  <h3>Economic center informations</h3>
 
                   <Form.Group className="mb-3" controlId="formBasicCenterName">
-                    <Form.Label>Echo Center Name</Form.Label>
+                    <Form.Label>Eco Center Name</Form.Label>
                     <Form.Control
                       type="text"
                       placeholder="Enter Echo Center Name"
                       required
+                      onChange={(e) => setEcoCenterName(e.target.value)}
                     />
                   </Form.Group>
 
@@ -44,12 +122,13 @@ const AddEchoCenterAdmin = () => {
                     className="mb-3"
                     controlId="formBasicCenterAddress"
                   >
-                    <Form.Label>Echo Center Address</Form.Label>
+                    <Form.Label>Eco Center Address</Form.Label>
                     <Form.Control
                       as="textarea"
                       rows={3}
                       required
                       placeholder="Enter Echo Center Address"
+                      onChange={(e) => setEcoCenterAddress(e.target.value)}
                     />
                   </Form.Group>
 
@@ -60,7 +139,9 @@ const AddEchoCenterAdmin = () => {
                         controlId="formBasicProvince"
                       >
                         <Form.Label>Province</Form.Label>
-                        <Form.Select>
+                        <Form.Select
+                          onChange={(e) => setProvince(e.target.value)}
+                        >
                           <option value="">Select a province</option>
                           <option value="Central Province">
                             Central Province
@@ -96,7 +177,9 @@ const AddEchoCenterAdmin = () => {
                         controlId="formBasicDistrict"
                       >
                         <Form.Label>District</Form.Label>
-                        <Form.Select>
+                        <Form.Select
+                          onChange={(e) => setDistrict(e.target.value)}
+                        >
                           <option value="">Select a district</option>
                           <option value="Ampara">Ampara</option>
                           <option value="Anuradhapura">Anuradhapura</option>
@@ -134,6 +217,7 @@ const AddEchoCenterAdmin = () => {
                       required
                       type="text"
                       placeholder="Enter Phone"
+                      onChange={(e) => setPhone(e.target.value)}
                     />
                   </Form.Group>
                 </Col>
@@ -145,6 +229,7 @@ const AddEchoCenterAdmin = () => {
                       required
                       type="text"
                       placeholder="Enter Officer Name"
+                      onChange={(e) => setOfficerName(e.target.value)}
                     />
                   </Form.Group>
 
@@ -154,6 +239,7 @@ const AddEchoCenterAdmin = () => {
                       required
                       type="text"
                       placeholder="Enter Officer Email"
+                      onChange={(e) => setOfficerEmail(e.target.value)}
                     />
                   </Form.Group>
 
@@ -163,6 +249,7 @@ const AddEchoCenterAdmin = () => {
                       required
                       type="text"
                       placeholder="Enter Officer Contact"
+                      onChange={(e) => setOfficerContact(e.target.value)}
                     />
                   </Form.Group>
 
@@ -172,6 +259,7 @@ const AddEchoCenterAdmin = () => {
                       required
                       type="text"
                       placeholder="Enter Officer Address"
+                      onChange={(e) => setOfficerAddress(e.target.value)}
                     />
                   </Form.Group>
 
@@ -181,6 +269,7 @@ const AddEchoCenterAdmin = () => {
                       required
                       type="password"
                       placeholder="Enter Password"
+                      onChange={(e) => setPassword(e.target.value)}
                     />
                   </Form.Group>
 
@@ -190,6 +279,7 @@ const AddEchoCenterAdmin = () => {
                       required
                       type="password"
                       placeholder="Enter Confirm Password"
+                      onChange={(e) => setConfirmPassword(e.target.value)}
                     />
                   </Form.Group>
                 </Col>

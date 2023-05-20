@@ -1,21 +1,25 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 import Sidebar from "../../../components/System/Admin/Sidebar/Sidebar";
 import NavBar from "../../../components/System/Admin/NavBar/NavBar";
 import SystemFooter from "../../../components/System/Admin/Footer/SystemFooter";
 import "./styles/DashboardAdmin.css";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import { Button, Col, Form, Row } from "react-bootstrap";
 
 const ProfileAdmin = () => {
-  // {
-  //   id: "1";
-  //   name: "Supper Admin";
-  //   email: "abc@aa.aa";
-  //   phone: "0712345678";
-  //   address: "No 1, Colombo";
-  //   role: "Supper Admin";
-  //   image: "https://picsum.photos/200";
-  // }
+  const [adminData, setAdminData] = useState();
+  const history = useNavigate();
+
+  useEffect(() => {
+    const adminInfo = localStorage.getItem("adminInfo");
+
+    setAdminData(JSON.parse(adminInfo));
+
+    if (adminInfo === null) {
+      history("/admin/login");
+    }
+  }, [adminData]);
+
   return (
     <div className="mainContainer">
       <div className="sidebar">
@@ -28,14 +32,14 @@ const ProfileAdmin = () => {
         </div>
         <div className="content">
           <div className="update-agri-officer-details-body">
-            <h1>Supper Admin Profile</h1>
+            <h1>Super Admin Profile</h1>
             <br />
             <hr />
             <br />
             <Form>
               <div className="agri-officer-update-profile-picure text-center">
                 <img
-                  src="https://www.pngitem.com/pimgs/m/146-1468479_my-profile-icon-blank-profile-picture-circle-hd.png"
+                  src={adminData?.admin.image}
                   alt="profile-pic"
                   style={{ width: "250px", height: "250px" }}
                 />
@@ -48,7 +52,7 @@ const ProfileAdmin = () => {
                     <Form.Control
                       disabled
                       type="text"
-                      placeholder="Enter Name"
+                      placeholder={adminData?.admin.name}
                     />
                   </Form.Group>
                 </Col>
@@ -58,7 +62,7 @@ const ProfileAdmin = () => {
                     <Form.Control
                       disabled
                       type="email"
-                      placeholder="Enter Email"
+                      placeholder={adminData?.admin.email}
                     />
                   </Form.Group>
                 </Col>
@@ -70,7 +74,7 @@ const ProfileAdmin = () => {
                     <Form.Control
                       disabled
                       type="text"
-                      placeholder="Enter Phone"
+                      placeholder={adminData?.admin.phone}
                     />
                   </Form.Group>
                 </Col>
@@ -80,7 +84,7 @@ const ProfileAdmin = () => {
                     <Form.Control
                       disabled
                       type="text"
-                      placeholder="Enter Address"
+                      placeholder={adminData?.admin.address}
                     />
                   </Form.Group>
                 </Col>
@@ -92,7 +96,7 @@ const ProfileAdmin = () => {
                     <Form.Control
                       disabled
                       type="text"
-                      placeholder="Enter Role"
+                      placeholder={adminData?.admin.role}
                     />
                   </Form.Group>
                 </Col>
@@ -102,7 +106,7 @@ const ProfileAdmin = () => {
                     <Form.Control
                       disabled
                       type="text"
-                      placeholder="Enter Image"
+                      placeholder={adminData?.admin.image}
                     />
                   </Form.Group>
                 </Col>

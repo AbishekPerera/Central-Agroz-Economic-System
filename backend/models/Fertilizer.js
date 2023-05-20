@@ -24,10 +24,14 @@ const FertilizerSchema = new Schema(
       type: Number,
       required: true,
     },
+    aoId: {
+      type: String,
+      required: true,
+    }
   },
   {
     timestamps: true,
   }
 );
 
-export const Fertilizer = mongoose.model('Harvest', FertilizerSchema);
+export const Fertilizer = mongoose.model('Fertilizer', FertilizerSchema);
