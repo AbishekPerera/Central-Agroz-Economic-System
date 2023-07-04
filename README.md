@@ -107,10 +107,10 @@ The Agriculture Management System provides a comprehensive solution for the agri
 
 # Contributors
 
-<li href = "https://github.com/AbishekPerera">Perera A.S.A it21013096</li>
-<li href = "https://github.com/LochaniRanasinghe">Ranasinghe H.R.A.L.N it21022838</li>
-<li href = "https://github.com/Janani-Mayadunna">Mayadunna J. B it21026898</li>
-<li href = "https://github.com/Kavindya-Udunuwara">Udunuwara U.K.C it21018282</li>
+<li> <a href ="https://github.com/AbishekPerera"> Perera A.S.A it21013096 </a> </li>
+<li> <a href ="https://github.com/LochaniRanasinghe"> Ranasinghe H.R.A.L.N it21022838 </a> </li>
+<li> <a href ="https://github.com/Janani-Mayadunna"> Mayadunna J. B it21026898 </a> </li>
+<li> <a href ="https://github.com/Kavindya-Udunuwara"> Udunuwara U.K.C it21018282 </a> </li>
 
 # Hosted Link
 
